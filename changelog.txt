@@ -1,4 +1,5 @@
 11/8/25:
 
+- Basic folder set up
 - Install Express
 - Basic file setup
