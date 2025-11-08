@@ -4,9 +4,9 @@ TOP inventory application project
 live preview: 
 
 create an inventory application
-using express, nodejs, and postgresql database 
-include CRUD methods 
-to allow users to 
+using express, nodejs, and postgreSQL database 
+that includes CRUD methods 
+which allows users to 
 Create, Read, Update or Delete 
 items and categories
 
