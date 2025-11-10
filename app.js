@@ -12,11 +12,20 @@ app.set("views", path.join(__dirname, "views"));
 // register view engine
 app.set("view engine", "ejs");
 
-// middleware to parse form data
+// middleware and static files
+// makes files in public folder available to front end
+app.use(express.static("public"));
+// takes url encoded data and passes it into an object
 app.use(express.urlencoded({ extended: true }));
 
 // use router for all routes
 // app.use("/", ROUTERNAME);
+
+// 404 page
+// has to go at the bottom so it fires last
+app.use((req, res) => {
+  res.status(404).render("404", { title: "404" });
+});
 
 // listen for requests
 const PORT = process.env.PORT || 3005;

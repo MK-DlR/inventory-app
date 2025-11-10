@@ -1,5 +1,6 @@
 11/10/25:
 
+- Create basic 404 and index pages
 - Create .env file
 - Install dotenv
 - Write basic pool.js file
