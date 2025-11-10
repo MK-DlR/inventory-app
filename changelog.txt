@@ -1,5 +1,11 @@
 11/10/25:
 
+- Create .env file
+- Install dotenv
+- Write basic pool.js file
+- Create additional database files
+- Write basic app.js file
+- Install pg
 - Create plants_inventory database with plants, medicinal_uses, and plant_medicinal_uses tables
 - Add table-mockup image
 - Create general plan
