@@ -1,3 +1,9 @@
+11/10/25:
+
+- Create plants_inventory database with plants, medicinal_uses, and plant_medicinal_uses tables
+- Add table-mockup image
+- Create general plan
+
 11/8/25:
 
 - Basic folder set up
