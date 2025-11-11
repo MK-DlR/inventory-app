@@ -1,5 +1,6 @@
 11/11/25:
 
+- Create setup.js file for PostgreSQL table
 - Basic medicinal route and medicinalUsecontroller set up
 - Basic plant route and plantController set up
 - Set up routers and home route in app.js
