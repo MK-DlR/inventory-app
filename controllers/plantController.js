@@ -1,12 +1,17 @@
 // controllers/plantController.js
 
+const db = require("../db/queries");
+
 // get all plants
-getAllPlants = (req, res) => {
+getAllPlants = async (req, res) => {
   // needs optional filtering for:
   // stock_status
   // quality_level
   // order_status
-  res.send("Get all plants");
+  const plants = await db.getPlants(req.query.search);
+
+  // change title once search is functional
+  res.render("plants", { title: "All Plants", plants });
 };
 
 // get plant by id

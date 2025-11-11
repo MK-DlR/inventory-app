@@ -1,0 +1,11 @@
+<h1><%= title %></h1>
+
+<% if (plants.length === 0) { %>
+  <p>No plants found.</p>
+<% } else { %>
+  <ul>
+    <% plants.forEach(plant => { %>
+      <li><%= plant.common_name %> (<%= plant.scientific_name %>)</li>
+    <% }) %>
+  </ul>
+<% } %>
