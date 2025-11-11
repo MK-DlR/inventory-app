@@ -1,3 +1,8 @@
+11/11/25:
+
+- Create route files
+- Create controller files
+
 11/10/25:
 
 - Create basic 404 and index pages
