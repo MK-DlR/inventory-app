@@ -1,18 +1,16 @@
 // routes/plants.js
 
-/*
-- GET /plants 
-    - view all plants
-- GET /plants/:id 
-    - view single plant details
-- GET /plants/new 
-    - show create form
-- POST /plants 
-    - create new plant
-- GET /plants/:id/edit 
-    - show edit form
-- POST /plants/:id/update 
-    - update plant
-- POST /plants/:id/delete 
-    - delete plant
-*/
+const express = require("express");
+const router = express.Router();
+const plantController = require("../controllers/plantController");
+
+router.get("/", plantController.getAllPlants);
+router.get("/new", plantController.createPlantForm);
+router.post("/new", plantController.createPlant);
+// :id needs to go after new
+router.get("/:id", plantController.getPlantById);
+router.get("/:id/edit", plantController.editPlantForm);
+router.post("/:id/update", plantController.updatePlant);
+router.post("/:id/delete", plantController.deletePlant);
+
+module.exports = router;

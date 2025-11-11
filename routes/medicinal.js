@@ -1,16 +1,16 @@
 // routes/medicinal.js
 
-/*
-- GET /medicinal 
-    - view all medicinal uses
-- GET /medicinal/new 
-    - show create form
-- POST /medicinal 
-    - create new medicinal use
-- GET /medicinal/:id/edit 
-    - show edit form
-- POST /medicinal/:id/update 
-    - update medicinal use
-- POST /medicinal/:id/delete 
-    - delete medicinal use
-*/
+const express = require("express");
+const router = express.Router();
+const medicinalUseController = require("../controllers/medicinalUseController");
+
+router.get("/", medicinalUseController.getAllMedicinalUses);
+router.get("/new", medicinalUseController.createMedicinalUseForm);
+router.post("/new", medicinalUseController.createMedicinalUse);
+// :id needs to go after new
+router.get("/:id", medicinalUseController.getMedicinalUseById);
+router.get("/:id/edit", medicinalUseController.editMedicinalUseForm);
+router.post("/:id/update", medicinalUseController.updateMedicinalUse);
+router.post("/:id/delete", medicinalUseController.deleteMedicinalUse);
+
+module.exports = router;
