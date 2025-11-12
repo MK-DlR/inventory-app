@@ -49,26 +49,44 @@ async function main() {
     `);
     console.log("Created plant_medicinal_uses junction table");
 
-    // seed one placeholder medicinal use
+    // seed medicinal uses
     await pool.query(`
       INSERT INTO medicinal_uses (use_name, description) VALUES 
-        ('Example Use', 'This is a placeholder medicinal use')
+        ('Anti-inflammatory', 'Reduces inflammation and swelling in the body'),
+        ('Digestive Aid', 'Supports healthy digestion and relieves gastrointestinal discomfort'),
+        ('Immune Support', 'Strengthens the immune system and helps fight infections'),
+        ('Pain Relief', 'Alleviates various types of pain'),
+        ('Antimicrobial', 'Fights against bacteria, viruses, and fungi'),
+        ('Antioxidant', 'Protects cells from oxidative damage'),
+        ('Sedative', 'Promotes relaxation and helps with sleep'),
+        ('Respiratory Support', 'Helps with breathing and lung health')
     `);
-    console.log("Seeded placeholder medicinal use");
+    console.log("Seeded medicinal uses");
 
-    // seed one placeholder plant
+    // seed plants
     await pool.query(`
       INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status) VALUES 
-        ('Example scientificus', 'Example Plant', 'in_stock', 'medium', NULL)
+        ('Echinacea purpurea', 'Purple Coneflower', 'in_stock', 'high', NULL),
+        ('Matricaria chamomilla', 'German Chamomile', 'in_stock', 'medium', NULL),
+        ('Zingiber officinale', 'Ginger', 'out_of_stock', 'low', 'needs_ordering')
     `);
-    console.log("Seeded placeholder plant");
+    console.log("Seeded plants");
 
-    // seed one placeholder relationship (add medicinal use to plant)
+    // seed plant-medicinal use relationships
     await pool.query(`
       INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id) VALUES 
-        (1, 1)
+        (1, 3),
+        (1, 5),
+        (1, 6),
+        (2, 1),
+        (2, 2),
+        (2, 7),
+        (3, 1),
+        (3, 2),
+        (3, 4),
+        (3, 5)
     `);
-    console.log("Seeded placeholder relationship");
+    console.log("Seeded plant-medicinal use relationships");
 
     console.log("\n✅ Database setup complete!");
   } catch (err) {

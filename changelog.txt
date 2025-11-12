@@ -1,5 +1,6 @@
 11/12/25:
 
+- Add more placeholder examples to database
 - Create getSpecificUse to get specific medical uses
 - Update formatting for medicinal, plants, medicinal-details, and plant-details files
 - Create medicinal-details.ejs to show details
