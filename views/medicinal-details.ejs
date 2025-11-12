@@ -1,0 +1,34 @@
+<!-- views/medicinal-details.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+<body>
+  <div class="medicinal-details content">
+    <h1><%= medicinalUse.use_name %></h1>
+    
+    <ul>
+        <strong>Description</strong>
+        <% if (medicinalUse.description) { %>
+        <p><%= medicinalUse.description %></p>
+        <% } else { %>
+        <p>No description available.</p>
+        <% } %>
+    </ul>
+    
+    <h2>Plants:</h2>
+    <% if (plants && plants.length > 0) { %>
+      <ul>
+        <% plants.forEach(plant => { %>
+          <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a></li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No plants associated with this use.</p>
+    <% } %>
+  </div>
+
+  <a href="/medicinal">Back to All Medicinal Uses</a>
+</body>
+
+</html>

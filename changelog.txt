@@ -1,5 +1,8 @@
 11/12/25:
 
+- Create getSpecificUse to get specific medical uses
+- Update formatting for medicinal, plants, medicinal-details, and plant-details files
+- Create medicinal-details.ejs to show details
 - Update classes in view ejs files
 - Create medicinal.ejs to display medicinal uses
 - Add functionality to getAllMedicinalUses 

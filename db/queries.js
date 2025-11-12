@@ -82,9 +82,39 @@ async function getSpecificPlant(plantID) {
   return plant;
 }
 
+// get specific medicinal use by id with associated plants
+async function getSpecificUse(useID) {
+  // get medicinal use data
+  const useQuery = await pool.query(
+    "SELECT * FROM medicinal_uses WHERE id = $1",
+    [useID]
+  );
+
+  if (useQuery.rows.length === 0) {
+    return null;
+  }
+
+  const medicinalUse = useQuery.rows[0];
+
+  // get plants associated with this medicinal use
+  const plantsQuery = await pool.query(
+    `SELECT p.id, p.common_name, p.scientific_name, p.stock_status, p.quantity_level
+    FROM plants p
+    INNER JOIN plant_medicinal_uses pmu ON p.id = pmu.plant_id
+    WHERE pmu.medicinal_use_id = $1`,
+    [useID]
+  );
+
+  // add plants to medicinal use object
+  medicinalUse.plants = plantsQuery.rows;
+
+  return medicinalUse;
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
+  getSpecificUse,
 };
 
 // https://www.theodinproject.com/lessons/nodejs-using-postgresql#querying-with-pg

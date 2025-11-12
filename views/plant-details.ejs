@@ -5,11 +5,13 @@
     <%- include("./partials/head.ejs") %>
 <body>
     <div class="plant-details content">
-        <h1><%= plant.common_name %></h1>
-        <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
-        <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
-        <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
-        <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+        <h1><%= title %></h1>
+        <ul>
+            <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
+            <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
+            <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
+            <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+        </ul>
     </div>
 
     <div class="plant-medicinal content">
@@ -17,12 +19,7 @@
         <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
             <ul>
                 <% plant.medicinal_uses.forEach(use => { %>
-                    <li>
-                        <strong><%= use.use_name %></strong>
-                        <% if (use.description) { %>
-                            <p><%= use.description %></p>
-                        <% } %>
-                    </li>
+                    <li><a href="/medicinal/<%- use.id %>"><%= use.use_name %></a></li>
                 <% }) %>
             </ul>
         <% } else { %>

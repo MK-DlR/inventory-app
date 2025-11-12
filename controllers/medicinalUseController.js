@@ -1,4 +1,5 @@
 // controllers/medicinalUseController.js
+const db = require("../db/queries");
 const pool = require("../db/pool");
 
 // get all medicinal uses
@@ -16,8 +17,25 @@ getAllMedicinalUses = async (req, res) => {
 };
 
 // get medicinal use by id, show all plants with that medicinal use
-getMedicinalUseById = (req, res) => {
-  res.send("Get medicinal use by id");
+getMedicinalUseById = async (req, res) => {
+  try {
+    const medicalUseID = parseInt(req.params.id);
+    const result = await db.getSpecificUse(medicalUseID);
+
+    if (!result) {
+      return res.redirect("/404");
+    }
+
+    // use the medicinal use's name for the title
+    res.render("medicinal-details", {
+      title: result.use_name || "Medicinal Use Details",
+      medicinalUse: result,
+      plants: result.plants,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
 };
 
 // show create medicinal use form

@@ -12,7 +12,7 @@
     <% } else { %>
       <ul>
         <% plants.forEach(plant => { %>
-          <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<%= plant.scientific_name %>)</a></li>
+          <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a></li>
         <% }) %>
       </ul>
     <% } %>
