@@ -15,12 +15,32 @@ async function getPlants(searchTerm) {
   }
 }
 
-// get specific plant by id, handle opening full plant details
+// get specific plant by id with medicinal uses
 async function getSpecificPlant(plantID) {
-  const { rows } = await pool.query("SELECT * FROM plants WHERE id = $1", [
+  // get plant data
+  const plantQuery = await pool.query("SELECT * FROM plants WHERE id = $1", [
     plantID,
   ]);
-  return rows[0];
+
+  if (plantQuery.rows.length === 0) {
+    return null;
+  }
+
+  const plant = plantQuery.rows[0];
+
+  // get medicinal uses for this plant
+  const usesQuery = await pool.query(
+    `SELECT mu.id, mu.use_name, mu.description 
+     FROM medicinal_uses mu
+     INNER JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
+     WHERE pmu.plant_id = $1`,
+    [plantID]
+  );
+
+  // add medicinal uses to plant object
+  plant.medicinal_uses = usesQuery.rows;
+
+  return plant;
 }
 
 module.exports = {

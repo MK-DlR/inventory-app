@@ -21,7 +21,7 @@ getPlantById = async (req, res) => {
     const plant = await db.getSpecificPlant(plantID);
 
     if (!plant) {
-      return res.redirect("/404"); // or res.status(404).send("Plant not found")
+      return res.redirect("/404");
     }
 
     // use the plant's name for the title

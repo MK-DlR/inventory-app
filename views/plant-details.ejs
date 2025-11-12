@@ -5,11 +5,30 @@
     <%- include("./partials/head.ejs") %>
 <body>
     <h1><%= plant.common_name %></h1>
-    <p>Scientific Name: <%= plant.scientific_name %></p>
-    <p>Common Name: <%= plant.common_name %></p>
-    <p>Stock Status: <%= plant.stock_status %></p>
-    <p>Quantity: <%= plant.quantity_level %></p>
-    <p>Order Status: <%= plant.order_status %></p>
-    <!-- Add more plant details as needed -->
+    <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
+    <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
+    <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
+    <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+
+    <div>
+        <h2>Medicinal Uses:</h2>
+        <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
+            <ul>
+                <% plant.medicinal_uses.forEach(use => { %>
+                    <li>
+                        <strong><%= use.use_name %></strong>
+                        <% if (use.description) { %>
+                            <p><%= use.description %></p>
+                        <% } %>
+                    </li>
+                <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No medicinal uses listed for this plant.</p>
+        <% } %>
+    </div>
+    
+    <a href="/plants">Back to All Plants</a>
+    
 </body>
 </html>
