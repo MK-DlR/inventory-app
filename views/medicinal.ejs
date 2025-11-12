@@ -1,0 +1,19 @@
+<!-- views/medicinal.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+<body>
+  <h1><%= title %></h1>
+  <% if (medicinal_uses.length === 0) { %>
+    <p>No medicinal uses found.</p>
+  <% } else { %>
+    <ul>
+      <% medicinal_uses.forEach(use => { %>
+        <li><strong>Medicinal Use:</strong> <%= use.use_name %></li>
+        <li><strong>Description:</strong> <%= use.description %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</body>
+</html>

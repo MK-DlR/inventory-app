@@ -1,8 +1,18 @@
 // controllers/medicinalUseController.js
+const pool = require("../db/pool");
 
 // get all medicinal uses
-getAllMedicinalUses = (req, res) => {
-  res.send("Get all medicinal uses");
+getAllMedicinalUses = async (req, res) => {
+  try {
+    const { rows } = await pool.query("SELECT * FROM medicinal_uses");
+    res.render("medicinal", {
+      title: "Medicinal Uses",
+      medicinal_uses: rows,
+    });
+  } catch (error) {
+    console.error("Error fetching medicinal uses:", error);
+    res.status(500).send("Error fetching medicinal uses");
+  }
 };
 
 // get medicinal use by id
