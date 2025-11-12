@@ -1,11 +1,19 @@
-<h1><%= title %></h1>
+<!-- views/plants.ejs -->
 
-<% if (plants.length === 0) { %>
-  <p>No plants found.</p>
-<% } else { %>
-  <ul>
-    <% plants.forEach(plant => { %>
-      <li><%= plant.common_name %> (<%= plant.scientific_name %>)</li>
-    <% }) %>
-  </ul>
-<% } %>
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+<body>
+  <h1><%= title %></h1>
+
+  <% if (plants.length === 0) { %>
+    <p>No plants found.</p>
+  <% } else { %>
+    <ul>
+      <% plants.forEach(plant => { %>
+        <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<%= plant.scientific_name %>)</a></li>
+      <% }) %>
+    </ul>
+  <% } %>
+</body>
+</html>

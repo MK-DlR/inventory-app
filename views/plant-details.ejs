@@ -1,0 +1,15 @@
+<!-- views/plant-details.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+<body>
+    <h1><%= plant.common_name %></h1>
+    <p>Scientific Name: <%= plant.scientific_name %></p>
+    <p>Common Name: <%= plant.common_name %></p>
+    <p>Stock Status: <%= plant.stock_status %></p>
+    <p>Quantity: <%= plant.quantity_level %></p>
+    <p>Order Status: <%= plant.order_status %></p>
+    <!-- Add more plant details as needed -->
+</body>
+</html>

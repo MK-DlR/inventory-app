@@ -15,8 +15,24 @@ getAllPlants = async (req, res) => {
 };
 
 // get plant by id
-getPlantById = (req, res) => {
-  res.send("Get plant by id");
+getPlantById = async (req, res) => {
+  try {
+    const plantID = parseInt(req.params.id);
+    const plant = await db.getSpecificPlant(plantID);
+
+    if (!plant) {
+      return res.redirect("/404"); // or res.status(404).send("Plant not found")
+    }
+
+    // use the plant's name for the title
+    res.render("plant-details", {
+      title: plant.common_name || "Plant Details",
+      plant,
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database error");
+  }
 };
 
 // show create plant form

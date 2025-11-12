@@ -15,8 +15,17 @@ async function getPlants(searchTerm) {
   }
 }
 
+// get specific plant by id, handle opening full plant details
+async function getSpecificPlant(plantID) {
+  const { rows } = await pool.query("SELECT * FROM plants WHERE id = $1", [
+    plantID,
+  ]);
+  return rows[0];
+}
+
 module.exports = {
   getPlants,
+  getSpecificPlant,
 };
 
 // https://www.theodinproject.com/lessons/nodejs-using-postgresql#querying-with-pg

@@ -1,3 +1,8 @@
+11/12/25:
+
+- Add link on plants page to take user to plant details
+- Create getSpecificPlant query to show full plant details
+
 11/11/25:
 
 - Create plants view
