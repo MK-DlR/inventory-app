@@ -1,5 +1,6 @@
 11/12/25:
 
+- Add search filter functionality to getPlants and getAllPlants
 - Add medicinal uses to plant details
 - Add link on plants page to take user to plant details
 - Create getSpecificPlant query to show full plant details

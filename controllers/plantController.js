@@ -2,16 +2,28 @@
 
 const db = require("../db/queries");
 
-// get all plants
+// get all plants, allow for search functionality
 getAllPlants = async (req, res) => {
-  // needs optional filtering for:
-  // stock_status
-  // quality_level
-  // order_status
-  const plants = await db.getPlants(req.query.search);
+  const plants = await db.getPlants(
+    req.query.search,
+    req.query.stock_status,
+    req.query.quantity_level,
+    req.query.medicinal_use
+  );
 
-  // change title once search is functional
-  res.render("plants", { title: "All Plants", plants });
+  // determine title based on filters
+  let title = "All Plants";
+  if (req.query.search) {
+    title = `Search Results for "${req.query.search}"`;
+  } else if (
+    req.query.stock_status ||
+    req.query.quantity_level ||
+    req.query.medicinal_use
+  ) {
+    title = "Filtered Plants";
+  }
+
+  res.render("plants", { title, plants });
 };
 
 // get plant by id
