@@ -4,16 +4,20 @@
 <html lang="en">
   <%- include("./partials/head.ejs") %>
 <body>
-  <h1><%= title %></h1>
+  <div class="all-plants content">
+    <h1><%= title %></h1>
 
-  <% if (plants.length === 0) { %>
-    <p>No plants found.</p>
-  <% } else { %>
-    <ul>
-      <% plants.forEach(plant => { %>
-        <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<%= plant.scientific_name %>)</a></li>
-      <% }) %>
-    </ul>
-  <% } %>
+    <% if (plants.length === 0) { %>
+      <p>No plants found.</p>
+    <% } else { %>
+      <ul>
+        <% plants.forEach(plant => { %>
+          <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<%= plant.scientific_name %>)</a></li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+
+  <a href="/">Back to Index</a>
 </body>
 </html>

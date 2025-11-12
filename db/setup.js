@@ -63,7 +63,7 @@ async function main() {
     `);
     console.log("Seeded placeholder plant");
 
-    // seed one placeholder relationship
+    // seed one placeholder relationship (add medicinal use to plant)
     await pool.query(`
       INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id) VALUES 
         (1, 1)

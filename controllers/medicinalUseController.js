@@ -15,7 +15,7 @@ getAllMedicinalUses = async (req, res) => {
   }
 };
 
-// get medicinal use by id
+// get medicinal use by id, show all plants with that medicinal use
 getMedicinalUseById = (req, res) => {
   res.send("Get medicinal use by id");
 };

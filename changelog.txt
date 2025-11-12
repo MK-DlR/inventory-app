@@ -1,5 +1,6 @@
 11/12/25:
 
+- Update classes in view ejs files
 - Create medicinal.ejs to display medicinal uses
 - Add functionality to getAllMedicinalUses 
 - Add search filter functionality to getPlants and getAllPlants

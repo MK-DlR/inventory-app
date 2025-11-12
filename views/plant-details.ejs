@@ -4,13 +4,15 @@
 <html lang="en">
     <%- include("./partials/head.ejs") %>
 <body>
-    <h1><%= plant.common_name %></h1>
-    <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
-    <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
-    <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
-    <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+    <div class="plant-details content">
+        <h1><%= plant.common_name %></h1>
+        <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
+        <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
+        <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
+        <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+    </div>
 
-    <div>
+    <div class="plant-medicinal content">
         <h2>Medicinal Uses:</h2>
         <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
             <ul>
