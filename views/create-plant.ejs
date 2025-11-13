@@ -27,6 +27,7 @@
                 id="scientific_name" 
                 value="<%= locals.formData?.scientific_name || '' %>"
                 required>
+            <br>
             
             <label for="common_name">Common Name: </label>
             <input 
@@ -35,12 +36,14 @@
                 id="common_name" 
                 value="<%= locals.formData?.common_name || '' %>"
                 required>
+            <br>
             
             <label for="stock_status">Stock Status: </label>
             <select name="stock_status" id="stock_status" required>
                 <option value="in_stock" <%= locals.formData?.stock_status === 'in_stock' ? 'selected' : '' %>>In Stock</option>
                 <option value="out_of_stock" <%= locals.formData?.stock_status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
             </select>
+            <br>
             
             <label for="quantity_level">Quantity Level: </label>
             <select name="quantity_level" id="quantity_level">
@@ -49,6 +52,7 @@
                 <option value="medium" <%= locals.formData?.quantity_level === 'medium' ? 'selected' : '' %>>Medium</option>
                 <option value="low" <%= locals.formData?.quantity_level === 'low' ? 'selected' : '' %>>Low</option>
             </select>
+            <br>
             
             <label for="order_status">Order Status: </label>
             <select name="order_status" id="order_status">
@@ -56,16 +60,21 @@
                 <option value="needs_ordering" <%= locals.formData?.order_status === 'needs_ordering' ? 'selected' : '' %>>Needs Ordering</option>
                 <option value="on_order" <%= locals.formData?.order_status === 'on_order' ? 'selected' : '' %>>On Order</option>            
             </select>
+            <br>
             
             <label for="medicinal_uses">Medicinal Uses: </label>
             <!-- allow user to select from checkboxes of existing medicinal uses in table -->
             <!-- add text inputs below the checkboxes for "New Medicinal Use Name" and "Description" -->
             <!-- will ALSO have a separate "New Medicinal Use" form for adding them separately from plants -->
+            <br>
+            
             <button type="submit">Submit</button>
         </form>
+        <br>
         
     </div>
-    <a href="/plants">All Plants</a><br>
-    <a href="/medicinal">All Medicinal Uses</a>
+
+    <%- include("./partials/footer.ejs") %>
+
 </body>
 </html>

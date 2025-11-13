@@ -1,5 +1,6 @@
 11/13/25:
 
+- Create footer for navigation links
 - Fix form validation
 - Refactor controllers to use query functions 
 - Sort plant and medicinal uses alphabetically 
