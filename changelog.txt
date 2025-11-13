@@ -1,5 +1,6 @@
 11/13/25:
 
+- Fix form validation
 - Refactor controllers to use query functions 
 - Sort plant and medicinal uses alphabetically 
 - Add form entry validation

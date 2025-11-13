@@ -64,6 +64,19 @@ const validatePlant = [
     .withMessage(`Common name ${alphaErr}`)
     .isLength({ min: 1, max: 200 })
     .withMessage(`Common name ${lengthErr}`),
+  body("stock_status")
+    .isIn(["in_stock", "out_of_stock"])
+    .withMessage("Stock status must be 'in_stock' or 'out_of_stock'"),
+  body("quantity_level")
+    .optional({ checkFalsy: true })
+    .isIn(["high", "medium", "low"])
+    .withMessage("Quantity level must be 'high', 'medium', 'low', or 'null'"),
+  body("order_status")
+    .optional({ checkFalsy: true })
+    .isIn(["needs_ordering", "on_order"])
+    .withMessage(
+      "Order status must be 'needs_ordering', 'on_order', or 'null'"
+    ),
 ];
 
 // show create plant form with medicinal uses
