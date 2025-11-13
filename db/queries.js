@@ -49,6 +49,9 @@ async function getPlants(search, stock_status, quantity_level, medicinal_use) {
     query += " WHERE " + conditions.join(" AND ");
   }
 
+  // sort alphabetically by common name
+  query += " ORDER BY common_name ASC";
+
   // execute query
   const { rows } = await pool.query(query, params);
   return rows;
@@ -80,6 +83,13 @@ async function getSpecificPlant(plantID) {
   plant.medicinal_uses = usesQuery.rows;
 
   return plant;
+}
+
+async function getAllMedicinalUses() {
+  const { rows } = await pool.query(
+    "SELECT * FROM medicinal_uses ORDER BY use_name ASC"
+  );
+  return rows;
 }
 
 // get specific medicinal use by id with associated plants
@@ -141,6 +151,7 @@ async function insertPlant(plantData) {
 module.exports = {
   getPlants,
   getSpecificPlant,
+  getAllMedicinalUses,
   getSpecificUse,
   insertPlant,
 };

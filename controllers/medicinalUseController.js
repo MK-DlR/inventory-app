@@ -5,7 +5,9 @@ const pool = require("../db/pool");
 // get all medicinal uses
 getAllMedicinalUses = async (req, res) => {
   try {
-    const { rows } = await pool.query("SELECT * FROM medicinal_uses");
+    const { rows } = await pool.query(
+      "SELECT * FROM medicinal_uses ORDER BY use_name ASC"
+    );
     res.render("medicinal", {
       title: "Medicinal Uses",
       medicinal_uses: rows,
