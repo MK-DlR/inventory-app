@@ -1,5 +1,6 @@
 11/13/25:
 
+- Update create-plant form for better readibility
 - Create footer for navigation links
 - Fix form validation
 - Refactor controllers to use query functions 

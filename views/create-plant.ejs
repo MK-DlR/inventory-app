@@ -20,7 +20,7 @@
         <% } %>
 
         <form action="/plants/new" method="POST">
-            <label for="scientific_name">Scientific Name: </label>
+            <label for="scientific_name"><strong>Scientific Name:</strong> </label>
             <input 
                 type="text" 
                 name="scientific_name" 
@@ -29,7 +29,7 @@
                 required>
             <br>
             
-            <label for="common_name">Common Name: </label>
+            <label for="common_name"><strong>Common Name:</strong> </label>
             <input 
                 type="text" 
                 name="common_name" 
@@ -38,14 +38,14 @@
                 required>
             <br>
             
-            <label for="stock_status">Stock Status: </label>
+            <label for="stock_status"><strong>Stock Status:</strong> </label>
             <select name="stock_status" id="stock_status" required>
                 <option value="in_stock" <%= locals.formData?.stock_status === 'in_stock' ? 'selected' : '' %>>In Stock</option>
                 <option value="out_of_stock" <%= locals.formData?.stock_status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
             </select>
             <br>
             
-            <label for="quantity_level">Quantity Level: </label>
+            <label for="quantity_level"><strong>Quantity Level:</strong> </label>
             <select name="quantity_level" id="quantity_level">
                 <option value="">-- Out of Stock --</option>
                 <option value="high" <%= locals.formData?.quantity_level === 'high' ? 'selected' : '' %>>High</option>
@@ -54,7 +54,7 @@
             </select>
             <br>
             
-            <label for="order_status">Order Status: </label>
+            <label for="order_status"><strong>Order Status:</strong> </label>
             <select name="order_status" id="order_status">
                 <option value="">-- No Order Status --</option>
                 <option value="needs_ordering" <%= locals.formData?.order_status === 'needs_ordering' ? 'selected' : '' %>>Needs Ordering</option>
@@ -62,10 +62,32 @@
             </select>
             <br>
             
-            <label for="medicinal_uses">Medicinal Uses: </label>
+            <label for="medicinal_uses"><strong>Medicinal Use(s):</strong> </label><br>
             <!-- allow user to select from checkboxes of existing medicinal uses in table -->
-            <!-- add text inputs below the checkboxes for "New Medicinal Use Name" and "Description" -->
+            <input type="checkbox" id="med_use1" name="med_use1" value="med_use1">
+            <label for="med_use1"> Medicinal Use 1</label>
+            <input type="checkbox" id="med_use2" name="med_use2" value="med_use2">
+            <label for="med_use2"> Medicinal Use 2</label>
+            <input type="checkbox" id="med_use3" name="med_use3" value="med_use3">
+            <label for="med_use3"> Medicinal Use 3</label><br>
+            <input type="checkbox" id="med_use4" name="med_use4" value="med_use4">
+            <label for="med_use4"> Medicinal Use 4</label>
+            <input type="checkbox" id="med_use5" name="med_use5" value="med_use5">
+            <label for="med_use5"> Medicinal Use 5</label>
+            <input type="checkbox" id="med_use6" name="med_use6" value="med_use6">
+            <label for="med_use6"> Medicinal Use 6</label>
+            <br>
+
+            <label for="medicinal_uses"><strong>Add New Medicinal Use(s):</strong> </label>
+            <!-- add text inputs below the checkboxes for "New Medicinal Use Name" -->
             <!-- will ALSO have a separate "New Medicinal Use" form for adding them separately from plants -->
+            <input 
+                type="text" 
+                name="medicinal_uses" 
+                id="medicinal_uses" 
+                value="<%= locals.formData?.medicinal_uses || '' %>"
+                title="Please separate different medicinal uses with commas">
+                <!-- should value validation be in plantController with the rest of the form/validation, or medicinalUseController? -->
             <br>
             
             <button type="submit">Submit</button>
