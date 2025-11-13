@@ -1,16 +1,13 @@
 // controllers/medicinalUseController.js
 const db = require("../db/queries");
-const pool = require("../db/pool");
 
 // get all medicinal uses
 getAllMedicinalUses = async (req, res) => {
   try {
-    const { rows } = await pool.query(
-      "SELECT * FROM medicinal_uses ORDER BY use_name ASC"
-    );
+    const medicinalUses = await db.getAllMedicinalUses();
     res.render("medicinal", {
       title: "Medicinal Uses",
-      medicinal_uses: rows,
+      medicinal_uses: medicinalUses,
     });
   } catch (error) {
     console.error("Error fetching medicinal uses:", error);
@@ -18,21 +15,20 @@ getAllMedicinalUses = async (req, res) => {
   }
 };
 
-// get medicinal use by id, show all plants with that medicinal use
+// get a specific medicinal use by ID with associated plants
 getMedicinalUseById = async (req, res) => {
   try {
-    const medicalUseID = parseInt(req.params.id);
-    const result = await db.getSpecificUse(medicalUseID);
+    const useID = parseInt(req.params.id);
+    const medicinalUse = await db.getSpecificUse(useID);
 
-    if (!result) {
+    if (!medicinalUse) {
       return res.redirect("/404");
     }
 
-    // use the medicinal use's name for the title
     res.render("medicinal-details", {
-      title: result.use_name || "Medicinal Use Details",
-      medicinalUse: result,
-      plants: result.plants,
+      title: medicinalUse.use_name || "Medicinal Use Details",
+      medicinalUse,
+      plants: medicinalUse.plants,
     });
   } catch (err) {
     console.error(err);

@@ -66,11 +66,18 @@ const validatePlant = [
     .withMessage(`Common name ${lengthErr}`),
 ];
 
-// show create plant form
+// show create plant form with medicinal uses
 createPlantForm = async (req, res) => {
-  return res.render("create-plant", {
-    title: "Add Plant",
-  });
+  try {
+    const medicinalUses = await db.getAllMedicinalUses();
+    res.render("create-plant", {
+      title: "Add New Plant",
+      medicinalUses,
+    });
+  } catch (err) {
+    console.error("Error fetching medicinal uses:", err);
+    res.status(500).send("Error fetching medicinal uses");
+  }
 };
 
 // create plant

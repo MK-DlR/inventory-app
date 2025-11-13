@@ -49,7 +49,7 @@ async function getPlants(search, stock_status, quantity_level, medicinal_use) {
     query += " WHERE " + conditions.join(" AND ");
   }
 
-  // sort alphabetically by common name
+  // sort alphabetically by common_name
   query += " ORDER BY common_name ASC";
 
   // execute query
@@ -85,6 +85,7 @@ async function getSpecificPlant(plantID) {
   return plant;
 }
 
+// get all medicinal uses alphabetically
 async function getAllMedicinalUses() {
   const { rows } = await pool.query(
     "SELECT * FROM medicinal_uses ORDER BY use_name ASC"

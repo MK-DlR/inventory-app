@@ -1,5 +1,6 @@
 11/13/25:
 
+- Refactor controllers to use query functions 
 - Sort plant and medicinal uses alphabetically 
 - Add form entry validation
 - Create create plant form that adds new plants and information to database
