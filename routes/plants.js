@@ -6,8 +6,11 @@ const plantController = require("../controllers/plantController");
 
 router.get("/", plantController.getAllPlants);
 router.get("/new", plantController.createPlantForm);
-router.post("/new", plantController.createPlant);
-// :id needs to go after new
+
+// apply validation middleware to the POST route
+router.post("/new", plantController.validatePlant, plantController.createPlant);
+
+// :id needs to go after /new
 router.get("/:id", plantController.getPlantById);
 router.get("/:id/edit", plantController.editPlantForm);
 router.post("/:id/update", plantController.updatePlant);

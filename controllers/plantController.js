@@ -52,15 +52,15 @@ getPlantById = async (req, res) => {
 };
 
 const validatePlant = [
-  body("scientific-name")
+  body("scientific_name")
     .trim()
-    .isAlpha()
+    .matches(/^[a-zA-Z\s]+$/) // allow letters and spaces
     .withMessage(`Scientific name ${alphaErr}`)
     .isLength({ min: 1, max: 200 })
     .withMessage(`Scientific name ${lengthErr}`),
-  body("common-name")
+  body("common_name")
     .trim()
-    .isAlpha()
+    .matches(/^[a-zA-Z\s]+$/) // allow letters and spaces
     .withMessage(`Common name ${alphaErr}`)
     .isLength({ min: 1, max: 200 })
     .withMessage(`Common name ${lengthErr}`),
@@ -75,11 +75,24 @@ createPlantForm = async (req, res) => {
 
 // create plant
 createPlant = async (req, res) => {
+  // check for validation errors
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    // if errors, re-render form with error messages
+    return res.status(400).render("create-plant", {
+      title: "Add Plant",
+      errors: errors.array(),
+      formData: req.body, // send back form entry so its not lost
+    });
+  }
+
   try {
-    const plantData = req.body;
+    // use matchedData to get only validated/sanitized data
+    const plantData = matchedData(req);
     const newPlant = await db.insertPlant(plantData);
 
-    // Redirect to the new plant's detail page
+    // redirect to the new plant's detail page
     res.redirect(`/plants/${newPlant.id}`);
   } catch (err) {
     console.error("Error creating plant:", err);
@@ -106,6 +119,7 @@ deletePlant = (req, res) => {
 module.exports = {
   getAllPlants,
   getPlantById,
+  validatePlant,
   createPlantForm,
   createPlant,
   editPlantForm,
