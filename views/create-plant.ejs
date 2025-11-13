@@ -1,0 +1,43 @@
+<!-- views/create-plant.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("./partials/head.ejs") %>
+<body>
+    <div class="create-plant content">
+        <h1><%= title %></h1>
+
+        <form action="/plants/new" method="POST">
+            <label for="scientific_name">Scientific Name: </label>
+            <input type="text" name="scientific_name" id="scientific_name" required>
+            <label for="common_name">Common Name: </label>
+            <input type="text" name="common_name" id="common_name" required>
+            <label for="stock_status">Stock Status: </label>
+            <select name="stock_status" id="stock_status" required>
+                <option value="in_stock">In Stock</option>
+                <option value="out_of_stock">Out of Stock</option>
+            </select>
+            <label for="quantity_level">Stock Status: </label>
+            <select name="quantity_level" id="quantity_level">
+                <option value="">-- Out of Stock --</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+            </select>
+            <label for="order_status">Order Status: </label>
+            <select name="order_status" id="order_status">
+                <option value="">-- No Order Status --</option>
+                <option value="needs_ordering">Needs Ordering</option>
+                <option value="on_order">On Order</option>            
+            </select>
+            <label for="medicinal_uses">Medicinal Uses: </label>
+            <!-- figure out how to populate select dropdown of existing medicinal uses in table -->
+            <!-- additional section for adding medicinal uses that aren't yet in the table? -->
+            <button type="submit">Submit</button>
+        </form>
+        
+    </div>
+    <a href="/plants">All Plants</a><br>
+    <a href="/medicinal">All Medicinal Uses</a>
+</body>
+</html>

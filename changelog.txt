@@ -1,3 +1,8 @@
+11/13/25:
+
+- Create create plant form that adds new plants and information to database
+- Install Express validator
+
 11/12/25:
 
 - Add more placeholder examples to database

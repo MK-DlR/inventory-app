@@ -8,12 +8,12 @@
     <h1><%= medicinalUse.use_name %></h1>
     
     <ul>
-        <strong>Description</strong>
-        <% if (medicinalUse.description) { %>
-        <p><%= medicinalUse.description %></p>
-        <% } else { %>
-        <p>No description available.</p>
-        <% } %>
+      <strong>Description</strong>
+      <% if (medicinalUse.description) { %>
+      <p><%= medicinalUse.description %></p>
+      <% } else { %>
+      <p>No description available.</p>
+      <% } %>
     </ul>
     
     <h2>Plants:</h2>
@@ -28,7 +28,8 @@
     <% } %>
   </div>
 
-  <a href="/medicinal">Back to All Medicinal Uses</a>
+  <a href="/medicinal">Back to All Medicinal Uses</a><br>
+  <a href="/">Back to Index</a>
 </body>
 
 </html>

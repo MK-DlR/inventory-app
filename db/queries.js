@@ -111,10 +111,38 @@ async function getSpecificUse(useID) {
   return medicinalUse;
 }
 
+// add new plant to database
+async function insertPlant(plantData) {
+  const {
+    scientific_name,
+    common_name,
+    stock_status,
+    quantity_level,
+    order_status,
+  } = plantData;
+
+  const query = `
+    INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status)
+    VALUES ($1, $2, $3, $4, $5)
+    RETURNING *
+  `;
+
+  const { rows } = await pool.query(query, [
+    scientific_name,
+    common_name,
+    stock_status,
+    quantity_level || null, // handle empty strings as NULL
+    order_status || null, // handle empty strings as NULL
+  ]);
+
+  return rows[0]; // returns newly created plant with its ID
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
   getSpecificUse,
+  insertPlant,
 };
 
 // https://www.theodinproject.com/lessons/nodejs-using-postgresql#querying-with-pg
