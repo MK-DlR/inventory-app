@@ -6,7 +6,14 @@ const medicinalUseController = require("../controllers/medicinalUseController");
 
 router.get("/", medicinalUseController.getAllMedicinalUses);
 router.get("/new", medicinalUseController.createMedicinalUseForm);
-router.post("/new", medicinalUseController.createMedicinalUse);
+
+// validation middleware
+router.post(
+  "/new",
+  medicinalUseController.validateMedicinal,
+  medicinalUseController.createMedicinalUse
+);
+
 // :id needs to go after new
 router.get("/:id", medicinalUseController.getMedicinalUseById);
 router.get("/:id/edit", medicinalUseController.editMedicinalUseForm);

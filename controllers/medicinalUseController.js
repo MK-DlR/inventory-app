@@ -1,6 +1,11 @@
 // controllers/medicinalUseController.js
 
 const db = require("../db/queries");
+const { body, validationResult, matchedData } = require("express-validator");
+
+const alphaErr = "must only contain letters.";
+const lengthErr = "must be between 1 and 200 characters.";
+const lengthErr2 = "must be between 1 and 500 characters.";
 
 // get all medicinal uses
 const getAllMedicinalUses = async (req, res) => {
@@ -38,6 +43,20 @@ const getMedicinalUseById = async (req, res) => {
 };
 
 // validate information from create medicinal use form
+const validateMedicinal = [
+  body("use_name")
+    .trim()
+    .notEmpty()
+    .withMessage(`Medicinal use name is required`)
+    .isLength({ min: 1, max: 200 })
+    .withMessage(`Medicinal use name ${lengthErr}`),
+  body("description")
+    .trim()
+    .notEmpty()
+    .withMessage(`Description is required`)
+    .isLength({ min: 1, max: 500 })
+    .withMessage(`Description ${lengthErr2}`),
+];
 
 // show create medicinal use form
 const createMedicinalUseForm = async (req, res) => {
@@ -52,8 +71,38 @@ const createMedicinalUseForm = async (req, res) => {
 };
 
 // create medicinal use
-const createMedicinalUse = (req, res) => {
-  res.send("Create medicinal use");
+const createMedicinalUse = async (req, res) => {
+  // check for validation errors
+  const errors = validationResult(req);
+
+  // if errors, re-render form with error messages
+  if (!errors.isEmpty()) {
+    try {
+      return res.status(400).render("create-medicinal", {
+        title: "Add New Medicinal Use",
+        errors: errors.array(),
+        formData: req.body, // send back form entry so its not lost
+      });
+    } catch (err) {
+      console.error("Error fetching medicinal uses:", err);
+      return res.status(500).send("Error loading form");
+    }
+  }
+  try {
+    // use matchedData to get only validated/sanitized data
+    const medicinalData = matchedData(req);
+
+    const newMedicinal = await db.insertMedicinalUse(
+      medicinalData.use_name,
+      medicinalData.description
+    );
+
+    // redirect to the new plant's detail page
+    res.redirect(`/medicinal/${newMedicinal.id}`);
+  } catch (err) {
+    console.error("Error creating medicinal use:", err);
+    res.status(500).send("Error creating medicinal use");
+  }
 };
 
 // show edit medicinal use form
@@ -74,6 +123,7 @@ const deleteMedicinalUse = (req, res) => {
 module.exports = {
   getAllMedicinalUses,
   getMedicinalUseById,
+  validateMedicinal,
   createMedicinalUseForm,
   createMedicinalUse,
   editMedicinalUseForm,

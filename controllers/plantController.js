@@ -114,7 +114,7 @@ const createPlant = async (req, res) => {
     try {
       const medicinalUses = await db.getAllMedicinalUses();
       return res.status(400).render("create-plant", {
-        title: "Add Plant",
+        title: "Add New Plant",
         medicinalUses,
         errors: errors.array(),
         formData: req.body, // send back form entry so its not lost

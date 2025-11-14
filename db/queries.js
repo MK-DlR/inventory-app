@@ -233,7 +233,42 @@ async function insertPlant(plantData) {
 
 // add new medicinal use to database
 async function insertMedicinalUse(medicinalName, medicinalDesc) {
-  // code
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // check if medicinal use already exists (case-insensitive)
+    const existingUse = await client.query(
+      `SELECT * FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
+      [medicinalName]
+    );
+
+    // if it already exists, rollback and return the existing record
+    if (existingUse.rows.length > 0) {
+      await client.query("ROLLBACK");
+      return existingUse.rows[0];
+    }
+
+    // insert new medicinal use
+    const insertQuery = `
+      INSERT INTO medicinal_uses (use_name, description)
+      VALUES ($1, $2)
+      RETURNING *
+    `;
+    const result = await client.query(insertQuery, [
+      medicinalName,
+      medicinalDesc,
+    ]);
+
+    await client.query("COMMIT");
+    return result.rows[0];
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("Database error in insertMedicinalUse:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 module.exports = {

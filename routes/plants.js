@@ -7,7 +7,7 @@ const plantController = require("../controllers/plantController");
 router.get("/", plantController.getAllPlants);
 router.get("/new", plantController.createPlantForm);
 
-// apply validation middleware to the POST route
+// validation middleware
 router.post("/new", plantController.validatePlant, plantController.createPlant);
 
 // :id needs to go after /new

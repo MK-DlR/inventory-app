@@ -1,5 +1,6 @@
 11/14/25:
 
+- Add functionality and validation to create-medicinal form
 - Update arrow functions missing const declaration
 - Create create-medicinal form for adding new medicinal uses to database
 - Remove unused populatedb.js file
