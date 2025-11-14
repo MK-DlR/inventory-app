@@ -77,6 +77,7 @@ const validatePlant = [
     .withMessage(
       "Order status must be 'needs_ordering', 'on_order', or 'null'"
     ),
+  body("medicinal_uses").optional().isArray(),
 ];
 
 // show create plant form with medicinal uses
@@ -98,18 +99,27 @@ createPlant = async (req, res) => {
   // check for validation errors
   const errors = validationResult(req);
 
+  // if errors, re-render form with error messages
   if (!errors.isEmpty()) {
-    // if errors, re-render form with error messages
-    return res.status(400).render("create-plant", {
-      title: "Add Plant",
-      errors: errors.array(),
-      formData: req.body, // send back form entry so its not lost
-    });
+    try {
+      const medicinalUses = await db.getAllMedicinalUses();
+      return res.status(400).render("create-plant", {
+        title: "Add Plant",
+        medicinalUses,
+        errors: errors.array(),
+        formData: req.body, // send back form entry so its not lost
+      });
+    } catch (err) {
+      console.error("Error fetching medicinal uses:", err);
+      return res.status(500).send("Error loading form");
+    }
   }
 
   try {
     // use matchedData to get only validated/sanitized data
     const plantData = matchedData(req);
+    // add checkbox IDs manually if any were selected
+    plantData.medicinal_uses = req.body.medicinal_uses || [];
     const newPlant = await db.insertPlant(plantData);
 
     // redirect to the new plant's detail page

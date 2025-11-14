@@ -63,29 +63,23 @@
             <br>
             
             <label for="medicinal_uses"><strong>Medicinal Use(s):</strong> </label><br>
-            <!-- allow user to select from checkboxes of existing medicinal uses in table -->
-            <input type="checkbox" id="med_use1" name="med_use1" value="med_use1">
-            <label for="med_use1"> Medicinal Use 1</label>
-            <input type="checkbox" id="med_use2" name="med_use2" value="med_use2">
-            <label for="med_use2"> Medicinal Use 2</label>
-            <input type="checkbox" id="med_use3" name="med_use3" value="med_use3">
-            <label for="med_use3"> Medicinal Use 3</label><br>
-            <input type="checkbox" id="med_use4" name="med_use4" value="med_use4">
-            <label for="med_use4"> Medicinal Use 4</label>
-            <input type="checkbox" id="med_use5" name="med_use5" value="med_use5">
-            <label for="med_use5"> Medicinal Use 5</label>
-            <input type="checkbox" id="med_use6" name="med_use6" value="med_use6">
-            <label for="med_use6"> Medicinal Use 6</label>
+            <!-- loop through existing medicinalUses -->
+            <% if (medicinalUses.length === 0) { %>
+                <p>No medicinal uses found.</p>
+                <% } else { %>
+                    <% medicinalUses.forEach(medicinalUse => { %>
+                        <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>" <%= (locals.formData?.medicinal_uses && locals.formData.medicinal_uses.includes(String(medicinalUse.id))) ? 'checked' : '' %>>
+                        <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label>
+                    <% }) %>
+                <% } %>
             <br>
 
-            <label for="medicinal_uses"><strong>Add New Medicinal Use(s):</strong> </label>
-            <!-- add text inputs below the checkboxes for "New Medicinal Use Name" -->
-            <!-- will ALSO have a separate "New Medicinal Use" form for adding them separately from plants -->
+            <label for="medicinal_uses" title="Please separate different medicinal uses with commas"><strong>Add New Medicinal Use(s):</strong> </label>
             <input 
                 type="text" 
-                name="medicinal_uses" 
+                name="new_medicinal_uses" 
                 id="medicinal_uses" 
-                value="<%= locals.formData?.medicinal_uses || '' %>"
+                value="<%= locals.formData?.new_medicinal_uses || '' %>"
                 title="Please separate different medicinal uses with commas">
                 <!-- should value validation be in plantController with the rest of the form/validation, or medicinalUseController? -->
             <br>

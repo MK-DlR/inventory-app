@@ -130,6 +130,7 @@ async function insertPlant(plantData) {
     stock_status,
     quantity_level,
     order_status,
+    medicinal_uses,
   } = plantData;
 
   const query = `
@@ -146,7 +147,24 @@ async function insertPlant(plantData) {
     order_status || null, // handle empty strings as NULL
   ]);
 
-  return rows[0]; // returns newly created plant with its ID
+  const newPlant = rows[0];
+  const plantId = newPlant.id;
+
+  // if no medicinal uses
+  if (!medicinal_uses || medicinal_uses.length === 0) {
+    return newPlant;
+  }
+
+  // insert each medicinial use relation
+  for (const useId of medicinal_uses) {
+    await pool.query(
+      `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
+      VALUES ($1, $2)`,
+      [plantId, useId]
+    );
+  }
+
+  return newPlant;
 }
 
 module.exports = {
