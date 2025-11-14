@@ -6,6 +6,16 @@ const { body, validationResult, matchedData } = require("express-validator");
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
 
+// trim new medicinal use input and split on commas
+function parseNewUses(newUse) {
+  return String(newUse || "")
+    .split(",") // split on commas
+    .map((s) => s.trim()) // trim leading/trailing whitespace
+    .map((s) => s.replace(/\s+/g, " ")) // normalize internal spaces
+    .filter((s) => s.length > 0) // remove empty strings
+    .filter((v, i, arr) => arr.indexOf(v) === i); // dedupe (preserve case)
+}
+
 // get all plants, allow for search functionality
 getAllPlants = async (req, res) => {
   const plants = await db.getPlants(
@@ -77,7 +87,7 @@ const validatePlant = [
     .withMessage(
       "Order status must be 'needs_ordering', 'on_order', or 'null'"
     ),
-  body("medicinal_uses").optional().isArray(),
+  body("medicinal_uses").optional(),
 ];
 
 // show create plant form with medicinal uses
@@ -120,6 +130,20 @@ createPlant = async (req, res) => {
     const plantData = matchedData(req);
     // add checkbox IDs manually if any were selected
     plantData.medicinal_uses = req.body.medicinal_uses || [];
+
+    // normalize checkbox ids -> array of numbers (handle single selection string)
+    if (typeof plantData.medicinal_uses === "string") {
+      plantData.medicinal_uses = [plantData.medicinal_uses];
+    }
+    plantData.medicinal_uses = plantData.medicinal_uses
+      .map((id) => Number(id))
+      .filter(Boolean);
+
+    // parsed typed names
+    plantData.new_medicinal_uses = parseNewUses(
+      req.body.new_medicinal_uses || ""
+    );
+
     const newPlant = await db.insertPlant(plantData);
 
     // redirect to the new plant's detail page

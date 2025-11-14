@@ -130,41 +130,105 @@ async function insertPlant(plantData) {
     stock_status,
     quantity_level,
     order_status,
-    medicinal_uses,
+    medicinal_uses = [], // array of numeric IDs from checkboxes
+    new_medicinal_uses = [], // array of new names (strings)
   } = plantData;
 
-  const query = `
-    INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status)
-    VALUES ($1, $2, $3, $4, $5)
-    RETURNING *
-  `;
+  // use client so we can BEGIN/COMMIT/ROLLBACK
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
 
-  const { rows } = await pool.query(query, [
-    scientific_name,
-    common_name,
-    stock_status,
-    quantity_level || null, // handle empty strings as NULL
-    order_status || null, // handle empty strings as NULL
-  ]);
+    // insert plant
+    const plantInsert = `
+      INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `;
+    const plantRes = await client.query(plantInsert, [
+      scientific_name,
+      common_name,
+      stock_status,
+      quantity_level || null,
+      order_status || null,
+    ]);
+    const newPlant = plantRes.rows[0];
+    const plantId = newPlant.id;
 
-  const newPlant = rows[0];
-  const plantId = newPlant.id;
+    // build final list of medicinal_use ids
+    // start with checkbox IDs (already numbers)
+    const finalUseIds = Array.isArray(medicinal_uses)
+      ? [...medicinal_uses]
+      : [];
 
-  // if no medicinal uses
-  if (!medicinal_uses || medicinal_uses.length === 0) {
+    // for each new name, either select existing id (case-insensitive) or insert and get id
+    for (const rawName of new_medicinal_uses) {
+      const name = String(rawName).trim();
+      if (!name) continue;
+
+      // try to find existing (case-insensitive)
+      const sel = await client.query(
+        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
+        [name]
+      );
+
+      let useId;
+      if (sel.rows.length > 0) {
+        useId = sel.rows[0].id;
+      } else {
+        // insert (no RETURNING id guaranteed in race-free path)
+        try {
+          const ins = await client.query(
+            `INSERT INTO medicinal_uses (use_name, description)
+            VALUES ($1, $2)
+            RETURNING id`,
+            [name, null]
+          );
+          useId = ins.rows[0].id;
+        } catch (err) {
+          // handle rare race where another process inserted same lowercased name
+          // postgreSQL duplicate key error code is '23505'
+          if (err && err.code === "23505") {
+            const sel2 = await client.query(
+              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
+              [name]
+            );
+            if (sel2.rows.length > 0) {
+              useId = sel2.rows[0].id;
+            } else {
+              throw err; // rethrow if we can't resolve
+            }
+          } else {
+            throw err;
+          }
+        }
+      }
+
+      if (useId && !finalUseIds.includes(useId)) {
+        finalUseIds.push(useId);
+      }
+    }
+
+    // insert into junction table (avoid duplicates with ON CONFLICT DO NOTHING if constraint exists)
+    for (const useId of finalUseIds) {
+      if (!useId) continue;
+      await client.query(
+        `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
+        VALUES ($1, $2)
+        ON CONFLICT DO NOTHING`, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
+        [plantId, useId]
+      );
+    }
+
+    // commit
+    await client.query("COMMIT");
     return newPlant;
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
   }
-
-  // insert each medicinial use relation
-  for (const useId of medicinal_uses) {
-    await pool.query(
-      `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
-      VALUES ($1, $2)`,
-      [plantId, useId]
-    );
-  }
-
-  return newPlant;
 }
 
 module.exports = {

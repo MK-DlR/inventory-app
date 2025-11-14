@@ -1,7 +1,8 @@
 11/14/25:
 
+- Add functionality for create-plant new medicinal use textbox
 - Add changelog to gitigore
-- Uppdate create-plant form validation
+- Update create-plant form validation
 - Update create-plant form to populate medicinal uses checkboxes
 
 11/13/25:
