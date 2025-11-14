@@ -1,5 +1,6 @@
 11/14/25:
 
+- Update footer links
 - Add functionality for create-plant new medicinal use textbox
 - Add changelog to gitigore
 - Update create-plant form validation
