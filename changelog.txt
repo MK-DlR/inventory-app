@@ -1,5 +1,8 @@
 11/14/25:
 
+- Update arrow functions missing const declaration
+- Create create-medicinal form for adding new medicinal uses to database
+- Remove unused populatedb.js file
 - Update footer links
 - Add functionality for create-plant new medicinal use textbox
 - Add changelog to gitigore

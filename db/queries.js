@@ -231,12 +231,16 @@ async function insertPlant(plantData) {
   }
 }
 
+// add new medicinal use to database
+async function insertMedicinalUse(medicinalName, medicinalDesc) {
+  // code
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
   getAllMedicinalUses,
   getSpecificUse,
   insertPlant,
+  insertMedicinalUse,
 };
-
-// https://www.theodinproject.com/lessons/nodejs-using-postgresql#querying-with-pg

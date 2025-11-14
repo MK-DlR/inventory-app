@@ -1,8 +1,9 @@
 // controllers/medicinalUseController.js
+
 const db = require("../db/queries");
 
 // get all medicinal uses
-getAllMedicinalUses = async (req, res) => {
+const getAllMedicinalUses = async (req, res) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
     res.render("medicinal", {
@@ -16,7 +17,7 @@ getAllMedicinalUses = async (req, res) => {
 };
 
 // get a specific medicinal use by ID with associated plants
-getMedicinalUseById = async (req, res) => {
+const getMedicinalUseById = async (req, res) => {
   try {
     const useID = parseInt(req.params.id);
     const medicinalUse = await db.getSpecificUse(useID);
@@ -36,28 +37,37 @@ getMedicinalUseById = async (req, res) => {
   }
 };
 
+// validate information from create medicinal use form
+
 // show create medicinal use form
-createMedicinalUseForm = (req, res) => {
-  res.send("Show create medicinal use form");
+const createMedicinalUseForm = async (req, res) => {
+  try {
+    res.render("create-medicinal", {
+      title: "Add New Medicinal Use",
+    });
+  } catch (err) {
+    console.error("Error fetching create medicinal use form:", err);
+    res.status(500).send("Error fetching create medicinal use form");
+  }
 };
 
 // create medicinal use
-createMedicinalUse = (req, res) => {
+const createMedicinalUse = (req, res) => {
   res.send("Create medicinal use");
 };
 
 // show edit medicinal use form
-editMedicinalUseForm = (req, res) => {
+const editMedicinalUseForm = (req, res) => {
   res.send("Show edit medicinal use form");
 };
 
 // update medicinal use
-updateMedicinalUse = (req, res) => {
+const updateMedicinalUse = (req, res) => {
   res.send("Update medicinal use");
 };
 
 // delete medicinal use
-deleteMedicinalUse = (req, res) => {
+const deleteMedicinalUse = (req, res) => {
   res.send("Delete medicinal use");
 };
 

@@ -7,7 +7,7 @@
     <div class="create-plant content">
         <h1><%= title %></h1>
 
-        <!-- Display validation errors -->
+        <!-- display validation errors -->
         <% if (locals.errors && errors.length > 0) { %>
             <div class="error-messages" style="color: red; background: #ffe6e6; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
                 <strong>Please fix the following errors:</strong>
@@ -19,73 +19,74 @@
             </div>
         <% } %>
 
-        <form action="/plants/new" method="POST">
-            <label for="scientific_name"><strong>Scientific Name:</strong> </label>
-            <input 
-                type="text" 
-                name="scientific_name" 
-                id="scientific_name" 
-                value="<%= locals.formData?.scientific_name || '' %>"
-                required>
-            <br>
-            
-            <label for="common_name"><strong>Common Name:</strong> </label>
-            <input 
-                type="text" 
-                name="common_name" 
-                id="common_name" 
-                value="<%= locals.formData?.common_name || '' %>"
-                required>
-            <br>
-            
-            <label for="stock_status"><strong>Stock Status:</strong> </label>
-            <select name="stock_status" id="stock_status" required>
-                <option value="in_stock" <%= locals.formData?.stock_status === 'in_stock' ? 'selected' : '' %>>In Stock</option>
-                <option value="out_of_stock" <%= locals.formData?.stock_status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
-            </select>
-            <br>
-            
-            <label for="quantity_level"><strong>Quantity Level:</strong> </label>
-            <select name="quantity_level" id="quantity_level">
-                <option value="">-- Out of Stock --</option>
-                <option value="high" <%= locals.formData?.quantity_level === 'high' ? 'selected' : '' %>>High</option>
-                <option value="medium" <%= locals.formData?.quantity_level === 'medium' ? 'selected' : '' %>>Medium</option>
-                <option value="low" <%= locals.formData?.quantity_level === 'low' ? 'selected' : '' %>>Low</option>
-            </select>
-            <br>
-            
-            <label for="order_status"><strong>Order Status:</strong> </label>
-            <select name="order_status" id="order_status">
-                <option value="">-- No Order Status --</option>
-                <option value="needs_ordering" <%= locals.formData?.order_status === 'needs_ordering' ? 'selected' : '' %>>Needs Ordering</option>
-                <option value="on_order" <%= locals.formData?.order_status === 'on_order' ? 'selected' : '' %>>On Order</option>            
-            </select>
-            <br>
-            
-            <label for="medicinal_uses"><strong>Medicinal Use(s):</strong> </label><br>
-            <!-- loop through existing medicinalUses -->
-            <% if (medicinalUses.length === 0) { %>
-                <p>No medicinal uses found.</p>
-                <% } else { %>
-                    <% medicinalUses.forEach(medicinalUse => { %>
-                        <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>" <%= (locals.formData?.medicinal_uses && locals.formData.medicinal_uses.includes(String(medicinalUse.id))) ? 'checked' : '' %>>
-                        <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label>
-                    <% }) %>
-                <% } %>
-            <br>
+        <ul>
+            <form action="/plants/new" method="POST">
+                <label for="scientific_name"><strong>Scientific Name:</strong> </label>
+                <input 
+                    type="text" 
+                    name="scientific_name" 
+                    id="scientific_name" 
+                    value="<%= locals.formData?.scientific_name || '' %>"
+                    required>
+                <br>
+                
+                <label for="common_name"><strong>Common Name:</strong> </label>
+                <input 
+                    type="text" 
+                    name="common_name" 
+                    id="common_name" 
+                    value="<%= locals.formData?.common_name || '' %>"
+                    required>
+                <br>
+                
+                <label for="stock_status"><strong>Stock Status:</strong> </label>
+                <select name="stock_status" id="stock_status" required>
+                    <option value="in_stock" <%= locals.formData?.stock_status === 'in_stock' ? 'selected' : '' %>>In Stock</option>
+                    <option value="out_of_stock" <%= locals.formData?.stock_status === 'out_of_stock' ? 'selected' : '' %>>Out of Stock</option>
+                </select>
+                <br>
+                
+                <label for="quantity_level"><strong>Quantity Level:</strong> </label>
+                <select name="quantity_level" id="quantity_level">
+                    <option value="">-- Out of Stock --</option>
+                    <option value="high" <%= locals.formData?.quantity_level === 'high' ? 'selected' : '' %>>High</option>
+                    <option value="medium" <%= locals.formData?.quantity_level === 'medium' ? 'selected' : '' %>>Medium</option>
+                    <option value="low" <%= locals.formData?.quantity_level === 'low' ? 'selected' : '' %>>Low</option>
+                </select>
+                <br>
+                
+                <label for="order_status"><strong>Order Status:</strong> </label>
+                <select name="order_status" id="order_status">
+                    <option value="">-- No Order Status --</option>
+                    <option value="needs_ordering" <%= locals.formData?.order_status === 'needs_ordering' ? 'selected' : '' %>>Needs Ordering</option>
+                    <option value="on_order" <%= locals.formData?.order_status === 'on_order' ? 'selected' : '' %>>On Order</option>            
+                </select>
+                <br>
+                
+                <label for="medicinal_uses"><strong>Medicinal Use(s):</strong> </label><br>
+                <!-- loop through existing medicinalUses -->
+                <% if (medicinalUses.length === 0) { %>
+                    <p>No medicinal uses found.</p>
+                    <% } else { %>
+                        <% medicinalUses.forEach(medicinalUse => { %>
+                            <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>" <%= (locals.formData?.medicinal_uses && locals.formData.medicinal_uses.includes(String(medicinalUse.id))) ? 'checked' : '' %>>
+                            <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label>
+                        <% }) %>
+                    <% } %>
+                <br>
 
-            <label for="medicinal_uses" title="Please separate different medicinal uses with commas"><strong>Add New Medicinal Use(s):</strong> </label>
-            <input 
-                type="text" 
-                name="new_medicinal_uses" 
-                id="medicinal_uses" 
-                value="<%= locals.formData?.new_medicinal_uses || '' %>"
-                title="Please separate different medicinal uses with commas">
-                <!-- should value validation be in plantController with the rest of the form/validation, or medicinalUseController? -->
-            <br>
-            
-            <button type="submit">Submit</button>
-        </form>
+                <label for="medicinal_uses" title="Please separate different medicinal uses with commas"><strong>Add New Medicinal Use(s):</strong> </label>
+                <input 
+                    type="text" 
+                    name="new_medicinal_uses" 
+                    id="medicinal_uses" 
+                    value="<%= locals.formData?.new_medicinal_uses || '' %>"
+                    title="Please separate different medicinal uses with commas">
+                <br>
+                
+                <button type="submit">Submit</button>
+            </form>
+        </ul>
         <br>
         
     </div>

@@ -7,17 +7,16 @@ const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
 
 // trim new medicinal use input and split on commas
-function parseNewUses(newUse) {
-  return String(newUse || "")
+const parseNewUses = (newUse) =>
+  String(newUse || "")
     .split(",") // split on commas
     .map((s) => s.trim()) // trim leading/trailing whitespace
     .map((s) => s.replace(/\s+/g, " ")) // normalize internal spaces
     .filter((s) => s.length > 0) // remove empty strings
     .filter((v, i, arr) => arr.indexOf(v) === i); // dedupe (preserve case)
-}
 
 // get all plants, allow for search functionality
-getAllPlants = async (req, res) => {
+const getAllPlants = async (req, res) => {
   const plants = await db.getPlants(
     req.query.search,
     req.query.stock_status,
@@ -41,7 +40,7 @@ getAllPlants = async (req, res) => {
 };
 
 // get plant by id
-getPlantById = async (req, res) => {
+const getPlantById = async (req, res) => {
   try {
     const plantID = parseInt(req.params.id);
     const plant = await db.getSpecificPlant(plantID);
@@ -61,6 +60,7 @@ getPlantById = async (req, res) => {
   }
 };
 
+// validate information from create plant form
 const validatePlant = [
   body("scientific_name")
     .trim()
@@ -91,7 +91,7 @@ const validatePlant = [
 ];
 
 // show create plant form with medicinal uses
-createPlantForm = async (req, res) => {
+const createPlantForm = async (req, res) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
     res.render("create-plant", {
@@ -99,13 +99,13 @@ createPlantForm = async (req, res) => {
       medicinalUses,
     });
   } catch (err) {
-    console.error("Error fetching medicinal uses:", err);
-    res.status(500).send("Error fetching medicinal uses");
+    console.error("Error fetching create plant form:", err);
+    res.status(500).send("Error fetching create plant form");
   }
 };
 
 // create plant
-createPlant = async (req, res) => {
+const createPlant = async (req, res) => {
   // check for validation errors
   const errors = validationResult(req);
 
@@ -155,18 +155,18 @@ createPlant = async (req, res) => {
 };
 
 // show edit plant form
-editPlantForm = (req, res) => {
+const editPlantForm = (req, res) => {
   res.send("Show edit plant form");
 };
 
 // update plant
-updatePlant = (req, res) => {
+const updatePlant = (req, res) => {
   // handles junction table for medicinal uses
   res.send("Update plant");
 };
 
 // delete plant
-deletePlant = (req, res) => {
+const deletePlant = (req, res) => {
   res.send("Delete plant");
 };
 
