@@ -76,11 +76,10 @@ const validatePlant = [
     .withMessage(`Common name ${alphaErr}`)
     .isLength({ min: 1, max: 200 })
     .withMessage(`Common name ${lengthErr}`),
-  // custom validator that checks both fields for duplicates
-  body("common_name").custom(async (value, { req }) => {
+  // custom validator that checks for duplicate scientific name
+  body("scientific_name").custom(async (value) => {
     const duplicate = await db.checkDuplicate({
-      scientific_name: req.body.scientific_name,
-      common_name: value,
+      scientific_name: value,
     });
     if (duplicate) {
       throw new Error(
@@ -173,15 +172,80 @@ const createPlant = async (req, res) => {
   }
 };
 
-// show edit plant form
-const updatePlantForm = (req, res) => {
-  res.send("Show edit plant form");
+// show update plant form with medicinal uses
+const updatePlantForm = async (req, res) => {
+  try {
+    const plantId = parseInt(req.params.id);
+    const plantInfo = await db.getSpecificPlant(plantId);
+
+    if (!plantInfo) {
+      return res.redirect("/404");
+    }
+
+    const medicinalUses = await db.getAllMedicinalUses();
+    res.render("update-plant", {
+      title: `Update ${plantInfo.common_name}`,
+      medicinalUses,
+      plant: plantInfo,
+    });
+  } catch (err) {
+    console.error("Error fetching update plant form:", err);
+    res.status(500).send("Error fetching update plant form");
+  }
 };
 
 // update plant
-const updatePlant = (req, res) => {
-  // handles junction table for medicinal uses
-  res.send("Update plant");
+const updatePlant = async (req, res) => {
+  // check for validation errors
+  const errors = validationResult(req);
+
+  // if errors, re-render form with error messages
+  if (!errors.isEmpty()) {
+    try {
+      const medicinalUses = await db.getAllMedicinalUses();
+      return res.status(400).render("update-plant", {
+        title: "Update Plant",
+        medicinalUses,
+        errors: errors.array(),
+        formData: req.body, // send back form entry so its not lost
+      });
+    } catch (err) {
+      console.error("Error fetching medicinal uses:", err);
+      return res.status(500).send("Error loading form");
+    }
+  }
+
+  try {
+    // use matchedData to get only validated/sanitized data
+    const plantData = matchedData(req);
+
+    // capitalize common name
+    plantData.common_name = capitalizeTitle(plantData.common_name);
+
+    // add checkbox IDs manually if any were selected
+    plantData.medicinal_uses = req.body.medicinal_uses || [];
+
+    // normalize checkbox ids -> array of numbers (handle single selection string)
+    if (typeof plantData.medicinal_uses === "string") {
+      plantData.medicinal_uses = [plantData.medicinal_uses];
+    }
+    plantData.medicinal_uses = plantData.medicinal_uses
+      .map((id) => Number(id))
+      .filter(Boolean);
+
+    // parsed typed names
+    plantData.new_medicinal_uses = parseNewUses(
+      req.body.new_medicinal_uses || ""
+    );
+
+    const newPlant = await db.updatePlant(plantData);
+
+    // redirect to the new plant's detail page
+    res.redirect(`/plants/${newPlant.id}`);
+  } catch (err) {
+    console.error("Error creating plant:", err);
+    res.status(500).send("Error creating plant");
+  }
 };
 
 // delete plant
