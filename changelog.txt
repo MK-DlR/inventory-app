@@ -1,3 +1,11 @@
+11/15/25:
+
+- Update plantController to capitalize new plant common name
+- Update plantController and medicinalUseController to capitalize new medicinal uses
+- Create helpers.js to hold capitalization function
+- Rename editMedicinalUseForm to updateMedicinalUseForm
+- Rename editPlantForm to updatePlantForm
+
 11/14/25:
 
 - Add functionality and validation to create-medicinal form

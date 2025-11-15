@@ -2,6 +2,7 @@
 
 const db = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
+const { capitalizeTitle } = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
@@ -93,7 +94,7 @@ const createMedicinalUse = async (req, res) => {
     const medicinalData = matchedData(req);
 
     const newMedicinal = await db.insertMedicinalUse(
-      medicinalData.use_name,
+      capitalizeTitle(medicinalData.use_name),
       medicinalData.description
     );
 
@@ -106,7 +107,7 @@ const createMedicinalUse = async (req, res) => {
 };
 
 // show edit medicinal use form
-const editMedicinalUseForm = (req, res) => {
+const updateMedicinalUseForm = (req, res) => {
   res.send("Show edit medicinal use form");
 };
 
@@ -126,7 +127,7 @@ module.exports = {
   validateMedicinal,
   createMedicinalUseForm,
   createMedicinalUse,
-  editMedicinalUseForm,
+  updateMedicinalUseForm,
   updateMedicinalUse,
   deleteMedicinalUse,
 };

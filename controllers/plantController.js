@@ -2,6 +2,7 @@
 
 const db = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
+const { capitalizeTitle } = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
@@ -12,8 +13,9 @@ const parseNewUses = (newUse) =>
     .split(",") // split on commas
     .map((s) => s.trim()) // trim leading/trailing whitespace
     .map((s) => s.replace(/\s+/g, " ")) // normalize internal spaces
+    .map((s) => capitalizeTitle(s)) // capitalize
     .filter((s) => s.length > 0) // remove empty strings
-    .filter((v, i, arr) => arr.indexOf(v) === i); // dedupe (preserve case)
+    .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
 
 // get all plants, allow for search functionality
 const getAllPlants = async (req, res) => {
@@ -128,6 +130,10 @@ const createPlant = async (req, res) => {
   try {
     // use matchedData to get only validated/sanitized data
     const plantData = matchedData(req);
+
+    // capitalize common name
+    plantData.common_name = capitalizeTitle(plantData.common_name);
+
     // add checkbox IDs manually if any were selected
     plantData.medicinal_uses = req.body.medicinal_uses || [];
 
@@ -155,7 +161,7 @@ const createPlant = async (req, res) => {
 };
 
 // show edit plant form
-const editPlantForm = (req, res) => {
+const updatePlantForm = (req, res) => {
   res.send("Show edit plant form");
 };
 
@@ -176,7 +182,7 @@ module.exports = {
   validatePlant,
   createPlantForm,
   createPlant,
-  editPlantForm,
+  updatePlantForm,
   updatePlant,
   deletePlant,
 };

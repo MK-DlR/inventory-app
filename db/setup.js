@@ -52,7 +52,7 @@ async function main() {
     // seed medicinal uses
     await pool.query(`
       INSERT INTO medicinal_uses (use_name, description) VALUES 
-        ('Anti-inflammatory', 'Reduces inflammation and swelling in the body'),
+        ('Anti-Inflammatory', 'Reduces inflammation and swelling in the body'),
         ('Digestive Aid', 'Supports healthy digestion and relieves gastrointestinal discomfort'),
         ('Immune Support', 'Strengthens the immune system and helps fight infections'),
         ('Pain Relief', 'Alleviates various types of pain'),

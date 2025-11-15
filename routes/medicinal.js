@@ -16,7 +16,7 @@ router.post(
 
 // :id needs to go after new
 router.get("/:id", medicinalUseController.getMedicinalUseById);
-router.get("/:id/edit", medicinalUseController.editMedicinalUseForm);
+router.get("/:id/edit", medicinalUseController.updateMedicinalUseForm);
 router.post("/:id/update", medicinalUseController.updateMedicinalUse);
 router.post("/:id/delete", medicinalUseController.deleteMedicinalUse);
 
