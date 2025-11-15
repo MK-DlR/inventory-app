@@ -1,5 +1,7 @@
 11/15/25:
 
+- Create updatePlant query
+- Create update-plant and update-medicinal files
 - Update plantController and create-plant to ensure duplicate plants can't be added
 - Update plantController to capitalize new plant common name
 - Update plantController and medicinalUseController to capitalize new medicinal uses

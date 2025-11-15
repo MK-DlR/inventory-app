@@ -58,10 +58,10 @@ async function getPlants(search, stock_status, quantity_level, medicinal_use) {
 }
 
 // get specific plant by id with medicinal uses
-async function getSpecificPlant(plantID) {
+async function getSpecificPlant(plantId) {
   // get plant data
   const plantQuery = await pool.query("SELECT * FROM plants WHERE id = $1", [
-    plantID,
+    plantId,
   ]);
 
   if (plantQuery.rows.length === 0) {
@@ -76,7 +76,7 @@ async function getSpecificPlant(plantID) {
     FROM medicinal_uses mu
     INNER JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
     WHERE pmu.plant_id = $1`,
-    [plantID]
+    [plantId]
   );
 
   // add medicinal uses to plant object
@@ -289,6 +289,124 @@ async function insertMedicinalUse(medicinalName, medicinalDesc) {
   }
 }
 
+async function updatePlant(plantId, plantData) {
+  const {
+    scientific_name,
+    common_name,
+    stock_status,
+    quantity_level,
+    order_status,
+    medicinal_uses = [], // array of numeric IDs from checkboxes
+    new_medicinal_uses = [], // array of new names (strings)
+  } = plantData;
+
+  // use client so we can BEGIN/COMMIT/ROLLBACK
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    // update plant
+    const plantUpdate = `
+      UPDATE plants 
+      SET scientific_name = $1, 
+          common_name = $2, 
+          stock_status = $3, 
+          quantity_level = $4, 
+          order_status = $5
+      WHERE id = $6
+      RETURNING *
+    `;
+    const plantRes = await client.query(plantUpdate, [
+      scientific_name,
+      common_name,
+      stock_status,
+      quantity_level || null,
+      order_status || null,
+      plantId,
+    ]);
+    const updatedPlant = plantRes.rows[0];
+
+    // delete existing medicinal use associations for this plant
+    await client.query(`DELETE FROM plant_medicinal_uses WHERE plant_id = $1`, [
+      plantId,
+    ]);
+
+    // build final list of medicinal_use ids
+    // start with checkbox IDs (already numbers)
+    const finalUseIds = Array.isArray(medicinal_uses)
+      ? [...medicinal_uses]
+      : [];
+
+    // for each new name, either select existing id (case-insensitive) or insert and get id
+    for (const rawName of new_medicinal_uses) {
+      const name = String(rawName).trim();
+      if (!name) continue;
+
+      // try to find existing (case-insensitive)
+      const sel = await client.query(
+        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
+        [name]
+      );
+
+      let useId;
+      if (sel.rows.length > 0) {
+        useId = sel.rows[0].id;
+      } else {
+        // insert (no RETURNING id guaranteed in race-free path)
+        try {
+          const ins = await client.query(
+            `INSERT INTO medicinal_uses (use_name, description)
+            VALUES ($1, $2)
+            RETURNING id`,
+            [name, null]
+          );
+          useId = ins.rows[0].id;
+        } catch (err) {
+          // handle rare race where another process inserted same lowercased name
+          // postgreSQL duplicate key error code is '23505'
+          if (err && err.code === "23505") {
+            const sel2 = await client.query(
+              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
+              [name]
+            );
+            if (sel2.rows.length > 0) {
+              useId = sel2.rows[0].id;
+            } else {
+              throw err; // rethrow if we can't resolve
+            }
+          } else {
+            throw err;
+          }
+        }
+      }
+
+      if (useId && !finalUseIds.includes(useId)) {
+        finalUseIds.push(useId);
+      }
+    }
+
+    // insert into junction table (avoid duplicates with ON CONFLICT DO NOTHING if constraint exists)
+    for (const useId of finalUseIds) {
+      if (!useId) continue;
+      await client.query(
+        `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
+        VALUES ($1, $2)
+        ON CONFLICT DO NOTHING`, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
+        [plantId, useId]
+      );
+    }
+
+    // commit
+    await client.query("COMMIT");
+    return updatedPlant;
+  } catch (err) {
+    await client.query("ROLLBACK");
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
@@ -297,4 +415,5 @@ module.exports = {
   checkDuplicate,
   insertPlant,
   insertMedicinalUse,
+  updatePlant,
 };
