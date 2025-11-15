@@ -122,6 +122,24 @@ async function getSpecificUse(useID) {
   return medicinalUse;
 }
 
+// check if plant already exists
+async function checkDuplicate(plantData) {
+  const { common_name, scientific_name } = plantData;
+
+  // search for plants with specified name/s
+  const plantsQuery = await pool.query(
+    `SELECT id, common_name, scientific_name
+    FROM plants
+    WHERE LOWER(common_name) = LOWER($1)
+      OR LOWER(scientific_name) = LOWER($2)
+    LIMIT 1`,
+    [common_name, scientific_name]
+  );
+
+  // return plant if found, otherwise null
+  return plantsQuery.rows.length > 0 ? plantsQuery.rows[0] : null;
+}
+
 // add new plant to database
 async function insertPlant(plantData) {
   const {
@@ -276,6 +294,7 @@ module.exports = {
   getSpecificPlant,
   getAllMedicinalUses,
   getSpecificUse,
+  checkDuplicate,
   insertPlant,
   insertMedicinalUse,
 };

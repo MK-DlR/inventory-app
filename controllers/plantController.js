@@ -76,6 +76,19 @@ const validatePlant = [
     .withMessage(`Common name ${alphaErr}`)
     .isLength({ min: 1, max: 200 })
     .withMessage(`Common name ${lengthErr}`),
+  // custom validator that checks both fields for duplicates
+  body("common_name").custom(async (value, { req }) => {
+    const duplicate = await db.checkDuplicate({
+      scientific_name: req.body.scientific_name,
+      common_name: value,
+    });
+    if (duplicate) {
+      throw new Error(
+        `This plant already exists as "${duplicate.common_name}" (${duplicate.scientific_name}).||${duplicate.id}`
+      );
+    }
+    return true;
+  }),
   body("stock_status")
     .isIn(["in_stock", "out_of_stock"])
     .withMessage("Stock status must be 'in_stock' or 'out_of_stock'"),

@@ -13,7 +13,16 @@
                 <strong>Please fix the following errors:</strong>
                 <ul>
                     <% errors.forEach(error => { %>
-                        <li><%= error.msg %></li>
+                        <% 
+                            // Check if error message contains plant ID separator
+                            const [message, plantId] = error.msg.split('||'); 
+                        %>
+                        <li>
+                            <%= message %>
+                            <% if (plantId) { %>
+                                <a href="/plants/<%= plantId %>" style="color: #0066cc; text-decoration: underline;">View existing plant</a>
+                            <% } %>
+                        </li>
                     <% }) %>
                 </ul>
             </div>
