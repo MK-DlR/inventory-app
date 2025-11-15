@@ -104,6 +104,50 @@ const validatePlant = [
   body("medicinal_uses").optional(),
 ];
 
+// validate information from update plant form
+const validatePlantUpdate = [
+  body("scientific_name")
+    .trim()
+    .matches(/^[a-zA-Z\s]+$/) // allow letters and spaces
+    .withMessage(`Scientific name ${alphaErr}`)
+    .isLength({ min: 1, max: 200 })
+    .withMessage(`Scientific name ${lengthErr}`),
+  body("common_name")
+    .trim()
+    .matches(/^[a-zA-Z\s]+$/) // allow letters and spaces
+    .withMessage(`Common name ${alphaErr}`)
+    .isLength({ min: 1, max: 200 })
+    .withMessage(`Common name ${lengthErr}`),
+  // special validator
+  body("common_name").custom(async (value, { req }) => {
+    const duplicate = await db.checkDuplicate({
+      scientific_name: req.body.scientific_name,
+      common_name: value,
+    });
+    // only throw error if duplicate exists AND it's not the current plant
+    if (duplicate && duplicate.id !== parseInt(req.params.id)) {
+      throw new Error(
+        `This plant already exists as "${duplicate.common_name}" (${duplicate.scientific_name}).||${duplicate.id}`
+      );
+    }
+    return true;
+  }),
+  body("stock_status")
+    .isIn(["in_stock", "out_of_stock"])
+    .withMessage("Stock status must be 'in_stock' or 'out_of_stock'"),
+  body("quantity_level")
+    .optional({ checkFalsy: true })
+    .isIn(["high", "medium", "low"])
+    .withMessage("Quantity level must be 'high', 'medium', 'low', or 'null'"),
+  body("order_status")
+    .optional({ checkFalsy: true })
+    .isIn(["needs_ordering", "on_order"])
+    .withMessage(
+      "Order status must be 'needs_ordering', 'on_order', or 'null'"
+    ),
+  body("medicinal_uses").optional(),
+];
+
 // show create plant form with medicinal uses
 const createPlantForm = async (req, res) => {
   try {
@@ -127,6 +171,7 @@ const createPlant = async (req, res) => {
   if (!errors.isEmpty()) {
     try {
       const medicinalUses = await db.getAllMedicinalUses();
+
       return res.status(400).render("create-plant", {
         title: "Add New Plant",
         medicinalUses,
@@ -196,6 +241,8 @@ const updatePlantForm = async (req, res) => {
 
 // update plant
 const updatePlant = async (req, res) => {
+  const plantId = parseInt(req.params.id);
+
   // check for validation errors
   const errors = validationResult(req);
 
@@ -203,9 +250,12 @@ const updatePlant = async (req, res) => {
   if (!errors.isEmpty()) {
     try {
       const medicinalUses = await db.getAllMedicinalUses();
+      const plant = await db.getSpecificPlant(plantId);
+
       return res.status(400).render("update-plant", {
         title: "Update Plant",
         medicinalUses,
+        plant,
         errors: errors.array(),
         formData: req.body, // send back form entry so its not lost
       });
@@ -238,13 +288,13 @@ const updatePlant = async (req, res) => {
       req.body.new_medicinal_uses || ""
     );
 
-    const newPlant = await db.updatePlant(plantData);
+    const updatedPlant = await db.updatePlant(plantId, plantData);
 
     // redirect to the new plant's detail page
-    res.redirect(`/plants/${newPlant.id}`);
+    res.redirect(`/plants/${updatedPlant.id}`);
   } catch (err) {
-    console.error("Error creating plant:", err);
-    res.status(500).send("Error creating plant");
+    console.error("Error updating plant:", err);
+    res.status(500).send("Error updating plant");
   }
 };
 
@@ -257,6 +307,7 @@ module.exports = {
   getAllPlants,
   getPlantById,
   validatePlant,
+  validatePlantUpdate,
   createPlantForm,
   createPlant,
   updatePlantForm,

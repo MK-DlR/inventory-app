@@ -1,5 +1,7 @@
 11/15/25:
 
+- Create additional validatePlantUpdate for update form
+- Update update-plant form with correct values
 - Update updatePlantForm
 - Change plant validation check to allow duplicate common names
 - Create updatePlant query
