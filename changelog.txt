@@ -1,5 +1,9 @@
 11/17/25:
 
+- Create updateMedicinalUse in medicinal-controller and queries
+- Create validateMedicinalUpdate for validating form update data
+- Create update medicinal use form
+- Create checkDuplicateMedicinalUse query
 - Fix medicinal uses not displaying alphabetically on plant detail page
 - Add (nonfunctional) delete buttons on plant and use detail pages
 - Remove edit button from all plants and uses pages

@@ -6,6 +6,28 @@
 <body>
   <div class="medicinal-details content">
     <h1><%= medicinalUse.use_name %></h1>
+
+    <!-- display validation errors -->
+      <% if (locals.errors && errors.length > 0) { %>
+        <div class="error-messages" style="color: red; background: #ffe6e6; padding: 1rem; margin-bottom: 1rem; border-radius: 4px;">
+          <strong>Please fix the following errors:</strong>
+          <ul>
+            <% errors.forEach(error => { %>
+              <% 
+                // Check if error message contains medicinal ID separator
+                const [message, medicinalId] = error.msg.split('||'); 
+              %>
+              <li>
+                <%= message %>
+                  <% if (medicinalId) { %>
+                    <a href="/medicinal/<%= medicinalUse.id %>" style="color: #0066cc; text-decoration: underline;">View existing medicinal use</a>
+                  <% } %>
+              </li>
+            <% }) %>
+          </ul>
+          </div>
+        <% } %>
+
     
     <ul>
       <strong>Description</strong>

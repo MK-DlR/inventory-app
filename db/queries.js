@@ -141,6 +141,20 @@ async function checkDuplicate(plantData) {
   return plantsQuery.rows.length > 0 ? plantsQuery.rows[0] : null;
 }
 
+// check if medicinal use already exists
+async function checkDuplicateMedicinalUse(useName) {
+  const result = await pool.query(
+    `SELECT id, use_name
+    FROM medicinal_uses
+    WHERE LOWER(use_name) = LOWER($1)
+    LIMIT 1`,
+    [useName]
+  );
+
+  // return medicinal use if found, otherwise null
+  return result.rows.length > 0 ? result.rows[0] : null;
+}
+
 // add new plant to database
 async function insertPlant(plantData) {
   const {
@@ -290,6 +304,7 @@ async function insertMedicinalUse(medicinalName, medicinalDesc) {
   }
 }
 
+// update plant
 async function updatePlant(plantId, plantData) {
   const {
     scientific_name,
@@ -408,13 +423,45 @@ async function updatePlant(plantId, plantData) {
   }
 }
 
+// update medicinal use
+async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const updateQuery = `
+      UPDATE medicinal_uses 
+      SET use_name = $1, 
+          description = $2
+      WHERE id = $3
+      RETURNING *
+    `;
+    const result = await client.query(updateQuery, [
+      medicinalName,
+      medicinalDesc,
+      medicinalId,
+    ]);
+
+    await client.query("COMMIT");
+    return result.rows[0];
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("Database error in updateMedicinalUse:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
   getAllMedicinalUses,
   getSpecificUse,
   checkDuplicate,
+  checkDuplicateMedicinalUse,
   insertPlant,
   insertMedicinalUse,
   updatePlant,
+  updateMedicinalUse,
 };

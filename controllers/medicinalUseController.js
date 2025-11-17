@@ -59,6 +59,32 @@ const validateMedicinal = [
     .withMessage(`Description ${lengthErr2}`),
 ];
 
+// WIP validate information from update medicinal use form
+const validateMedicinalUpdate = [
+  body("use_name")
+    .trim()
+    .notEmpty()
+    .withMessage(`Medicinal use name is required`)
+    .isLength({ min: 1, max: 200 })
+    .withMessage(`Medicinal use name ${lengthErr}`),
+  body("description")
+    .trim()
+    .notEmpty()
+    .withMessage(`Description is required`)
+    .isLength({ min: 1, max: 500 })
+    .withMessage(`Description ${lengthErr2}`),
+  // special validator
+  body("use_name").custom(async (value, { req }) => {
+    const duplicate = await db.checkDuplicateMedicinalUse(value);
+    if (duplicate && duplicate.id !== parseInt(req.params.id)) {
+      throw new Error(
+        `This medicinal use already exists as "${duplicate.use_name}"`
+      );
+    }
+    return true;
+  }),
+];
+
 // show create medicinal use form
 const createMedicinalUseForm = async (req, res) => {
   try {
@@ -107,13 +133,65 @@ const createMedicinalUse = async (req, res) => {
 };
 
 // show edit medicinal use form
-const updateMedicinalUseForm = (req, res) => {
-  res.send("Show edit medicinal use form");
+const updateMedicinalUseForm = async (req, res) => {
+  try {
+    const medicinalId = parseInt(req.params.id);
+    const medicinalInfo = await db.getSpecificUse(medicinalId);
+
+    if (!medicinalInfo) {
+      return res.redirect("/404");
+    }
+
+    res.render("update-medicinal", {
+      title: `Update ${medicinalInfo.use_name}`,
+      medicinalUse: medicinalInfo,
+    });
+  } catch (err) {
+    console.error("Error fetching update medicinal use form:", err);
+    res.status(500).send("Error fetching update medicinal use form");
+  }
 };
 
 // update medicinal use
-const updateMedicinalUse = (req, res) => {
-  res.send("Update medicinal use");
+const updateMedicinalUse = async (req, res) => {
+  const medicinalId = parseInt(req.params.id);
+
+  // check for validation errors
+  const errors = validationResult(req);
+
+  // if errors, re-render form with error messages
+  if (!errors.isEmpty()) {
+    try {
+      const medicinalUse = await db.getSpecificUse(medicinalId);
+
+      return res.status(400).render("update-medicinal", {
+        title: `Update ${medicinalUse.use_name}`,
+        medicinalUse,
+        errors: errors.array(),
+        formData: req.body, // send back form entry so its not lost
+      });
+    } catch (err) {
+      console.error("Error fetching medicinal use:", err);
+      return res.status(500).send("Error loading form");
+    }
+  }
+
+  try {
+    // use matchedData to get only validated/sanitized data
+    const medicinalData = matchedData(req);
+
+    const updatedMedicinal = await db.updateMedicinalUse(
+      medicinalId,
+      capitalizeTitle(medicinalData.use_name),
+      medicinalData.description
+    );
+
+    // redirect to the medicinal use's detail page
+    res.redirect(`/medicinal/${updatedMedicinal.id}`);
+  } catch (err) {
+    console.error("Error updating medicinal use:", err);
+    res.status(500).send("Error updating medicinal use");
+  }
 };
 
 // delete medicinal use
@@ -125,6 +203,7 @@ module.exports = {
   getAllMedicinalUses,
   getMedicinalUseById,
   validateMedicinal,
+  validateMedicinalUpdate,
   createMedicinalUseForm,
   createMedicinalUse,
   updateMedicinalUseForm,
