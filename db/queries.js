@@ -75,7 +75,8 @@ async function getSpecificPlant(plantId) {
     `SELECT mu.id, mu.use_name, mu.description 
     FROM medicinal_uses mu
     INNER JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
-    WHERE pmu.plant_id = $1`,
+    WHERE pmu.plant_id = $1
+    ORDER BY mu.use_name ASC`,
     [plantId]
   );
 
