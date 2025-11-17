@@ -1,3 +1,9 @@
+11/17/25:
+
+- Add edit button to individual medicinal uses on all uses and use details pages
+- Add edit button to individual plants on all plants and plant details pages
+- Repopulate database using setup.js
+
 11/15/25:
 
 - Create additional validatePlantUpdate for update form
