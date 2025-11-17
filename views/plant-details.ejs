@@ -11,7 +11,10 @@
             <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
             <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
             <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
-            <p><button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button></p>
+            <div class="control-buttons">
+                <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
+                <button onclick="alert('Im the delete button wip')">Delete</button>
+            </div>
         </ul>
     </div>
 

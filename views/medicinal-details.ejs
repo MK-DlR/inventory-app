@@ -14,7 +14,10 @@
       <% } else { %>
       <p>No description available.</p>
       <% } %>
-      <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';">Edit</button>
+      <div class="control-buttons">
+        <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';">Edit</button>
+        <button onclick="alert('Im the delete button wip')">Delete</button>
+      </div>
     </ul>
     
     <h2>Plants:</h2>

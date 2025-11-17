@@ -1,5 +1,6 @@
 11/17/25:
 
+- Add (nonfunctional) delete buttons on plant and use detail pages
 - Remove edit button from all plants and uses pages
 - Add edit button to individual medicinal uses on all uses and use details pages
 - Add edit button to individual plants on all plants and plant details pages
