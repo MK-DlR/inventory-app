@@ -11,7 +11,7 @@
       <% } else { %>
         <ul>
           <% medicinal_uses.forEach(use => { %>
-            <li><a href="/medicinal/<%= use.id %>"><%= use.use_name %></a> <button onclick="window.location.href='/medicinal/<%= use.id %>/edit';">Edit</button></li>
+            <li><a href="/medicinal/<%= use.id %>"><%= use.use_name %></a></li>
           <% }) %>
         </ul>
       <% } %>
