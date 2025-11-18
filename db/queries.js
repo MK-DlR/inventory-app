@@ -325,10 +325,10 @@ async function updatePlant(plantId, plantData) {
     const plantUpdate = `
       UPDATE plants 
       SET scientific_name = $1, 
-          common_name = $2, 
-          stock_status = $3, 
-          quantity_level = $4, 
-          order_status = $5
+        common_name = $2, 
+        stock_status = $3, 
+        quantity_level = $4, 
+        order_status = $5
       WHERE id = $6
       RETURNING *
     `;
@@ -453,6 +453,54 @@ async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
   }
 }
 
+// delete plant
+async function removePlant(plantId) {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const deleteQuery = `
+      DELETE FROM plants
+      WHERE id = $1
+      RETURNING *
+    `;
+    const result = await client.query(deleteQuery, [plantId]);
+
+    await client.query("COMMIT");
+    return result.rows[0];
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("Database error in removePlant:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+// delete medicinal use
+async function removeMedicinalUse(medicinalId) {
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+
+    const deleteQuery = `
+      DELETE FROM medicinal_uses
+      WHERE id = $1
+      RETURNING *
+    `;
+    const result = await client.query(deleteQuery, [medicinalId]);
+
+    await client.query("COMMIT");
+    return result.rows[0];
+  } catch (err) {
+    await client.query("ROLLBACK");
+    console.error("Database error in removeMedicinalUse:", err);
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
@@ -464,4 +512,6 @@ module.exports = {
   insertMedicinalUse,
   updatePlant,
   updateMedicinalUse,
+  removePlant,
+  removeMedicinalUse,
 };

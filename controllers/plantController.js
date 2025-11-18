@@ -299,10 +299,16 @@ const updatePlant = async (req, res) => {
 };
 
 // delete plant
-const deletePlant = (req, res) => {
-  res.send("Delete plant");
-  // add database deletion logic
-  // redirect back to /plants
+const deletePlant = async (req, res) => {
+  const plantId = req.params.id;
+  try {
+    await db.removePlant(plantId);
+    // redirect back to all plants page
+    res.redirect(`/plants`);
+  } catch (err) {
+    console.error("Error deleting plant:", err);
+    res.status(500).send("Error deleting plant");
+  }
 };
 
 module.exports = {

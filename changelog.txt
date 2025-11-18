@@ -1,5 +1,6 @@
 11/18/25:
 
+- All deletion functionality for plants and medicinal uses
 - Add page redirect to delete functions
 - Add confirmation to delete plant and delete medicinal buttons
 

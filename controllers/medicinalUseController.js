@@ -196,13 +196,14 @@ const updateMedicinalUse = async (req, res) => {
 
 // delete medicinal use
 const deleteMedicinalUse = async (req, res) => {
-  // add database deletion logic
+  const medicinalId = req.params.id;
   try {
+    await db.removeMedicinalUse(medicinalId);
     // redirect back to all medicinal uses page
     res.redirect(`/medicinal`);
   } catch (err) {
-    console.error("Error updating medicinal use:", err);
-    res.status(500).send("Error updating medicinal use");
+    console.error("Error deleting medicinal use:", err);
+    res.status(500).send("Error deleting medicinal use");
   }
 };
 
