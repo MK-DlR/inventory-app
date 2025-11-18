@@ -38,7 +38,9 @@
       <% } %>
       <div class="control-buttons">
         <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';">Edit</button>
-        <button onclick="alert('Im the delete button wip')">Delete</button>
+        <form action="/medicinal/<%- medicinalUse.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this medicinal use?');">
+          <button type="submit">Delete</button>
+        </form>
       </div>
     </ul>
     
@@ -50,7 +52,7 @@
         <% }) %>
       </ul>
     <% } else { %>
-      <p>No plants associated with this use.</p>
+      <ul>No plants associated with this use.</ul>
     <% } %>
   </div>
 

@@ -13,7 +13,9 @@
             <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
             <div class="control-buttons">
                 <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
-                <button onclick="alert('Im the delete button wip')">Delete</button>
+                <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
+                    <button type="submit">Delete</button>
+                </form>
             </div>
         </ul>
     </div>

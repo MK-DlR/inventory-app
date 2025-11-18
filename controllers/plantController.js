@@ -301,6 +301,8 @@ const updatePlant = async (req, res) => {
 // delete plant
 const deletePlant = (req, res) => {
   res.send("Delete plant");
+  // add database deletion logic
+  // redirect back to /plants
 };
 
 module.exports = {

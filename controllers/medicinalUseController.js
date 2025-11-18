@@ -197,6 +197,8 @@ const updateMedicinalUse = async (req, res) => {
 // delete medicinal use
 const deleteMedicinalUse = (req, res) => {
   res.send("Delete medicinal use");
+  // add database deletion logic
+  // redirect back to /medicinal
 };
 
 module.exports = {
