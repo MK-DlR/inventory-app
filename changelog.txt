@@ -1,5 +1,7 @@
 11/18/25:
 
+- Create search.js, searchController.js, and search-results.ejs to set up global search capabilities
+- Create search.ejs to add search bar 
 - All deletion functionality for plants and medicinal uses
 - Add page redirect to delete functions
 - Add confirmation to delete plant and delete medicinal buttons
