@@ -1,5 +1,6 @@
 11/18/25:
 
+- Add page redirect to delete functions
 - Add confirmation to delete plant and delete medicinal buttons
 
 11/17/25:

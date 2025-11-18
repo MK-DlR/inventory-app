@@ -195,10 +195,15 @@ const updateMedicinalUse = async (req, res) => {
 };
 
 // delete medicinal use
-const deleteMedicinalUse = (req, res) => {
-  res.send("Delete medicinal use");
+const deleteMedicinalUse = async (req, res) => {
   // add database deletion logic
-  // redirect back to /medicinal
+  try {
+    // redirect back to all medicinal uses page
+    res.redirect(`/medicinal`);
+  } catch (err) {
+    console.error("Error updating medicinal use:", err);
+    res.status(500).send("Error updating medicinal use");
+  }
 };
 
 module.exports = {

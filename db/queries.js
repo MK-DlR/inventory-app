@@ -432,7 +432,7 @@ async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
     const updateQuery = `
       UPDATE medicinal_uses 
       SET use_name = $1, 
-          description = $2
+        description = $2
       WHERE id = $3
       RETURNING *
     `;
