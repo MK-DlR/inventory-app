@@ -5,11 +5,13 @@ require("dotenv").config(); // MUST BE FIRST!
 const express = require("express");
 const app = express();
 const path = require("node:path");
+const db = require("./db/queries");
 
 // require routers
 const plantsRouter = require("./routes/plants");
 const medicinalRouter = require("./routes/medicinal");
 const searchRouter = require("./routes/search");
+const filterRouter = require("./routes/filter");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -22,10 +24,20 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/plants", plantsRouter);
 app.use("/medicinal", medicinalRouter);
 app.use("/search", searchRouter);
+app.use("/filter", filterRouter);
 
 // home route
-app.get("/", (req, res) => {
-  res.render("index", { title: "Medicinal Herbs Inventory" });
+app.get("/", async (req, res) => {
+  try {
+    const medicinalUses = await db.getAllMedicinalUses();
+    res.render("index", {
+      title: "Medicinal Herbs Inventory",
+      medicinalUses: medicinalUses,
+    });
+  } catch (error) {
+    console.error("Error loading home page:", error);
+    res.status(500).send("Error loading page");
+  }
 });
 
 // 404 page

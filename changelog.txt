@@ -1,5 +1,6 @@
 11/20/25:
 
+- Populate medicinal use select dropdown filter with medicinal uses
 - Create search.css
 - Create filter-sort.css to allow dropdown styling functionality
 - Create placeholder dropdown selection for filter-sort
