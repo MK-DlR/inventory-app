@@ -1,5 +1,11 @@
 11/20/25:
 
+- Create search.css
+- Create filter-sort.css to allow dropdown styling functionality
+- Create placeholder dropdown selection for filter-sort
+- Add classes to buttons
+- Create filter-sort.ejs partial
+- Add class names to footer, head, and search
 - Create formatStockStatus and formatQuantityLevel helpers to format data display
 - Create capitalizeScientific to capitalize only the first letter of the first word of the scientific name
 - Add functionality to global search 
