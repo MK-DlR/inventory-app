@@ -5,9 +5,40 @@
     <%- include("./partials/head.ejs") %>
 <body>
     <div class="search-results content">
-        <p>Search results page</p>
+        <h1><%= title %></h1>
+
+        <!-- check if BOTH arrays are empty -->
+        <% if (searchResults.plants.length === 0 && searchResults.medicinal_uses.length === 0) { %>
+            <p>No results found for "<%= searchTerm %>".</p>
+        <% } else { %>
+            <!-- plants section -->
+            <% if (searchResults.plants.length > 0) { %>
+                <h2>Plants (<%= searchResults.plants.length%>)</h2>
+                <ul>
+                    <% searchResults.plants.forEach(plant => { %>
+                        <li>
+                            <a href="/plants/<%= plant.id %>">
+                                <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %> 
+            <!-- medicinal uses section -->
+            <% if (searchResults.medicinal_uses.length > 0) { %>
+                <h2>Medicinal Uses (<%= searchResults.medicinal_uses.length %>)</h2>
+                <ul>
+                    <% searchResults.medicinal_uses.forEach(use => { %>
+                        <li>
+                            <a href="/medicinal/<%= use.id %>">
+                                <%= use.use_name %>
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        <% } %>
     </div>
-    
     <%- include("./partials/footer.ejs") %>
 
 </body>

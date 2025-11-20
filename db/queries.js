@@ -1,8 +1,8 @@
 // db/queries.js
 const pool = require("./pool");
 
-// get all plants, allow for search functionality
-async function getPlants(search, stock_status, quantity_level, medicinal_use) {
+// get all plants
+async function getPlants(stock_status, quantity_level, medicinal_use) {
   let query = "SELECT DISTINCT plants.* FROM plants"; // base query
   let conditions = []; // hold SQL conditions
   let params = []; // hold parameter values
@@ -12,15 +12,6 @@ async function getPlants(search, stock_status, quantity_level, medicinal_use) {
   if (medicinal_use) {
     query += " INNER JOIN plant_medicinal_uses pmu ON plants.id = pmu.plant_id";
     query += " INNER JOIN medicinal_uses mu ON mu.id = pmu.medicinal_use_id";
-  }
-
-  // add search condition
-  if (search) {
-    conditions.push(
-      `(LOWER(common_name) LIKE LOWER($${paramCount}) OR LOWER(scientific_name) LIKE LOWER($${paramCount}))`
-    );
-    params.push(`%${search}%`);
-    paramCount++;
   }
 
   // add stock_status condition
@@ -501,6 +492,38 @@ async function removeMedicinalUse(medicinalId) {
   }
 }
 
+// global search for scientific name, common name, medicinal use
+async function globalSearch(searchTerm) {
+  // query 1: search plants table
+  const plantQuery = `
+    SELECT id, common_name, scientific_name, stock_status, quantity_level
+    FROM plants
+    WHERE LOWER(common_name) LIKE LOWER($1)
+      OR LOWER(scientific_name) LIKE LOWER($1)
+    ORDER BY common_name ASC
+    `;
+
+  // query 2: search medicinal_uses table
+  const medicinalQuery = `
+  SELECT id, use_name, description
+  FROM medicinal_uses
+  WHERE LOWER(use_name) LIKE LOWER($1)
+  ORDER BY use_name ASC
+  `;
+
+  // execute both queries with the search term
+  const plantResults = await pool.query(plantQuery, [`%${searchTerm}%`]);
+  const medicinalResults = await pool.query(medicinalQuery, [
+    `%${searchTerm}%`,
+  ]);
+
+  // return object with both arrays
+  return {
+    plants: plantResults.rows,
+    medicinal_uses: medicinalResults.rows,
+  };
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
@@ -514,4 +537,5 @@ module.exports = {
   updateMedicinalUse,
   removePlant,
   removeMedicinalUse,
+  globalSearch,
 };

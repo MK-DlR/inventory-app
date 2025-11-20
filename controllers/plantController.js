@@ -10,7 +10,6 @@ const lengthErr = "must be between 1 and 200 characters.";
 // get all plants, allow for search functionality
 const getAllPlants = async (req, res) => {
   const plants = await db.getPlants(
-    req.query.search,
     req.query.stock_status,
     req.query.quantity_level,
     req.query.medicinal_use
@@ -18,9 +17,7 @@ const getAllPlants = async (req, res) => {
 
   // determine title based on filters
   let title = "All Plants";
-  if (req.query.search) {
-    title = `Search Results for "${req.query.search}"`;
-  } else if (
+  if (
     req.query.stock_status ||
     req.query.quantity_level ||
     req.query.medicinal_use

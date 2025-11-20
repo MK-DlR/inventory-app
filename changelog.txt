@@ -1,5 +1,8 @@
 11/20/25:
 
+- Add functionality to global search 
+- Create format for search results page
+- Remove search parameter from getPlants
 - Move parseNewUses to helpers.js to clean up plantController.js
 
 11/18/25:
