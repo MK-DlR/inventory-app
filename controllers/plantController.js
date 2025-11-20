@@ -2,20 +2,10 @@
 
 const db = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
-const { capitalizeTitle } = require("../utils/helpers");
+const { capitalizeTitle, parseNewUses } = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
-
-// trim new medicinal use input and split on commas
-const parseNewUses = (newUse) =>
-  String(newUse || "")
-    .split(",") // split on commas
-    .map((s) => s.trim()) // trim leading/trailing whitespace
-    .map((s) => s.replace(/\s+/g, " ")) // normalize internal spaces
-    .map((s) => capitalizeTitle(s)) // capitalize
-    .filter((s) => s.length > 0) // remove empty strings
-    .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
 
 // get all plants, allow for search functionality
 const getAllPlants = async (req, res) => {
