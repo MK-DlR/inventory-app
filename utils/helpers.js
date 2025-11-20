@@ -24,4 +24,26 @@ const parseNewUses = (newUse) =>
     .filter((s) => s.length > 0) // remove empty strings
     .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
 
-module.exports = { capitalizeTitle, capitalizeScientific, parseNewUses };
+// format database values for display
+const formatStockStatus = (status) => {
+  if (!status) return "N/A";
+  // converts "in_stock" to "In Stock", "out_of_stock" to "Out Of Stock"
+  return status
+    .split("_")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+const formatQuantityLevel = (level) => {
+  if (!level) return "N/A";
+  // converts "low", "medium", "high" to "Low", "Medium", "High"
+  return level.charAt(0).toUpperCase() + level.slice(1);
+};
+
+module.exports = {
+  capitalizeTitle,
+  capitalizeScientific,
+  parseNewUses,
+  formatStockStatus,
+  formatQuantityLevel,
+};

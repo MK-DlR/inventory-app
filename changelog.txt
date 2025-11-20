@@ -1,5 +1,6 @@
 11/20/25:
 
+- Create formatStockStatus and formatQuantityLevel helpers to format data display
 - Create capitalizeScientific to capitalize only the first letter of the first word of the scientific name
 - Add functionality to global search 
 - Create format for search results page

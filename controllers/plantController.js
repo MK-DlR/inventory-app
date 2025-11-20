@@ -6,6 +6,8 @@ const {
   capitalizeTitle,
   capitalizeScientific,
   parseNewUses,
+  formatStockStatus,
+  formatQuantityLevel,
 } = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
@@ -46,6 +48,8 @@ const getPlantById = async (req, res) => {
     res.render("plant-details", {
       title: plant.common_name || "Plant Details",
       plant,
+      formatStockStatus,
+      formatQuantityLevel,
     });
   } catch (err) {
     console.error(err);

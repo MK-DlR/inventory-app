@@ -8,9 +8,9 @@
         <h1><%= title %></h1>
         <ul>
             <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
-            <p><strong>Stock Status:</strong> <%= plant.stock_status %></p>
-            <p><strong>Quantity:</strong> <%= plant.quantity_level %></p>
-            <p><strong>Order Status:</strong> <%= plant.order_status || 'N/A' %></p>
+            <p><strong>Stock Status:</strong> <%= formatStockStatus(plant.stock_status) %></p>
+            <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
+            <p><strong>Order Status:</strong> <%= formatStockStatus(plant.order_status) %></p>
             <div class="control-buttons">
                 <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
                 <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
