@@ -7,6 +7,13 @@ const capitalizeTitle = (str) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
     .join(" ");
 
+// capitalize first letter of scientific name
+const capitalizeScientific = (str) =>
+  String(str)
+    .trim()
+    .toLowerCase()
+    .replace(/^\w/, (c) => c.toUpperCase());
+
 // trim new medicinal use input and split on commas
 const parseNewUses = (newUse) =>
   String(newUse || "")
@@ -17,4 +24,4 @@ const parseNewUses = (newUse) =>
     .filter((s) => s.length > 0) // remove empty strings
     .filter((v, i, arr) => arr.indexOf(v) === i); // remove duplicates
 
-module.exports = { capitalizeTitle, parseNewUses };
+module.exports = { capitalizeTitle, capitalizeScientific, parseNewUses };

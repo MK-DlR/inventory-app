@@ -2,7 +2,11 @@
 
 const db = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
-const { capitalizeTitle, parseNewUses } = require("../utils/helpers");
+const {
+  capitalizeTitle,
+  capitalizeScientific,
+  parseNewUses,
+} = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
@@ -177,6 +181,9 @@ const createPlant = async (req, res) => {
 
     // capitalize common name
     plantData.common_name = capitalizeTitle(plantData.common_name);
+
+    // capitalize first letter of scientific name
+    plantData.scientific_name = capitalizeScientific(plantData.scientific_name);
 
     // add checkbox IDs manually if any were selected
     plantData.medicinal_uses = req.body.medicinal_uses || [];
