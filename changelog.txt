@@ -1,3 +1,10 @@
+11/21/25:
+
+- Remove medicinalUses from home route
+- Add middleware to handle making medicinalUses available
+- Wrap filter dropdown in form with action
+- Update filter-sort css names to filter
+
 11/20/25:
 
 - Populate medicinal use select dropdown filter with medicinal uses

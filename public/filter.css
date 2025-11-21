@@ -1,18 +1,18 @@
-/* public/filter-sort.css */
+/* public/filter.css */
 
-.filter-sort {
+.filter {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px; /* spacing between dropdown and button */
 }
 
-.filter-sort .dropdown {
+.filter .dropdown {
     position: relative;
     display: inline-block;
 }
 
-.filter-sort .dropbtn {
+.filter .dropbtn {
     background-color: #f1f1f1;
     color: black;
     padding: 5px 10px;
@@ -21,7 +21,7 @@
     cursor: pointer;
 }
 
-.filter-sort .dropdown-content {
+.filter .dropdown-content {
     display: none;
     position: absolute;
     min-width: 160px;
@@ -31,15 +31,15 @@
     background-color: white; /* solid background */
 }
 
-.filter-sort .dropdown:hover .dropdown-content {
+.filter .dropdown:hover .dropdown-content {
     display: block;
 }
 
-.filter-sort input[type=checkbox] {
+.filter input[type=checkbox] {
     margin-right: 5px;
 }
 
-.filter-sort label {
+.filter label {
     display: inline-block;
     margin-bottom: 5px;
 }

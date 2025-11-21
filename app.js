@@ -19,6 +19,16 @@ app.set("view engine", "ejs");
 // middleware and static files
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(async (req, res, next) => {
+  try {
+    const medicinalUses = await db.getAllMedicinalUses();
+    res.locals.medicinalUses = medicinalUses;
+    next();
+  } catch (error) {
+    console.error("Error loading filter:", error);
+    res.status(500).send("Error loading filter");
+  }
+});
 
 // use routers
 app.use("/plants", plantsRouter);
@@ -27,17 +37,10 @@ app.use("/search", searchRouter);
 app.use("/filter", filterRouter);
 
 // home route
-app.get("/", async (req, res) => {
-  try {
-    const medicinalUses = await db.getAllMedicinalUses();
-    res.render("index", {
-      title: "Medicinal Herbs Inventory",
-      medicinalUses: medicinalUses,
-    });
-  } catch (error) {
-    console.error("Error loading home page:", error);
-    res.status(500).send("Error loading page");
-  }
+app.get("/", (req, res) => {
+  res.render("index", {
+    title: "Medicinal Herbs Inventory",
+  });
 });
 
 // 404 page
