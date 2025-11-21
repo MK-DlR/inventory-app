@@ -5,16 +5,12 @@
     <%- include("./partials/head.ejs") %>
 <body>
     <div class="filter-results content">
-        <h1><%= title %></h1>
-
-        <p>filter results go here</p>
-
+        <h1><%= title %> (<%= filterResults.length%>)</h1>
         <!-- check if BOTH arrays are empty -->
         <% if (filterResults.length === 0) { %>
             <p>No results found for "<%= filterResults %>".</p>
         <% } else { %>
             <% if (filterResults.length > 0) { %>
-                <h2>Plants (<%= filterResults.length%>)</h2>
                 <ul>
                     <% filterResults.forEach(plant => { %>
                         <li>

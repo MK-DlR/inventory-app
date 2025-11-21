@@ -25,16 +25,6 @@ async function getPlants(
   const medicinalArray = normalizeToArray(medicinal_uses);
   const orderStatusArray = normalizeToArray(order_statuses);
 
-  // if no filters provided, return empty array
-  if (
-    stockArray.length === 0 &&
-    quantityArray.length === 0 &&
-    medicinalArray.length === 0 &&
-    orderStatusArray.length === 0
-  ) {
-    return []; // return empty results when no filters selected
-  }
-
   // add JOIN if filtering by medicinal_use
   if (medicinalArray.length > 0) {
     query += " INNER JOIN plant_medicinal_uses pmu ON plants.id = pmu.plant_id";
@@ -82,7 +72,7 @@ async function getPlants(
     }
   }
 
-  // combine conditions with AND
+  // combine conditions with AND (only if there are conditions)
   if (conditions.length > 0) {
     query += " WHERE " + conditions.join(" AND ");
   }

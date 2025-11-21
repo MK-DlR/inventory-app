@@ -1,5 +1,6 @@
 11/21/25:
 
+- Fix all plants not showing any plants
 - Add wrappers to filter for better styling control
 - Update filter.css to filter-sort.css to share styling between filter and sort
 - Create sort.ejs
