@@ -1,5 +1,6 @@
 11/21/25:
 
+- Fix using the filter submit button with no filters applied not displaying a working page
 - Fix all plants not showing any plants
 - Add wrappers to filter for better styling control
 - Update filter.css to filter-sort.css to share styling between filter and sort

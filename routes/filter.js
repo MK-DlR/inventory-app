@@ -2,7 +2,6 @@
 
 const express = require("express");
 const router = express.Router();
-const db = require("../db/queries");
 const filterController = require("../controllers/filterController");
 
 console.log("!!! FILTER ROUTES FILE LOADED !!!");
@@ -17,8 +16,6 @@ router.get("/", async (req, res) => {
   console.log("Query keys length:", Object.keys(req.query).length);
 
   try {
-    const medicinalUses = await db.getAllMedicinalUses();
-
     // check if any filters were submitted
     const hasFilters = Object.keys(req.query).length > 0;
 
@@ -29,11 +26,9 @@ router.get("/", async (req, res) => {
       return filterController.globalFilter(req, res);
     }
 
-    console.log(">>> RENDERING FILTER FORM <<<");
-    res.render("filter", {
-      title: "Filter Plants",
-      medicinalUses: medicinalUses,
-    });
+    // if no filters applied, redirect to plants page
+    console.log(">>> NO FILTERS - REDIRECTING TO /plants <<<");
+    res.redirect("/plants");
   } catch (error) {
     console.error("Error loading filter page:", error);
     res.status(500).send("Error loading filter page");
