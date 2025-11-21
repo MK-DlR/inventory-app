@@ -18,7 +18,8 @@ const getAllPlants = async (req, res) => {
   const plants = await db.getPlants(
     req.query.stock_status,
     req.query.quantity_level,
-    req.query.medicinal_use
+    req.query.medicinal_use,
+    req.query.order_status
   );
 
   // determine title based on filters

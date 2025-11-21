@@ -1,11 +1,9 @@
 <!-- views/filter.ejs -->
 
-<!-- https://www.geeksforgeeks.org/html/html-dropdown/ -->
-
 <div class="filter">
-    <div class="medicinal-select dropdown">
-        <form action="/filter" method="GET">
-            <button class="dropbtn">Medicinal Use(s)</button>
+    <form action="/filter" method="GET">
+        <div class="medicinal-select dropdown">
+            <button class="dropbtn" type="button">Medicinal Use(s)</button>
             <div class="dropdown-content">
                 <!-- loop through existing medicinalUses -->
                 <% if (medicinalUses.length === 0) { %>
@@ -20,36 +18,36 @@
         </div>
 
         <div class="stock-status dropdown">
-            <button class="dropbtn">Stock Status</button>
+            <button class="dropbtn" type="button">Stock Status</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="item1"
-                    value="in_stock"><label for="item1">In Stock</label><br>
-                <input type="checkbox" id="item2"
-                    value="out_of_stock"><label for="item2">Out of Stock</label><br>
+                <input type="checkbox" id="in_stock"
+                    value="in_stock" name="stock_status[]"><label for="in_stock">In Stock</label><br>
+                <input type="checkbox" id="out_of_stock"
+                    value="out_of_stock" name="stock_status[]"><label for="out_of_stock">Out of Stock</label><br>
             </div>
         </div>
 
         <div class="quantity-status dropdown">
-            <button class="dropbtn">Quantity</button>
+            <button class="dropbtn" type="button">Quantity</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="item1"
-                    value="high"><label for="item1">High</label><br>
-                <input type="checkbox" id="item2"
-                    value="medium"><label for="item2">Medium</label><br>
-                <input type="checkbox" id="item3"
-                    value="low"><label for="item3">Low</label><br>
+                <input type="checkbox" id="high"
+                    value="high" name="quantity_level[]"><label for="high">High</label><br>
+                <input type="checkbox" id="medium"
+                    value="medium" name="quantity_level[]"><label for="medium">Medium</label><br>
+                <input type="checkbox" id="low"
+                    value="low" name="quantity_level[]"><label for="low">Low</label><br>
             </div>
         </div>
 
         <div class="order-status dropdown">
-            <button class="dropbtn">Order Status</button>
+            <button class="dropbtn" type="button">Order Status</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="item1"
-                    value="needs_ordering"><label for="item1">Needs Ordering</label><br>
-                <input type="checkbox" id="item2"
-                    value="on_order"><label for="item2">On Order</label><br>
-                <input type="checkbox" id="item3"
-                    value="null"><label for="item3">N/A</label><br>
+                <input type="checkbox" id="needs_ordering"
+                    value="needs_ordering" name="order_status[]"><label for="needs_ordering">Needs Ordering</label><br>
+                <input type="checkbox" id="on_order"
+                    value="on_order" name="order_status[]"><label for="on_order">On Order</label><br>
+                <input type="checkbox" id="null"
+                    value="null" name="order_status[]"><label for="null">N/A</label><br>
             </div>
         </div>
 

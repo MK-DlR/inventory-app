@@ -2,37 +2,75 @@
 const pool = require("./pool");
 
 // get all plants
-async function getPlants(stock_status, quantity_level, medicinal_use) {
+async function getPlants(
+  stock_statuses,
+  quantity_levels,
+  medicinal_uses,
+  order_statuses
+) {
   let query = "SELECT DISTINCT plants.* FROM plants"; // base query
   let conditions = []; // hold SQL conditions
   let params = []; // hold parameter values
   let paramCount = 1;
 
+  // normalize inputs to arrays
+  const normalizeToArray = (val) => {
+    if (!val) return [];
+    if (Array.isArray(val)) return val.filter((v) => v); // remove empty strings
+    return [val]; // wrap single value in array
+  };
+
+  const stockArray = normalizeToArray(stock_statuses);
+  const quantityArray = normalizeToArray(quantity_levels);
+  const medicinalArray = normalizeToArray(medicinal_uses);
+  const orderStatusArray = normalizeToArray(order_statuses);
+
   // add JOIN if filtering by medicinal_use
-  if (medicinal_use) {
+  if (medicinalArray.length > 0) {
     query += " INNER JOIN plant_medicinal_uses pmu ON plants.id = pmu.plant_id";
     query += " INNER JOIN medicinal_uses mu ON mu.id = pmu.medicinal_use_id";
   }
 
   // add stock_status condition
-  if (stock_status) {
-    conditions.push(`stock_status = $${paramCount}`);
-    params.push(stock_status);
+  if (stockArray.length > 0) {
+    conditions.push(`stock_status = ANY($${paramCount})`);
+    params.push(stockArray);
     paramCount++;
   }
 
   // add quantity_level condition
-  if (quantity_level) {
-    conditions.push(`quantity_level = $${paramCount}`);
-    params.push(quantity_level);
+  if (quantityArray.length > 0) {
+    conditions.push(`quantity_level = ANY($${paramCount})`);
+    params.push(quantityArray);
     paramCount++;
   }
 
   // add medicinal_use condition
-  if (medicinal_use) {
-    conditions.push(`mu.use_name = $${paramCount}`); // or mu.id if filtering by ID
-    params.push(medicinal_use);
+  if (medicinalArray.length > 0) {
+    conditions.push(`mu.id = ANY($${paramCount})`);
+    params.push(medicinalArray);
     paramCount++;
+  }
+
+  // add order_status condition
+  if (orderStatusArray.length > 0) {
+    // handle NULL values
+    const hasNull = orderStatusArray.includes("null");
+    const nonNullStatuses = orderStatusArray.filter((s) => s !== "null");
+
+    if (hasNull && nonNullStatuses.length > 0) {
+      conditions.push(
+        `(order_status = ANY($${paramCount}) OR order_status IS NULL)`
+      );
+      params.push(nonNullStatuses);
+      paramCount++;
+    } else if (hasNull) {
+      conditions.push(`order_status IS NULL`);
+    } else {
+      conditions.push(`order_status = ANY($${paramCount})`);
+      params.push(orderStatusArray);
+      paramCount++;
+    }
   }
 
   // combine conditions with AND

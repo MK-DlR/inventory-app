@@ -1,5 +1,9 @@
 11/21/25:
 
+- Add order_status to getAllPlants
+- Update getPlants for filtering
+- Add filtering functionality
+- Update ids and labels for filter dropdown selections
 - Remove medicinalUses from home route
 - Add middleware to handle making medicinalUses available
 - Wrap filter dropdown in form with action
