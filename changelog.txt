@@ -1,5 +1,8 @@
 11/21/25:
 
+- Add wrappers to filter for better styling control
+- Update filter.css to filter-sort.css to share styling between filter and sort
+- Create sort.ejs
 - Fix filter displaying all plants instead of results
 - Create filter-results.ejs
 - Add order_status to getAllPlants

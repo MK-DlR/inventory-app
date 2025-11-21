@@ -10,8 +10,10 @@
                     <p>No medicinal uses found.</p>
                     <% } else { %>
                         <% medicinalUses.forEach(medicinalUse => { %>
-                            <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>">
-                            <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label><br>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>">
+                                <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label>
+                            </div>
                         <% }) %>
                     <% } %>
             </div>
@@ -20,34 +22,50 @@
         <div class="stock-status dropdown">
             <button class="dropbtn" type="button">Stock Status</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="in_stock"
-                    value="in_stock" name="stock_status[]"><label for="in_stock">In Stock</label><br>
-                <input type="checkbox" id="out_of_stock"
-                    value="out_of_stock" name="stock_status[]"><label for="out_of_stock">Out of Stock</label><br>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="in_stock" value="in_stock" name="stock_status[]">
+                    <label for="in_stock">In Stock</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="out_of_stock" value="out_of_stock" name="stock_status[]">
+                    <label for="out_of_stock">Out of Stock</label>
+                </div>
             </div>
         </div>
 
         <div class="quantity-status dropdown">
             <button class="dropbtn" type="button">Quantity</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="high"
-                    value="high" name="quantity_level[]"><label for="high">High</label><br>
-                <input type="checkbox" id="medium"
-                    value="medium" name="quantity_level[]"><label for="medium">Medium</label><br>
-                <input type="checkbox" id="low"
-                    value="low" name="quantity_level[]"><label for="low">Low</label><br>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="high" value="high" name="quantity_level[]">
+                    <label for="high">High</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="medium" value="medium" name="quantity_level[]">
+                    <label for="medium">Medium</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="low" value="low" name="quantity_level[]">
+                    <label for="low">Low</label>
+                </div>
             </div>
         </div>
 
         <div class="order-status dropdown">
             <button class="dropbtn" type="button">Order Status</button>
             <div class="dropdown-content">
-                <input type="checkbox" id="needs_ordering"
-                    value="needs_ordering" name="order_status[]"><label for="needs_ordering">Needs Ordering</label><br>
-                <input type="checkbox" id="on_order"
-                    value="on_order" name="order_status[]"><label for="on_order">On Order</label><br>
-                <input type="checkbox" id="null"
-                    value="null" name="order_status[]"><label for="null">N/A</label><br>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="needs_ordering" value="needs_ordering" name="order_status[]">
+                    <label for="needs_ordering">Needs Ordering</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="on_order" value="on_order" name="order_status[]">
+                    <label for="on_order">On Order</label>
+                </div>
+                <div class="checkbox-item">
+                    <input type="checkbox" id="null" value="null" name="order_status[]">
+                    <label for="null">N/A</label>
+                </div>
             </div>
         </div>
 

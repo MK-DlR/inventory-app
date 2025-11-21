@@ -1,0 +1,90 @@
+/* public/filter.css */
+
+.filter, .sort {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* spacing between dropdown and button */
+}
+
+/* Shared dropdown styles */
+.filter .dropdown,
+.sort .dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+/* Shared button styles for dropdowns */
+.filter .dropbtn,
+.sort .dropbtn {
+    background-color: #f1f1f1;
+    color: black;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Optional: Add hover effect to buttons */
+.filter .dropbtn:hover,
+.sort .dropbtn:hover {
+    background-color: #e0e0e0;
+}
+
+/* Dropdown content for filter and sort */
+.filter .dropdown-content,
+.sort .dropdown-content {
+    display: none;
+    position: absolute;
+    min-width: 160px;
+    border: 1px solid #ddd;
+    z-index: 1;
+    overflow-y: auto;
+    background-color: white; /* solid background */
+    padding: 5px;
+}
+
+/* Larger width for sort dropdown */
+.sort .dropdown-content {
+    min-width: 200px;
+    max-height: 300px; /* Add scrolling if needed */
+}
+
+.filter .dropdown:hover .dropdown-content,
+.sort .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Wrapper for each checkbox/label pair with hover */
+.filter .checkbox-item,
+.sort .sort-item {
+    display: block;
+    padding: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.filter .checkbox-item:hover,
+.sort .sort-item:hover {
+    background-color: #e0e0e0;
+}
+
+/* Keep checkbox/radio and label inline */
+.filter input[type=checkbox],
+.sort input[type=radio] {
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+.filter .checkbox-item label,
+.sort .sort-item label {
+    display: inline;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* General label styling */
+.filter label,
+.sort label {
+    font-size: 14px;
+}
