@@ -25,6 +25,16 @@ async function getPlants(
   const medicinalArray = normalizeToArray(medicinal_uses);
   const orderStatusArray = normalizeToArray(order_statuses);
 
+  // if no filters provided, return empty array
+  if (
+    stockArray.length === 0 &&
+    quantityArray.length === 0 &&
+    medicinalArray.length === 0 &&
+    orderStatusArray.length === 0
+  ) {
+    return []; // return empty results when no filters selected
+  }
+
   // add JOIN if filtering by medicinal_use
   if (medicinalArray.length > 0) {
     query += " INNER JOIN plant_medicinal_uses pmu ON plants.id = pmu.plant_id";
@@ -48,13 +58,12 @@ async function getPlants(
   // add medicinal_use condition
   if (medicinalArray.length > 0) {
     conditions.push(`mu.id = ANY($${paramCount})`);
-    params.push(medicinalArray);
+    params.push(medicinalArray.map((id) => parseInt(id, 10)));
     paramCount++;
   }
 
   // add order_status condition
   if (orderStatusArray.length > 0) {
-    // handle NULL values
     const hasNull = orderStatusArray.includes("null");
     const nonNullStatuses = orderStatusArray.filter((s) => s !== "null");
 
@@ -78,10 +87,11 @@ async function getPlants(
     query += " WHERE " + conditions.join(" AND ");
   }
 
-  // sort alphabetically by common_name
   query += " ORDER BY common_name ASC";
 
-  // execute query
+  console.log("Generated SQL:", query);
+  console.log("Parameters:", params);
+
   const { rows } = await pool.query(query, params);
   return rows;
 }

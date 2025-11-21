@@ -1,5 +1,7 @@
 11/21/25:
 
+- Fix filter displaying all plants instead of results
+- Create filter-results.ejs
 - Add order_status to getAllPlants
 - Update getPlants for filtering
 - Add filtering functionality

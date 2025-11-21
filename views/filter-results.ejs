@@ -8,6 +8,25 @@
         <h1><%= title %></h1>
 
         <p>filter results go here</p>
+
+        <!-- check if BOTH arrays are empty -->
+        <% if (filterResults.length === 0) { %>
+            <p>No results found for "<%= filterResults %>".</p>
+        <% } else { %>
+            <% if (filterResults.length > 0) { %>
+                <h2>Plants (<%= filterResults.length%>)</h2>
+                <ul>
+                    <% filterResults.forEach(plant => { %>
+                        <li>
+                            <a href="/plants/<%= plant.id %>">
+                                <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
+                            </a>
+                        </li>
+                    <% }) %>
+                </ul>
+            <% } %> 
+        <% } %>
+
     </div>
     <%- include("./partials/footer.ejs") %>
 
