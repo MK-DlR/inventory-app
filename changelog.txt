@@ -1,5 +1,8 @@
 11/22/25
 
+- Update plantController to fetch images
+- Create updatePlantImage in queries.js
+- Update gitignore with test-trefle.js
 - Create trefleService.js file in utils for api
 - Update plant table to take image_url and trefle_id for api use
 - Add trefle api key to .env

@@ -562,6 +562,18 @@ async function globalSearch(searchTerm) {
   };
 }
 
+// update plant image and trefle_id
+async function updatePlantImage(plantId, imageUrl, trefleId) {
+  const query = `
+    UPDATE plants
+    SET image_url = $1, trefle_id = $2
+    WHERE id = $3
+    RETURNING *
+  `;
+  const result = await pool.query(query, [imageUrl, trefleId, plantId]);
+  return result.rows[0];
+}
+
 module.exports = {
   getPlants,
   getSpecificPlant,
@@ -576,4 +588,5 @@ module.exports = {
   removePlant,
   removeMedicinalUse,
   globalSearch,
+  updatePlantImage,
 };

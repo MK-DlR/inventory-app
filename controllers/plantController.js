@@ -10,6 +10,7 @@ const {
   formatQuantityLevel,
   quantityToSortValue,
 } = require("../utils/helpers");
+const { searchPlant } = require("../utils/trefleService");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
@@ -43,10 +44,38 @@ const getAllPlants = async (req, res) => {
 const getPlantById = async (req, res) => {
   try {
     const plantID = parseInt(req.params.id);
-    const plant = await db.getSpecificPlant(plantID);
+    let plant = await db.getSpecificPlant(plantID);
 
     if (!plant) {
       return res.redirect("/404");
+    }
+
+    // check if plant doesn't have an image yet
+    if (!plant.image_url) {
+      console.log(`No image for ${plant.common_name}, fetching from Trefle...`);
+
+      // search trefle api
+      const results = await searchPlant(
+        plant.scientific_name,
+        plant.common_name
+      );
+
+      // if results, take first one
+      if (results && results.length > 0) {
+        const firstResult = results[0];
+        console.log(`Found image for ${plant.common_name}`);
+
+        // update database with image url and trefle id
+        plant = await db.updatePlantImage(
+          plantID,
+          firstResult.image_url,
+          firstResult.id
+        );
+      } else {
+        console.log(`No image found for ${plant.common_name}`);
+        // store null to avoid searching again on next visit
+        plant = await db.updatePlantImage(plantID, null, null);
+      }
     }
 
     // use the plant's name for the title
