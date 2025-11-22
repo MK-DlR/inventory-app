@@ -1,3 +1,8 @@
+11/22/25
+
+- Add sort setup to app.js
+- Create sortController.js, sort.js, and sort-results.ejs
+
 11/21/25:
 
 - Fix using the filter submit button with no filters applied not displaying a working page

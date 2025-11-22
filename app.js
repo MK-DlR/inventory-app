@@ -12,6 +12,7 @@ const plantsRouter = require("./routes/plants");
 const medicinalRouter = require("./routes/medicinal");
 const searchRouter = require("./routes/search");
 const filterRouter = require("./routes/filter");
+const sortRouter = require("./routes/sort");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -35,6 +36,7 @@ app.use("/plants", plantsRouter);
 app.use("/medicinal", medicinalRouter);
 app.use("/search", searchRouter);
 app.use("/filter", filterRouter);
+app.use("/sort", sortRouter);
 
 // home route
 app.get("/", (req, res) => {
