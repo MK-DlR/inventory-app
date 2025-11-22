@@ -1,53 +1,51 @@
 <!-- views/sort.ejs -->
 
 <div class="sort">
-    <form action="/sort" method="GET">
-        <div class="sort-status dropdown">
-            <button class="dropbtn" type="button">Sort By</button>
-            <div class="dropdown-content">
-                <div class="sort-item">
-                    <input type="radio" id="sci-asc" name="sort" value="sci-asc">
-                    <label for="sci-asc">Scientific Name (Asc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="sci-desc" name="sort" value="sci-desc">
-                    <label for="sci-desc">Scientific Name (Desc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="com-asc" name="sort" value="com-asc">
-                    <label for="com-asc">Common Name (Asc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="com-desc" name="sort" value="com-desc">
-                    <label for="com-desc">Common Name (Desc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="quant-asc" name="sort" value="quant-asc">
-                    <label for="quant-asc">Quantity (Asc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="quant-desc" name="sort" value="quant-desc">
-                    <label for="quant-desc">Quantity (Desc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="added-asc" name="sort" value="added-asc">
-                    <label for="added-asc">Date Added (Asc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="added-desc" name="sort" value="added-desc">
-                    <label for="added-desc">Date Added (Desc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="edited-asc" name="sort" value="edited-asc">
-                    <label for="edited-asc">Last Edited (Asc)</label>
-                </div>
-                <div class="sort-item">
-                    <input type="radio" id="edited-desc" name="sort" value="edited-desc">
-                    <label for="edited-desc">Last Edited (Desc)</label>
-                </div>
+    <div class="sort-status dropdown">
+        <button class="dropbtn" type="button">Sort By</button>
+        <div class="dropdown-content">
+            <div class="sort-item">
+                <input type="radio" id="sci-asc" name="sort" value="sci-asc">
+                <label for="sci-asc">Scientific Name (Asc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="sci-desc" name="sort" value="sci-desc">
+                <label for="sci-desc">Scientific Name (Desc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="com-asc" name="sort" value="com-asc">
+                <label for="com-asc">Common Name (Asc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="com-desc" name="sort" value="com-desc">
+                <label for="com-desc">Common Name (Desc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="quant-asc" name="sort" value="quant-asc">
+                <label for="quant-asc">Quantity (Asc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="quant-desc" name="sort" value="quant-desc">
+                <label for="quant-desc">Quantity (Desc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="added-asc" name="sort" value="added-asc">
+                <label for="added-asc">Date Added (Asc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="added-desc" name="sort" value="added-desc">
+                <label for="added-desc">Date Added (Desc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="edited-asc" name="sort" value="edited-asc">
+                <label for="edited-asc">Last Edited (Asc)</label>
+            </div>
+            <div class="sort-item">
+                <input type="radio" id="edited-desc" name="sort" value="edited-desc">
+                <label for="edited-desc">Last Edited (Desc)</label>
             </div>
         </div>
+    </div>
 
-        <button type="submit" class="submit button">Submit</button>
-    </form>
+    <button type="submit" class="submit button">Submit</button>
 </div>

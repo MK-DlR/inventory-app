@@ -1,5 +1,7 @@
 11/22/25
 
+- Remove unnecessary sortController.js, sort.js, and sort-results.ejs
+- Remove form submission approach from sort.ejs
 - Add sort setup to app.js
 - Create sortController.js, sort.js, and sort-results.ejs
 

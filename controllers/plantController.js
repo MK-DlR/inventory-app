@@ -22,6 +22,9 @@ const getAllPlants = async (req, res) => {
     req.query.order_status
   );
 
+  // debugging
+  console.log("First plant data:", plants[0]);
+
   // determine title based on filters
   let title = "All Plants";
   if (
