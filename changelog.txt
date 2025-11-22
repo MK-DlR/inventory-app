@@ -1,6 +1,7 @@
 11/22/25
 
-- Update plant table to take image_url and trefle_id 
+- Create trefleService.js file in utils for api
+- Update plant table to take image_url and trefle_id for api use
 - Add trefle api key to .env
 - Update search-results.ejs and searchController.js for sort functionality
 - Update filter-results.ejs and filterController.js for sort functionality
