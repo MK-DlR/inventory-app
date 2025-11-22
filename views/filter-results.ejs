@@ -13,10 +13,15 @@
             <p>No results found for "<%= filterResults %>".</p>
         <% } else { %>
             <% if (filterResults.length > 0) { %>
-                <ul>
+                <ul id="plant-list">
                     <% filterResults.forEach(plant => { %>
-                        <li>
-                            <a href="/plants/<%= plant.id %>">
+                        <li
+                            data-common="<%= plant.common_name %>" 
+                            data-scientific="<%= plant.scientific_name %>"
+                            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                            data-created="<%= plant.created_at %>"
+                            data-updated="<%= plant.updated_at %>">
+                                <a href="/plants/<%= plant.id %>">
                                 <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
                             </a>
                         </li>
@@ -27,6 +32,6 @@
 
     </div>
     <%- include("./partials/footer.ejs") %>
-
+    <script src="/sort.js"></script>
 </body>
 </html>

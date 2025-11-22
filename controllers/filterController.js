@@ -1,6 +1,7 @@
 // controllers/filterController.js
 
 const db = require("../db/queries");
+const { quantityToSortValue } = require("../utils/helpers");
 
 const globalFilter = async (req, res) => {
   // debugging
@@ -41,7 +42,11 @@ const globalFilter = async (req, res) => {
       orderStatusArray.filter((o) => o)
     );
 
-    res.render("filter-results", { title: "Filter Results", filterResults });
+    res.render("filter-results", {
+      title: "Filter Results",
+      filterResults,
+      quantityToSortValue,
+    });
   } catch (error) {
     console.error("Error filtering plants:", error);
     res.status(500).send("Error filtering plants");

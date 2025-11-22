@@ -16,12 +16,17 @@
             <!-- plants section -->
             <% if (searchResults.plants.length > 0) { %>
                 <h2>Plants (<%= searchResults.plants.length%>)</h2>
-                <ul>
+                <ul id="plant-list">
                     <% searchResults.plants.forEach(plant => { %>
-                        <li>
-                            <a href="/plants/<%= plant.id %>">
-                                <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
-                            </a>
+                        <li
+                            data-common="<%= plant.common_name %>" 
+                            data-scientific="<%= plant.scientific_name %>"
+                            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                            data-created="<%= plant.created_at %>"
+                            data-updated="<%= plant.updated_at %>">
+                                <a href="/plants/<%= plant.id %>">
+                                    <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
+                                </a>
                         </li>
                     <% }) %>
                 </ul>
@@ -41,7 +46,8 @@
             <% } %>
         <% } %>
     </div>
-    <%- include("./partials/footer.ejs") %>
 
+    <%- include("./partials/footer.ejs") %>
+    <script src="/sort.js"></script>
 </body>
 </html>

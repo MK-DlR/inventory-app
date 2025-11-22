@@ -19,13 +19,15 @@
             data-scientific="<%= plant.scientific_name %>"
             data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
             data-created="<%= plant.created_at %>"
-            data-updated="<%= plant.updated_at %>"><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a></li>
+            data-updated="<%= plant.updated_at %>">
+              <a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a>
+          </li>
         <% }) %>
       </ul>
     <% } %>
   </div>
 
   <%- include("./partials/footer.ejs") %>
-  
+  <script src="/sort.js"></script>
 </body>
 </html>

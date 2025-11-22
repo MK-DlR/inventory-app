@@ -1,5 +1,9 @@
 11/22/25
 
+- Update search-results.ejs and searchController.js for sort functionality
+- Update filter-results.ejs and filterController.js for sort functionality
+- Create sortPlants function
+- Create sort.js in public folder
 - Update sort and filter to only appear on all plants, filter results, and search results pages
 - Update plants.ejs to use data attribute
 - Require quantityToSortValue in plants.ejs
