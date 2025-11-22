@@ -33,7 +33,9 @@ async function main() {
         quantity_level VARCHAR(50) CHECK (quantity_level IN ('high', 'medium', 'low')),
         order_status VARCHAR(50) CHECK (order_status IN ('needs_ordering', 'on_order')),
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        image_url TEXT,
+        trefle_id INT
       )
     `);
     console.log("Created plants table");
