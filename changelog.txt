@@ -1,5 +1,8 @@
 11/22/25
 
+- Update plants.ejs to use data attribute
+- Require quantityToSortValue in plants.ejs
+- Create quantityToSortValue helper function to handle high/medium/low stock values
 - Remove unnecessary sortController.js, sort.js, and sort-results.ejs
 - Remove form submission approach from sort.ejs
 - Add sort setup to app.js

@@ -8,6 +8,7 @@ const {
   parseNewUses,
   formatStockStatus,
   formatQuantityLevel,
+  quantityToSortValue,
 } = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
@@ -35,7 +36,7 @@ const getAllPlants = async (req, res) => {
     title = "Filtered Plants";
   }
 
-  res.render("plants", { title, plants });
+  res.render("plants", { title, plants, quantityToSortValue });
 };
 
 // get plant by id

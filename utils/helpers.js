@@ -40,10 +40,21 @@ const formatQuantityLevel = (level) => {
   return level.charAt(0).toUpperCase() + level.slice(1);
 };
 
+// convert quantity level to sortable number
+const quantityToSortValue = (level) => {
+  const mapping = {
+    high: 3,
+    medium: 2,
+    low: 1,
+  };
+  return mapping[level] || 0; // null/undefined becomes 0
+};
+
 module.exports = {
   capitalizeTitle,
   capitalizeScientific,
   parseNewUses,
   formatStockStatus,
   formatQuantityLevel,
+  quantityToSortValue,
 };
