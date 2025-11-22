@@ -6,6 +6,8 @@
 <body>
   <div class="all-plants content">
     <h1><%= title %></h1>
+      <%- include("./partials/filter.ejs") %>
+      <%- include("./partials/sort.ejs") %>
 
     <% if (plants.length === 0) { %>
       <p>No plants found.</p>

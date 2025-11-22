@@ -1,5 +1,6 @@
 11/22/25
 
+- Update sort and filter to only appear on all plants, filter results, and search results pages
 - Update plants.ejs to use data attribute
 - Require quantityToSortValue in plants.ejs
 - Create quantityToSortValue helper function to handle high/medium/low stock values

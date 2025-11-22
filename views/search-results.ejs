@@ -6,6 +6,8 @@
 <body>
     <div class="search-results content">
         <h1><%= title %></h1>
+        <%- include("./partials/filter.ejs") %>
+        <%- include("./partials/sort.ejs") %>
 
         <!-- check if BOTH arrays are empty -->
         <% if (searchResults.plants.length === 0 && searchResults.medicinal_uses.length === 0) { %>
