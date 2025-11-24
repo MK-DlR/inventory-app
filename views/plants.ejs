@@ -27,7 +27,8 @@
                   (<em><%= plant.scientific_name %></em>)
                 </p>
                 <p class="plant-status">
-                  <%= formatStockStatus(plant.stock_status) %> | <%= formatQuantityLevel(plant.quantity_level) %>
+                  <%= formatStockStatus(plant.stock_status) %><br>
+                  <%= formatQuantityLevel(plant.quantity_level) %>
                   <% if (plant.order_status) { %><br><%= formatStockStatus(plant.order_status) %><% } %>
                 </p>
               </a>
