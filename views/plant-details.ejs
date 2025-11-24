@@ -7,6 +7,7 @@
     <div class="plant-details content">
         <h1><%= title %></h1>
         <ul>
+            <p><img src="<%= plant.image_url %>" class="detail-img"></p>
             <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
             <p><strong>Stock Status:</strong> <%= formatStockStatus(plant.stock_status) %></p>
             <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
