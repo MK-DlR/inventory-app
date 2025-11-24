@@ -1,5 +1,6 @@
 11/24/25:
 
+- Create plants.css file
 - Add plant images to plant detail pages
 
 11/22/25
