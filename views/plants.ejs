@@ -20,12 +20,15 @@
             data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
             data-created="<%= plant.created_at %>"
             data-updated="<%= plant.updated_at %>">
-              <p>
+              <p class="plant-name">
                 <img src="<%= plant.image_url %>" class="card-img"></br><br>
                 <a href="/plants/<%- plant.id %>"><%= plant.common_name %><br>
                 (<em><%= plant.scientific_name %></em>)</a>
               </p>
-              <%= formatStockStatus(plant.stock_status) %> | <%= formatQuantityLevel(plant.quantity_level) %> Quantity
+              <p class="plant-status">
+                <%= formatStockStatus(plant.stock_status) %> | <%= formatQuantityLevel(plant.quantity_level) %>
+                <% if (plant.order_status) { %><br><%= formatStockStatus(plant.order_status) %><% } %>
+              </p>
         </div>
         <% }) %>
       </div>

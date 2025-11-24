@@ -69,7 +69,7 @@ async function main() {
     await pool.query(`
       INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status) VALUES 
         ('Echinacea purpurea', 'Purple Coneflower', 'in_stock', 'high', NULL),
-        ('Matricaria chamomilla', 'German Chamomile', 'in_stock', 'medium', NULL),
+        ('Matricaria chamomilla', 'German Chamomile', 'in_stock', 'medium', 'on_order'),
         ('Zingiber officinale', 'Ginger', 'out_of_stock', 'low', 'needs_ordering')
     `);
     console.log("Seeded plants");
