@@ -4,10 +4,27 @@
     width: 200px;
     height: 300px;
     border: 1px solid black;
+    border-radius: 4px;
     text-align: center;
+    transition-duration: 0.4s;
 }
 
 .card-img {
-    max-width: 150px;
-    max-height: 150px;
+    width: 100px;
+    height: 150px;
+    border-radius: 4px;
+    object-fit: cover; /* crop image to fill space */
+    object-position: center; /* centers crop */
+}
+
+.card-link {
+    display: block; /* makes link fill card */
+    text-decoration: none;
+    color: inherit; /* inherit text color */
+    height: 100%; /* fill card height */
+}
+
+.plant-card:hover {
+    cursor: pointer;
+    background-color: #f0f0f0; 
 }

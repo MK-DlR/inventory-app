@@ -1,5 +1,6 @@
 11/24/25:
 
+- Add link to card divs instead of plant name
 - Add conditional check to ordering status on all plants page
 - Create basic cards for all plants page display
 - Create plants.css file
