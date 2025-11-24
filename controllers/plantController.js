@@ -37,7 +37,13 @@ const getAllPlants = async (req, res) => {
     title = "Filtered Plants";
   }
 
-  res.render("plants", { title, plants, quantityToSortValue });
+  res.render("plants", {
+    title,
+    plants,
+    quantityToSortValue,
+    formatStockStatus,
+    formatQuantityLevel,
+  });
 };
 
 // get plant by id

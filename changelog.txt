@@ -1,5 +1,6 @@
 11/24/25:
 
+- Create basic cards for all plants page display
 - Create plants.css file
 - Add plant images to plant detail pages
 

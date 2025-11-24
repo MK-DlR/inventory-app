@@ -12,18 +12,23 @@
     <% if (plants.length === 0) { %>
       <p>No plants found.</p>
     <% } else { %>
-      <ul id="plant-list">
+      <div id="plant-list" class="plant-list">
         <% plants.forEach(plant => { %>
-          <li 
+          <div class="plant-card"
             data-common="<%= plant.common_name %>" 
             data-scientific="<%= plant.scientific_name %>"
             data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
             data-created="<%= plant.created_at %>"
             data-updated="<%= plant.updated_at %>">
-              <a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a>
-          </li>
+              <p>
+                <img src="<%= plant.image_url %>" class="card-img"></br><br>
+                <a href="/plants/<%- plant.id %>"><%= plant.common_name %><br>
+                (<em><%= plant.scientific_name %></em>)</a>
+              </p>
+              <%= formatStockStatus(plant.stock_status) %> | <%= formatQuantityLevel(plant.quantity_level) %> Quantity
+        </div>
         <% }) %>
-      </ul>
+      </div>
     <% } %>
   </div>
 

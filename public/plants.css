@@ -1,1 +1,13 @@
 /* public/plants.css */
+
+.plant-card {
+    width: 200px;
+    height: 275px;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.card-img {
+    max-width: 150px;
+    max-height: 150px;
+}
