@@ -20,7 +20,7 @@
     background-color: #f1f1f1;
     color: black;
     padding: 5px 10px;
-    font-size: 14px;
+    font-size: 0.9rem;
     border: none;
     cursor: pointer;
 }
@@ -80,11 +80,11 @@
 .sort .sort-item label {
     display: inline;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9rem;
 }
 
 /* general label styling */
 .filter label,
 .sort label {
-    font-size: 14px;
+    font-size: 0.9rem;
 }

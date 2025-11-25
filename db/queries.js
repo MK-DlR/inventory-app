@@ -534,12 +534,18 @@ async function removeMedicinalUse(medicinalId) {
 async function globalSearch(searchTerm) {
   // query 1: search plants table
   const plantQuery = `
-    SELECT id, common_name, scientific_name, stock_status, quantity_level
+    SELECT 
+      id,
+      common_name,
+      scientific_name,
+      stock_status,
+      quantity_level,
+      image_url
     FROM plants
     WHERE LOWER(common_name) LIKE LOWER($1)
       OR LOWER(scientific_name) LIKE LOWER($1)
     ORDER BY common_name ASC
-    `;
+  `;
 
   // query 2: search medicinal_uses table
   const medicinalQuery = `

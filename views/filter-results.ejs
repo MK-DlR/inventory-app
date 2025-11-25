@@ -16,30 +16,42 @@
             <div id="plant-list" class="plant-list">
                 <% filterResults.forEach(plant => { %>
                 <div class="plant-card"
-                    data-common="<%= plant.common_name %>" 
-                    data-scientific="<%= plant.scientific_name %>"
-                    data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
-                    data-created="<%= plant.created_at %>"
-                    data-updated="<%= plant.updated_at %>">
-                    <a href="/plants/<%- plant.id %>" class="card-link">
-                        <p class="plant-name">
-                        <img src="<%= plant.image_url %>" class="card-img"><br><br>
-                        <strong><%= plant.common_name %></strong><br>
-                        (<em><%= plant.scientific_name %></em>)
-                        </p>
-                        <p class="plant-status">
-                        <%= formatStockStatus(plant.stock_status) %><br>
-                        <%= formatQuantityLevel(plant.quantity_level) %>
-                        <% if (plant.order_status) { %><br><%= formatStockStatus(plant.order_status) %><% } %>
-                        </p>
-                    </a>
-                </div>
-                <% }) %>
-            </div>
-        <% } %>
+            data-common="<%= plant.common_name %>" 
+            data-scientific="<%= plant.scientific_name %>"
+            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+            data-created="<%= plant.created_at %>"
+            data-updated="<%= plant.updated_at %>">
+              <a href="/plants/<%- plant.id %>" class="card-link">
+                <img src="<%= plant.image_url %>" class="card-img">
+                <hr>
+                <p class="plant-name">
+                  <strong><%= plant.common_name %></strong><br>
+                  <em><%= plant.scientific_name %></em>
+                </p>
+                <p class="plant-status">
+                  <div class="stock label">
+                    <i class="fa-solid fa-leaf"></i>
+                    <%= formatStockStatus(plant.stock_status) %>
+                  </div>
+                  <% if (plant.quantity_level) { %>
+                    <div class="quantity label">
+                      <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+                    </div>
+                  <% } %>
+                  <% if (plant.order_status) { %>
+                    <div class="order label">
+                      <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
+                    </div>
+                  <% } %>
+                </p>
+              </a>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
 
-    </div>
-    <%- include("./partials/footer.ejs") %>
-    <script src="/sort.js"></script>
+  <%- include("./partials/footer.ejs") %>
+  <script src="/sort.js"></script>
 </body>
 </html>

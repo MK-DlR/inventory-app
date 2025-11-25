@@ -50,8 +50,8 @@ const globalFilter = async (req, res) => {
       title: "Filter Results",
       filterResults,
       quantityToSortValue,
-      formatStockStatus, // ADDED
-      formatQuantityLevel, // ADDED
+      formatStockStatus,
+      formatQuantityLevel,
     });
   } catch (error) {
     console.error("Error filtering plants:", error);

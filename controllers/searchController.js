@@ -1,7 +1,11 @@
 // controllers/searchController.js
 
 const db = require("../db/queries");
-const { quantityToSortValue } = require("../utils/helpers");
+const {
+  formatStockStatus,
+  formatQuantityLevel,
+  quantityToSortValue,
+} = require("../utils/helpers");
 
 const globalSearch = async (req, res) => {
   let searchTerm = req.query.search;
@@ -23,6 +27,8 @@ const globalSearch = async (req, res) => {
     title,
     searchTerm,
     searchResults,
+    formatStockStatus,
+    formatQuantityLevel,
     quantityToSortValue,
   });
 };

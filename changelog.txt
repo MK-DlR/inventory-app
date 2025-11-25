@@ -1,5 +1,9 @@
 11/25/25:
 
+- Update search results display to match all plants and filter results
+- Update font sizes
+- Add fontawesome icons for plant card labels
+- Create basic plant card label styling
 - Update filter results to display the same as all plants page
 - Update sortPlants to look for plant-card instead of <li>
 

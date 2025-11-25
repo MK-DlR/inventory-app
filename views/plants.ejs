@@ -6,8 +6,8 @@
 <body>
   <div class="all-plants content">
     <h1><%= title %></h1>
-      <%- include("./partials/filter.ejs") %>
-      <%- include("./partials/sort.ejs") %>
+    <%- include("./partials/filter.ejs") %>
+    <%- include("./partials/sort.ejs") %>
 
     <!-- check if array is empty -->
     <% if (plants.length === 0) { %>
@@ -22,15 +22,27 @@
             data-created="<%= plant.created_at %>"
             data-updated="<%= plant.updated_at %>">
               <a href="/plants/<%- plant.id %>" class="card-link">
+                <img src="<%= plant.image_url %>" class="card-img">
+                <hr>
                 <p class="plant-name">
-                  <img src="<%= plant.image_url %>" class="card-img"><br><br>
                   <strong><%= plant.common_name %></strong><br>
-                  (<em><%= plant.scientific_name %></em>)
+                  <em><%= plant.scientific_name %></em>
                 </p>
                 <p class="plant-status">
-                  <%= formatStockStatus(plant.stock_status) %><br>
-                  <%= formatQuantityLevel(plant.quantity_level) %>
-                  <% if (plant.order_status) { %><br><%= formatStockStatus(plant.order_status) %><% } %>
+                  <div class="stock label">
+                    <i class="fa-solid fa-leaf"></i>
+                    <%= formatStockStatus(plant.stock_status) %>
+                  </div>
+                  <% if (plant.quantity_level) { %>
+                    <div class="quantity label">
+                      <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+                    </div>
+                  <% } %>
+                  <% if (plant.order_status) { %>
+                    <div class="order label">
+                      <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
+                    </div>
+                  <% } %>
                 </p>
               </a>
           </div>

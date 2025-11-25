@@ -28,6 +28,7 @@ const parseNewUses = (newUse) =>
 const formatStockStatus = (status) => {
   if (!status) return "N/A";
   // converts "in_stock" to "In Stock", "out_of_stock" to "Out Of Stock"
+  // converts "on_order" to "On Order", "needs_ordering" to "Needs Ordering"
   return status
     .split("_")
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
