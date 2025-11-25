@@ -1,5 +1,6 @@
 11/25/25:
 
+- Fix filter and sort dropdowns closing when trying to select options
 - Create medicinal stylesheet
 - Update filter and sort dropdown styles
 - Convert px in style.css to use rem for consistancy
