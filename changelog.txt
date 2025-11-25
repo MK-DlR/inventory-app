@@ -1,5 +1,6 @@
 11/25/25:
 
+- Update filter and sort dropdown styles
 - Convert px in style.css to use rem for consistancy
 - Update search bar html for styling and update styling
 - Change footer to nav, move placement to head partial

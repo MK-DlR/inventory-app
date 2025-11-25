@@ -2,47 +2,62 @@
 
 <div class="sort">
     <div class="sort-status dropdown">
-        <button class="dropbtn" type="button">Sort By</button>
+        <button class="dropbtn" type="button">
+            Sort By
+            <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+            </svg>
+        </button>
         <div class="dropdown-content">
-            <div class="sort-item">
-                <input type="radio" id="sci-asc" name="sort" value="sci-asc">
-                <label for="sci-asc">Scientific Name (Asc)</label>
+            <div class="dropdown-section">
+                <label class="sort-item">
+                    <input type="radio" id="sci-asc" name="sort" value="sci-asc">
+                    Scientific Name (Asc)
+                </label>
+                <label class="sort-item">
+                    <input type="radio" id="sci-desc" name="sort" value="sci-desc">
+                    Scientific Name (Desc)
+                </label>
             </div>
-            <div class="sort-item">
-                <input type="radio" id="sci-desc" name="sort" value="sci-desc">
-                <label for="sci-desc">Scientific Name (Desc)</label>
+            <div class="dropdown-section">
+                <label class="sort-item">
+                    <input type="radio" id="com-asc" name="sort" value="com-asc">
+                    Common Name (Asc)
+                </label>
+                <label class="sort-item">
+                    <input type="radio" id="com-desc" name="sort" value="com-desc">
+                    Common Name (Desc)
+                </label>
             </div>
-            <div class="sort-item">
-                <input type="radio" id="com-asc" name="sort" value="com-asc">
-                <label for="com-asc">Common Name (Asc)</label>
+            <div class="dropdown-section">
+                <label class="sort-item">
+                    <input type="radio" id="quant-asc" name="sort" value="quant-asc">
+                    Quantity (Asc)
+                </label>
+                <label class="sort-item">
+                    <input type="radio" id="quant-desc" name="sort" value="quant-desc">
+                    Quantity (Desc)
+                </label>
             </div>
-            <div class="sort-item">
-                <input type="radio" id="com-desc" name="sort" value="com-desc">
-                <label for="com-desc">Common Name (Desc)</label>
+            <div class="dropdown-section">
+                <label class="sort-item">
+                    <input type="radio" id="added-asc" name="sort" value="added-asc">
+                    Date Added (Asc)
+                </label>
+                <label class="sort-item">
+                    <input type="radio" id="added-desc" name="sort" value="added-desc">
+                    Date Added (Desc)
+                </label>
             </div>
-            <div class="sort-item">
-                <input type="radio" id="quant-asc" name="sort" value="quant-asc">
-                <label for="quant-asc">Quantity (Asc)</label>
-            </div>
-            <div class="sort-item">
-                <input type="radio" id="quant-desc" name="sort" value="quant-desc">
-                <label for="quant-desc">Quantity (Desc)</label>
-            </div>
-            <div class="sort-item">
-                <input type="radio" id="added-asc" name="sort" value="added-asc">
-                <label for="added-asc">Date Added (Asc)</label>
-            </div>
-            <div class="sort-item">
-                <input type="radio" id="added-desc" name="sort" value="added-desc">
-                <label for="added-desc">Date Added (Desc)</label>
-            </div>
-            <div class="sort-item">
-                <input type="radio" id="edited-asc" name="sort" value="edited-asc">
-                <label for="edited-asc">Last Edited (Asc)</label>
-            </div>
-            <div class="sort-item">
-                <input type="radio" id="edited-desc" name="sort" value="edited-desc">
-                <label for="edited-desc">Last Edited (Desc)</label>
+            <div class="dropdown-section">
+                <label class="sort-item">
+                    <input type="radio" id="edited-asc" name="sort" value="edited-asc">
+                    Last Edited (Asc)
+                </label>
+                <label class="sort-item">
+                    <input type="radio" id="edited-desc" name="sort" value="edited-desc">
+                    Last Edited (Desc)
+                </label>
             </div>
         </div>
     </div>

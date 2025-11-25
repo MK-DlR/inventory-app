@@ -3,68 +3,95 @@
 <div class="filter">
     <form action="/filter" method="GET">
         <div class="medicinal-select dropdown">
-            <button class="dropbtn" type="button">Medicinal Use(s)</button>
+            <button class="dropbtn" type="button">
+                Medicinal Use(s)
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+            </button>
             <div class="dropdown-content">
-                <!-- loop through existing medicinalUses -->
-                <% if (medicinalUses.length === 0) { %>
-                    <p>No medicinal uses found.</p>
+                <div class="dropdown-section">
+                    <% if (medicinalUses.length === 0) { %>
+                        <p class="dropdown-empty">No medicinal uses found.</p>
                     <% } else { %>
                         <% medicinalUses.forEach(medicinalUse => { %>
-                            <div class="checkbox-item">
+                            <label class="checkbox-item">
                                 <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>">
-                                <label for="medicinal_use_<%= medicinalUse.id %>"> <%= medicinalUse.use_name %></label>
-                            </div>
+                                <%= medicinalUse.use_name %>
+                            </label>
                         <% }) %>
                     <% } %>
+                </div>
             </div>
         </div>
 
         <div class="stock-status dropdown">
-            <button class="dropbtn" type="button">Stock Status</button>
+            <button class="dropbtn" type="button">
+                Stock Status
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+            </button>
             <div class="dropdown-content">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="in_stock" value="in_stock" name="stock_status[]">
-                    <label for="in_stock">In Stock</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="out_of_stock" value="out_of_stock" name="stock_status[]">
-                    <label for="out_of_stock">Out of Stock</label>
+                <div class="dropdown-section">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="in_stock" value="in_stock" name="stock_status[]">
+                        In Stock
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="out_of_stock" value="out_of_stock" name="stock_status[]">
+                        Out of Stock
+                    </label>
                 </div>
             </div>
         </div>
 
         <div class="quantity-status dropdown">
-            <button class="dropbtn" type="button">Quantity</button>
+            <button class="dropbtn" type="button">
+                Quantity
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+            </button>
             <div class="dropdown-content">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="high" value="high" name="quantity_level[]">
-                    <label for="high">High</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="medium" value="medium" name="quantity_level[]">
-                    <label for="medium">Medium</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="low" value="low" name="quantity_level[]">
-                    <label for="low">Low</label>
+                <div class="dropdown-section">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="high" value="high" name="quantity_level[]">
+                        High
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="medium" value="medium" name="quantity_level[]">
+                        Medium
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="low" value="low" name="quantity_level[]">
+                        Low
+                    </label>
                 </div>
             </div>
         </div>
 
         <div class="order-status dropdown">
-            <button class="dropbtn" type="button">Order Status</button>
+            <button class="dropbtn" type="button">
+                Order Status
+                <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" fill-rule="evenodd" />
+                </svg>
+            </button>
             <div class="dropdown-content">
-                <div class="checkbox-item">
-                    <input type="checkbox" id="needs_ordering" value="needs_ordering" name="order_status[]">
-                    <label for="needs_ordering">Needs Ordering</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="on_order" value="on_order" name="order_status[]">
-                    <label for="on_order">On Order</label>
-                </div>
-                <div class="checkbox-item">
-                    <input type="checkbox" id="null" value="null" name="order_status[]">
-                    <label for="null">N/A</label>
+                <div class="dropdown-section">
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="needs_ordering" value="needs_ordering" name="order_status[]">
+                        Needs Ordering
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="on_order" value="on_order" name="order_status[]">
+                        On Order
+                    </label>
+                    <label class="checkbox-item">
+                        <input type="checkbox" id="null" value="null" name="order_status[]">
+                        N/A
+                    </label>
                 </div>
             </div>
         </div>
