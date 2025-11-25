@@ -4,23 +4,23 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    gap: 1.25rem; /* 20px */
+    padding-top: 1.875rem; /* 30px */
+    padding-bottom: 1.875rem; /* 30px */
 }
 
 .plant-card {
-    width: 384px;
-    height: 384px;
-    border-radius: 4px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    width: 24rem; /* 384px */
+    height: 24rem; /* 384px */
+    border-radius: 0.25rem; /* 4px */
+    box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
     transition-duration: 0.4s;
     overflow: hidden; /* keep background contained */
 }
 
 .card-img {
-    width: 384px;
-    height: 234px;
+    width: 24rem; /* 384px */
+    height: 14.625rem; /* 234px */
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
@@ -41,7 +41,7 @@
 }
 
 .plant-card:hover .card-img {
-    filter: grayscale(40%); /* slightly desturate image on hover */
+    filter: grayscale(40%); /* slightly desaturate image on hover */
 }
 
 .plant-status {
@@ -72,7 +72,7 @@
     font-size: 0.875rem; 
     background-color: #EDF2F7; 
     color: #4A5568; 
-    border-radius: 0.25rem;
+    border-radius: 0.25rem; /* 4px */
     transition: all 0.4s;
 }
 

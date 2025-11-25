@@ -1,5 +1,7 @@
 11/25/25:
 
+- Convert px in style.css to use rem for consistancy
+- Update search bar html for styling and update styling
 - Change footer to nav, move placement to head partial
 - Update plants, search-reults, and filter-results for consistancy
 - Fix badges not aligning with plant name

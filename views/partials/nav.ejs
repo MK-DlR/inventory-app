@@ -1,9 +1,9 @@
 <!-- views/partials/nav.ejs -->
 
-<div class="nav" align="center">        
-    <a href="/">Index</a><br><br>
-    <a href="/medicinal">All Medicinal Uses</a> | <a href="/plants">All Plants</a><br>
-    <a href="/medicinal/new">Add New Medicinal Use</a> | <a href="/plants/new">Add New Plant</a><br><br>
+<div class="nav">        
+    <button onclick="window.location.href='/';" class="button">Index</button><br><br>
+    <button onclick="window.location.href='/medicinal';" class="button">Medicinal Uses</button> <button onclick="window.location.href='/plants';" class="button">Plants</button><br>
+    <button onclick="window.location.href='/medicinal/new';" class="button">Add Medicinal Use</button> <button onclick="window.location.href='/plants/new';" class="button">Add Plant</button><br><br>
 
     <%- include("./search.ejs") %>
 </div>

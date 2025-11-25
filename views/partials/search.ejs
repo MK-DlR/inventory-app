@@ -2,7 +2,15 @@
 
 <div class="search-container">
     <form action="/search" method="GET">
-        <input type="text" placeholder="Search.." name="search" class="search-bar">
-        <button type="submit" class="search button">Search</button>
+        <label for="search" class="search-label">Search</label>
+        <div class="search-wrapper">
+            <div class="search-icon-wrapper">
+                <svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input type="text" id="search" name="search" placeholder="Search..." class="search-bar" required>
+            <button type="submit" class="button search-button">Search</button>
+        </div>
     </form>
 </div>
