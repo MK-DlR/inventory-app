@@ -6,8 +6,11 @@
   <body>
     <div class="all-plants content">
       <h1><%= title %></h1>
-      <%- include("./partials/filter.ejs") %>
-      <%- include("./partials/sort.ejs") %>
+      
+      <div class="filter-sort-container">
+        <%- include("./partials/filter.ejs") %>
+        <%- include("./partials/sort.ejs") %>
+      </div>
 
       <!-- check if array is empty -->
       <% if (plants.length === 0) { %>
