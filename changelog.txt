@@ -1,5 +1,6 @@
 11/25/25:
 
+- Fix submit button being smaller than dropdowns
 - Adjust sort to be displayed beside filter
 - Fix filter and sort dropdowns closing when trying to select options
 - Create medicinal stylesheet
