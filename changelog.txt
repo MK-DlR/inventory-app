@@ -1,3 +1,8 @@
+11/25/25:
+
+- Update filter results to display the same as all plants page
+- Update sortPlants to look for plant-card instead of <li>
+
 11/24/25:
 
 - Add basic flexbox styling to all plants page

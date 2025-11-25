@@ -30,8 +30,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     const field = fieldMap[fieldCode];
 
-    // get all <li> elements and convert to array
-    const items = Array.from(plantList.querySelectorAll("li"));
+    // get all plant-card divs and convert to array
+    const items = Array.from(plantList.querySelectorAll(".plant-card"));
+
     // sort array based on data attribute
     items.sort((a, b) => {
       // get data attribute values
@@ -59,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return result;
     });
+
     // clear list
     plantList.innerHTML = "";
     // re-append items in sorted order

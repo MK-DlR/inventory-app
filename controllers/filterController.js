@@ -1,7 +1,11 @@
 // controllers/filterController.js
 
 const db = require("../db/queries");
-const { quantityToSortValue } = require("../utils/helpers");
+const {
+  quantityToSortValue,
+  formatStockStatus,
+  formatQuantityLevel,
+} = require("../utils/helpers");
 
 const globalFilter = async (req, res) => {
   // debugging
@@ -46,6 +50,8 @@ const globalFilter = async (req, res) => {
       title: "Filter Results",
       filterResults,
       quantityToSortValue,
+      formatStockStatus, // ADDED
+      formatQuantityLevel, // ADDED
     });
   } catch (error) {
     console.error("Error filtering plants:", error);

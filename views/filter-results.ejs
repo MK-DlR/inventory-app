@@ -8,26 +8,34 @@
         <h1><%= title %> (<%= filterResults.length%>)</h1>
         <%- include("./partials/filter.ejs") %>
         <%- include("./partials/sort.ejs") %>
-        <!-- check if BOTH arrays are empty -->
+        
+        <!-- check if array is empty -->
         <% if (filterResults.length === 0) { %>
-            <p>No results found for "<%= filterResults %>".</p>
+            <p>No results found.</p>
         <% } else { %>
-            <% if (filterResults.length > 0) { %>
-                <ul id="plant-list">
-                    <% filterResults.forEach(plant => { %>
-                        <li
-                            data-common="<%= plant.common_name %>" 
-                            data-scientific="<%= plant.scientific_name %>"
-                            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
-                            data-created="<%= plant.created_at %>"
-                            data-updated="<%= plant.updated_at %>">
-                                <a href="/plants/<%= plant.id %>">
-                                <%= plant.common_name %> (<em><%= plant.scientific_name %></em>)
-                            </a>
-                        </li>
-                    <% }) %>
-                </ul>
-            <% } %> 
+            <div id="plant-list" class="plant-list">
+                <% filterResults.forEach(plant => { %>
+                <div class="plant-card"
+                    data-common="<%= plant.common_name %>" 
+                    data-scientific="<%= plant.scientific_name %>"
+                    data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                    data-created="<%= plant.created_at %>"
+                    data-updated="<%= plant.updated_at %>">
+                    <a href="/plants/<%- plant.id %>" class="card-link">
+                        <p class="plant-name">
+                        <img src="<%= plant.image_url %>" class="card-img"><br><br>
+                        <strong><%= plant.common_name %></strong><br>
+                        (<em><%= plant.scientific_name %></em>)
+                        </p>
+                        <p class="plant-status">
+                        <%= formatStockStatus(plant.stock_status) %><br>
+                        <%= formatQuantityLevel(plant.quantity_level) %>
+                        <% if (plant.order_status) { %><br><%= formatStockStatus(plant.order_status) %><% } %>
+                        </p>
+                    </a>
+                </div>
+                <% }) %>
+            </div>
         <% } %>
 
     </div>
