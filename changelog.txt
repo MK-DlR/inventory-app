@@ -1,5 +1,6 @@
 11/25/25:
 
+- Fix badges not aligning with plant name
 - Update card and badge styling
 - Update search results display to match all plants and filter results
 - Update font sizes

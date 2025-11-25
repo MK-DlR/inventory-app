@@ -45,11 +45,12 @@
 }
 
 .plant-status {
-    margin-top: auto; /* push badges to bottom */
+    margin-top: auto; /* keep badges at bottom */
     padding-bottom: 1rem; /* spacing from bottom */
     display: flex;
     gap: 0.5rem; /* spacing between badges */
-    justify-content: center;
+    justify-content: flex-start; /* align badges to left */
+    padding-left: 2rem; /* match plant-name padding */
 }
 
 .plant-name {
@@ -66,7 +67,7 @@
 
 .badge {
     display: inline-flex;
-    padding: 0.125rem 0.5rem; 
+    padding: 0.2rem 0.55rem; 
     font-size: 0.875rem; 
     background-color: #EDF2F7; 
     color: #4A5568; 
