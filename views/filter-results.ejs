@@ -2,55 +2,56 @@
 
 <!DOCTYPE html>
 <html lang="en">
-    <%- include("./partials/head.ejs") %>
-<body>
+  <%- include("./partials/head.ejs") %>
+  <body>
     <div class="filter-results content">
-        <h1><%= title %> (<%= filterResults.length%>)</h1>
-        <%- include("./partials/filter.ejs") %>
-        <%- include("./partials/sort.ejs") %>
-        
-        <!-- check if array is empty -->
-        <% if (filterResults.length === 0) { %>
-            <p>No results found.</p>
-        <% } else { %>
-            <div id="plant-list" class="plant-list">
-                <% filterResults.forEach(plant => { %>
-                <div class="plant-card"
-            data-common="<%= plant.common_name %>" 
-            data-scientific="<%= plant.scientific_name %>"
-            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
-            data-created="<%= plant.created_at %>"
-            data-updated="<%= plant.updated_at %>">
+      <h1><%= title %> (<%= filterResults.length %>)</h1>
+      <%- include("./partials/filter.ejs") %>
+      <%- include("./partials/sort.ejs") %>
+
+      <!-- check if array is empty -->
+      <% if (filterResults.length === 0) { %>
+        <p>No results found.</p>
+      <% } else { %>
+        <div id="plant-list" class="plant-list">
+          <% filterResults.forEach(plant => { %>
+            <div class="plant-card"
+                data-common="<%= plant.common_name %>" 
+                data-scientific="<%= plant.scientific_name %>"
+                data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                data-created="<%= plant.created_at %>"
+                data-updated="<%= plant.updated_at %>">
               <a href="/plants/<%- plant.id %>" class="card-link">
                 <img src="<%= plant.image_url %>" class="card-img">
                 <p class="plant-name">
-                  <strong><%= plant.common_name %></strong><br>
-                  <em><%= plant.scientific_name %></em>
+                  <strong class="common-name"><%= plant.common_name %></strong><br>
+                  <em class="scientific-name"><%= plant.scientific_name %></em>
                 </p>
-                <p class="plant-status">
+                <div class="plant-status">
                   <div class="stock badge">
-                    <i class="fa-solid fa-leaf"></i>
-                    <%= formatStockStatus(plant.stock_status) %>
+                    <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
                   </div>
+
                   <% if (plant.quantity_level) { %>
                     <div class="quantity badge">
                       <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
                     </div>
                   <% } %>
+
                   <% if (plant.order_status) { %>
                     <div class="order badge">
                       <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
                     </div>
                   <% } %>
-                </p>
+                </div>
               </a>
-          </div>
-        <% }) %>
-      </div>
-    <% } %>
-  </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
 
-  <%- include("./partials/footer.ejs") %>
-  <script src="/sort.js"></script>
-</body>
+    <%- include("./partials/footer.ejs") %>
+    <script src="/sort.js"></script>
+  </body>
 </html>

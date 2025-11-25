@@ -3,24 +3,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <%- include("./partials/head.ejs") %>
-<body>
-  <div class="all-plants content">
-    <h1><%= title %></h1>
-    <%- include("./partials/filter.ejs") %>
-    <%- include("./partials/sort.ejs") %>
+  <body>
+    <div class="all-plants content">
+      <h1><%= title %></h1>
+      <%- include("./partials/filter.ejs") %>
+      <%- include("./partials/sort.ejs") %>
 
-    <!-- check if array is empty -->
-    <% if (plants.length === 0) { %>
-      <p>No plants found.</p>
-    <% } else { %>
-      <div id="plant-list" class="plant-list">
-        <% plants.forEach(plant => { %>
-          <div class="plant-card"
-            data-common="<%= plant.common_name %>" 
-            data-scientific="<%= plant.scientific_name %>"
-            data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
-            data-created="<%= plant.created_at %>"
-            data-updated="<%= plant.updated_at %>">
+      <!-- check if array is empty -->
+      <% if (plants.length === 0) { %>
+        <p>No plants found.</p>
+      <% } else { %>
+        <div id="plant-list" class="plant-list">
+          <% plants.forEach(plant => { %>
+            <div class="plant-card"
+                data-common="<%= plant.common_name %>" 
+                data-scientific="<%= plant.scientific_name %>"
+                data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                data-created="<%= plant.created_at %>"
+                data-updated="<%= plant.updated_at %>">
               <a href="/plants/<%- plant.id %>" class="card-link">
                 <img src="<%= plant.image_url %>" class="card-img">
                 <p class="plant-name">
@@ -45,13 +45,12 @@
                   <% } %>
                 </div>
               </a>
-          </div>
-        <% }) %>
-      </div>
-    <% } %>
-  </div>
+            </div>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
 
-  <%- include("./partials/footer.ejs") %>
-  <script src="/sort.js"></script>
-</body>
+    <script src="/sort.js"></script>
+  </body>
 </html>

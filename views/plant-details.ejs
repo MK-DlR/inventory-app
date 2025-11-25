@@ -3,40 +3,37 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("./partials/head.ejs") %>
-<body>
-    <div class="plant-details content">
-        <h1><%= title %></h1>
-        <ul>
-            <p><img src="<%= plant.image_url %>" class="detail-img"></p>
-            <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
-            <p><strong>Stock Status:</strong> <%= formatStockStatus(plant.stock_status) %></p>
-            <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
-            <p><strong>Order Status:</strong> <%= formatStockStatus(plant.order_status) %></p>
-            <div class="control-buttons">
-                <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
-                <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
-                    <button type="submit">Delete</button>
-                </form>
-            </div>
-        </ul>
-    </div>
+    <body>
+        <div class="plant-details content">
+            <h1><%= title %></h1>
+            <ul>
+                <p><img src="<%= plant.image_url %>" class="detail-img"></p>
+                <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
+                <p><strong>Stock Status:</strong> <%= formatStockStatus(plant.stock_status) %></p>
+                <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
+                <p><strong>Order Status:</strong> <%= formatStockStatus(plant.order_status) %></p>
+                <div class="control-buttons">
+                    <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
+                    <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            </ul>
+        </div>
 
-    <div class="plant-medicinal content">
-        <h2>Medicinal Uses:</h2>
-        <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
-            <ul>
-                <% plant.medicinal_uses.forEach(use => { %>
-                    <li><a href="/medicinal/<%- use.id %>"><%= use.use_name %></a></li>
-                <% }) %>
-            </ul>
-        <% } else { %>
-            <ul>
-                <li>No medicinal uses listed for this plant.</li>
-            </ul>
-        <% } %>
-    </div>
-    
-    <%- include("./partials/footer.ejs") %>
-    
-</body>
+        <div class="plant-medicinal content">
+            <h2>Medicinal Uses:</h2>
+            <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
+                <ul>
+                    <% plant.medicinal_uses.forEach(use => { %>
+                        <li><a href="/medicinal/<%- use.id %>"><%= use.use_name %></a></li>
+                    <% }) %>
+                </ul>
+            <% } else { %>
+                <ul>
+                    <li>No medicinal uses listed for this plant.</li>
+                </ul>
+            <% } %>
+        </div>    
+    </body>
 </html>

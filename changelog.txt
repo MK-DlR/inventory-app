@@ -1,5 +1,7 @@
 11/25/25:
 
+- Change footer to nav, move placement to head partial
+- Update plants, search-reults, and filter-results for consistancy
 - Fix badges not aligning with plant name
 - Update card and badge styling
 - Update search results display to match all plants and filter results
