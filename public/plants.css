@@ -10,17 +10,17 @@
 }
 
 .plant-card {
-    width: 300px;
-    height: 300px;
-    border: 1px solid black;
-    text-align: center;
+    width: 384px;
+    height: 384px;
+    border-radius: 4px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition-duration: 0.4s;
     overflow: hidden; /* keep background contained */
 }
 
 .card-img {
-    width: 300px;
-    height: 175px;
+    width: 384px;
+    height: 234px;
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
@@ -28,14 +28,11 @@
 }
 
 .card-link {
-    display: block; /* makes link fill card */
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
-    color: inherit; /* inherit text color */
+    color: inherit; /* keep text color */
     height: 100%; /* fill card height */
-}
-
-hr {
-    margin: 0;
 }
 
 .plant-card:hover {
@@ -47,23 +44,42 @@ hr {
     filter: grayscale(40%); /* slightly desturate image on hover */
 }
 
-.label {
-    font-size: 0.75rem;
-    padding: 0.5rem;
-    margin-bottom: 10px;
-    display: inline-block;
-    border-radius: 3px;
-    color: #fff;
+.plant-status {
+    margin-top: auto; /* push badges to bottom */
+    padding-bottom: 1rem; /* spacing from bottom */
+    display: flex;
+    gap: 0.5rem; /* spacing between badges */
+    justify-content: center;
 }
 
-.stock {
-    background-color: gray;
+.plant-name {
+    padding-left: 2rem;
 }
 
-.quantity {
-    background-color: salmon;
+.common-name {
+    font-size: 1.25rem;
 }
 
-.order {
-    background-color: cadetblue;
+.scientific-name {
+    font-size: 1rem;
+}
+
+.badge {
+    display: inline-flex;
+    padding: 0.125rem 0.5rem; 
+    font-size: 0.875rem; 
+    background-color: #EDF2F7; 
+    color: #4A5568; 
+    border-radius: 0.25rem;
+    transition: all 0.4s;
+}
+
+.plant-card:hover .badge {
+    background-color: #E2E8F0; 
+    color: #2D3748;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.badge i {
+    margin-right: 0.35rem; /* spacing between icon and text */
 }

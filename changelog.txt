@@ -1,5 +1,6 @@
 11/25/25:
 
+- Update card and badge styling
 - Update search results display to match all plants and filter results
 - Update font sizes
 - Add fontawesome icons for plant card labels
