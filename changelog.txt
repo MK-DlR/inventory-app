@@ -1,5 +1,6 @@
 11/26/25:
 
+- Fix badge sizing 
 - Update nav to show links in dropdown on smaller screens
 - Remove search.ejs since search is now contained in nav.ejs
 - Remove search.css since styling is now handled by nav.css

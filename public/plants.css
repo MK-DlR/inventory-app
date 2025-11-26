@@ -50,11 +50,11 @@
     display: flex;
     gap: 0.5rem; /* spacing between badges */
     justify-content: flex-start; /* align badges to left */
-    padding-left: 1.5rem; /* match plant-name padding */
+    padding-left: 1rem; /* match plant-name padding */
 }
 
 .plant-name {
-    padding-left: 1.5rem;
+    padding-left: 1rem;
 }
 
 .common-name {
