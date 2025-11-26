@@ -1,5 +1,7 @@
 11/26/25:
 
+- Fix plant images not displaying on medicinal use detail pages
+- Implement plant-card in medicinal-details
 - Convert px units to rem for consistancy
 - Remove unnecessary commenting
 - Fix badge sizing 

@@ -139,10 +139,11 @@ async function getSpecificUse(useID) {
 
   // get plants associated with this medicinal use
   const plantsQuery = await pool.query(
-    `SELECT p.id, p.common_name, p.scientific_name, p.stock_status, p.quantity_level
+    `SELECT p.*
     FROM plants p
     INNER JOIN plant_medicinal_uses pmu ON p.id = pmu.plant_id
-    WHERE pmu.medicinal_use_id = $1`,
+    WHERE pmu.medicinal_use_id = $1
+    ORDER BY p.common_name ASC`,
     [useID]
   );
 

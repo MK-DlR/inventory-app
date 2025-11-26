@@ -2,7 +2,12 @@
 
 const db = require("../db/queries");
 const { body, validationResult, matchedData } = require("express-validator");
-const { capitalizeTitle } = require("../utils/helpers");
+const {
+  capitalizeTitle,
+  formatStockStatus,
+  formatQuantityLevel,
+  quantityToSortValue,
+} = require("../utils/helpers");
 
 const alphaErr = "must only contain letters.";
 const lengthErr = "must be between 1 and 200 characters.";
@@ -36,6 +41,9 @@ const getMedicinalUseById = async (req, res) => {
       title: medicinalUse.use_name || "Medicinal Use Details",
       medicinalUse,
       plants: medicinalUse.plants,
+      quantityToSortValue,
+      formatStockStatus,
+      formatQuantityLevel,
     });
   } catch (err) {
     console.error(err);

@@ -28,29 +28,36 @@
             </div>
           <% } %>
 
-      
-      <ul>
-        <strong>Description</strong>
-        <% if (medicinalUse.description) { %>
-        <p><%= medicinalUse.description %></p>
-        <% } else { %>
-        <p>No description available.</p>
-        <% } %>
-        <div class="control-buttons">
-          <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';">Edit</button>
-          <form action="/medicinal/<%- medicinalUse.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this medicinal use?');">
-            <button type="submit">Delete</button>
-          </form>
-        </div>
-      </ul>
-      
+<div class="description-section">
+  <strong>Description</strong>
+  <ul>
+    <% if (medicinalUse.description) { %>
+      <p><%= medicinalUse.description %></p>
+    <% } else { %>
+      <p>No description available.</p>
+    <% } %>
+  </ul>
+
+  <div class="control-buttons">
+    <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';">Edit</button>
+    <form action="/medicinal/<%- medicinalUse.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this medicinal use?');">
+      <button type="submit">Delete</button>
+    </form>
+  </div>
+</div>
+
       <h2>Plants:</h2>
       <% if (plants && plants.length > 0) { %>
-        <ul>
+        <div id="plant-list" class="plant-list">
           <% plants.forEach(plant => { %>
-            <li><a href="/plants/<%- plant.id %>"><%= plant.common_name %> (<em><%= plant.scientific_name %></em>)</a></li>
+            <%- include("./partials/plant-card.ejs", { 
+              plant: plant,
+              quantityToSortValue: quantityToSortValue,
+              formatStockStatus: formatStockStatus,
+              formatQuantityLevel: formatQuantityLevel
+            }) %>
           <% }) %>
-        </ul>
+        </div>
       <% } else { %>
         <ul>No plants associated with this use.</ul>
       <% } %>
