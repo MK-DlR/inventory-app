@@ -1,5 +1,8 @@
 11/26/25:
 
+- Implement 3 column width maximum for plant card display
+- Update medicinal detail page format
+- Add basic styling to edit and delete buttons
 - Fix plant images not displaying on medicinal use detail pages
 - Implement plant-card in medicinal-details
 - Convert px units to rem for consistancy

@@ -28,3 +28,9 @@
     display: inline-flex; /* match dropdown display */
     align-items: center; /* center content vertically */
 }
+
+/* button container on medicinal detail page */
+.control-buttons {
+    display: flex;
+    gap: 0.375rem;
+}

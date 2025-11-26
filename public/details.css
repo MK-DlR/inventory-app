@@ -1,0 +1,15 @@
+/* public/details.css */
+
+.medicinal-name, .medicinal-info {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.medicinal-name {
+    margin-bottom: 0;
+}
+
+.control-buttons {
+    justify-content: center;
+}

@@ -13,9 +13,9 @@
                 <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
                 <p><strong>Order Status:</strong> <%= formatStockStatus(plant.order_status) %></p>
                 <div class="control-buttons">
-                    <button onclick="window.location.href='/plants/<%- plant.id %>/edit';">Edit</button>
+                    <button onclick="window.location.href='/plants/<%- plant.id %>/edit';" class="button">Edit</button>
                     <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="button">Delete</button>
                     </form>
                 </div>
             </ul>
