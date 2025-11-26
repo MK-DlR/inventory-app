@@ -1,9 +1,41 @@
 <!-- views/partials/nav.ejs -->
 
-<div class="nav">        
-    <button onclick="window.location.href='/';" class="button">Index</button><br><br>
-    <button onclick="window.location.href='/medicinal';" class="button">Medicinal Uses</button> <button onclick="window.location.href='/plants';" class="button">Plants</button><br>
-    <button onclick="window.location.href='/medicinal/new';" class="button">Add Medicinal Use</button> <button onclick="window.location.href='/plants/new';" class="button">Add Plant</button><br><br>
+<nav class="navbar">
+    <div class="nav-container">
+        <!-- logo  -->
+        <div class="nav-logo">
+            <a href="/">🌿</a>
+        </div>
 
-    <%- include("./search.ejs") %>
-</div>
+        <!-- nav Links -->
+        <ul class="nav-links">      
+            <li><a href="/" class="nav-link">Index</a></li>
+            <li><a href="/plants" class="nav-link">Plants</a></li>
+            <li><a href="/medicinal" class="nav-link">Medicinal Uses</a></li>
+        </ul>
+
+        <!-- search bar -->
+        <div class="nav-search">
+            <form action="/search" method="GET">
+                <label for="search" class="search-label">Search</label>
+                <div class="search-wrapper">
+                    <div class="search-icon-wrapper">
+                        <svg class="search-icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                        </svg>
+                    </div>
+                    <input type="text" id="search" name="search" placeholder="Search..." class="search-bar" required>
+                </div>
+            </form>
+        </div>
+
+        <!-- right side actions -->
+        <div class="nav-actions">
+            <a href="/plants/new" class="nav-button">
+                <span>+</span>
+                <span>Add Plant</span>
+            </a>
+            <a href="/medicinal/new" class="nav-button-secondary">Add Use</a>
+        </div>
+    </div>
+</nav>

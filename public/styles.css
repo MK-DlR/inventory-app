@@ -1,5 +1,6 @@
 /* public/styles.css */
 
-.nav {
-    text-align: center;
+body {
+  margin: 0;
+  padding: 0;
 }
