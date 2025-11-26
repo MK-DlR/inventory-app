@@ -1,5 +1,6 @@
 11/26/25:
 
+- Create main.css file to handle all css files
 - Move button css to own file
 - Add badge colors based on conditional classes
 - Add conditional classes to badges depending on value
