@@ -1,5 +1,7 @@
 11/26/25:
 
+- Convert px units to rem for consistancy
+- Remove unnecessary commenting
 - Fix badge sizing 
 - Update nav to show links in dropdown on smaller screens
 - Remove search.ejs since search is now contained in nav.ejs

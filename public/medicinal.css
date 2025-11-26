@@ -5,14 +5,14 @@
     margin: 1.5rem 0;
     padding: 0;
     background-color: #ffffff;
-    border: 1px solid #e5e7eb;
+    border: 0.0625rem solid #e5e7eb;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    box-shadow: 0 0.0625rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.06);
 }
 
 .list-item {
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 0.0625rem solid #e5e7eb;
 }
 
 .list-item:last-child {

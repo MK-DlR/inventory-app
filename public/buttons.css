@@ -8,7 +8,7 @@
     padding-bottom: 0.5rem; 
     padding-left: 1rem;
     padding-right: 1rem; 
-    border-radius: 0.25rem; /* rounded (4px) */
+    border-radius: 0.25rem; 
     border: none;
     cursor: pointer;
     transition-duration: 0.4s;
@@ -21,9 +21,9 @@
 /* submit button to match dropdown height */
 .button.submit {
     font-weight: 600; /* font-semibold to match dropdowns */
-    padding: 0.5rem 1rem; /* py-2 px-4 */
-    border-radius: 0.375rem; /* rounded-md (6px) */
-    font-size: 0.875rem; /* text-sm */
+    padding: 0.5rem 1rem; 
+    border-radius: 0.375rem; 
+    font-size: 0.875rem; 
     line-height: 1.25rem; /* match dropdown line-height */
     display: inline-flex; /* match dropdown display */
     align-items: center; /* center content vertically */

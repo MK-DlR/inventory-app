@@ -5,7 +5,7 @@
     padding: 0.2rem 0.55rem; 
     margin-right: 0.3rem;
     font-size: 0.8rem; 
-    border-radius: 0.25rem; /* 4px */
+    border-radius: 0.25rem;
     transition: all 0.4s;
 }
 
@@ -15,74 +15,74 @@
 
 /* stock status colors */
 .badge-out_of_stock {
-    background-color: #FEE0E1; /* red */
+    background-color: #FEE0E1;
     color: #C10007;
 }
 
 .badge-in_stock {
-    background-color: #EDEDEE; /* zinc */
+    background-color: #EDEDEE; 
     color: #626269;
 }
 
 /* quantity level colors */
 .badge-low {
-    background-color: #FFE9D9; /* orange */
+    background-color: #FFE9D9; 
     color: #CA3500;
 }
 
 .badge-medium {
-    background-color: #EBFACC; /* lime */
+    background-color: #EBFACC; 
     color: #497D00;
 }
 
 .badge-high {
-    background-color: #F3E3FF; /* purple */
+    background-color: #F3E3FF; 
     color: #9A2FE2;
 }
 
 /* order status colors */
 .badge-needs_ordering {
-    background-color: #FEE8F4; /* pink */
+    background-color: #FEE8F4;
     color: #C6005C;
 }
 
 .badge-on_order {
-    background-color: #D9F5F2; /* teal */
+    background-color: #D9F5F2; 
     color: #218B82;
 }
 
 /* hover states - slightly darker versions */
 .plant-card:hover .badge-out_of_stock {
-    background-color: #FDC5C7; /* darker red */
+    background-color: #FDC5C7;
     color: #A00006;
 }
 
 .plant-card:hover .badge-in_stock {
-    background-color: #DCDCDE; /* darker zinc */
+    background-color: #DCDCDE;
     color: #515157;
 }
 
 .plant-card:hover .badge-low {
-    background-color: #FFD4B3; /* darker orange */
+    background-color: #FFD4B3;
     color: #A82C00;
 }
 
 .plant-card:hover .badge-medium {
-    background-color: #D9F5A6; /* darker lime */
+    background-color: #D9F5A6; 
     color: #3A6600;
 }
 
 .plant-card:hover .badge-high {
-    background-color: #E6C7FF; /* darker purple */
+    background-color: #E6C7FF;
     color: #7C26B8;
 }
 
 .plant-card:hover .badge-needs_ordering {
-    background-color: #FDD1E9; /* darker pink */
+    background-color: #FDD1E9;
     color: #A0004A;
 }
 
 .plant-card:hover .badge-on_order {
-    background-color: #B3E8E3; /* darker teal */
+    background-color: #B3E8E3;
     color: #1A6F68;
 }
