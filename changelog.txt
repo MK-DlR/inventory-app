@@ -1,5 +1,7 @@
 11/26/25:
 
+- Update nav to show links in dropdown on smaller screens
+- Remove search.ejs since search is now contained in nav.ejs
 - Remove search.css since styling is now handled by nav.css
 - Update nav and add search bar to it
 - Create main.css file to handle all css files

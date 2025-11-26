@@ -2,12 +2,19 @@
 
 <nav class="navbar">
     <div class="nav-container">
-        <!-- logo  -->
+        <!-- logo with dropdown -->
         <div class="nav-logo">
-            <a href="/">🌿</a>
+            <button class="logo-button" id="logo-dropdown-btn">
+                🌿
+            </button>
+            <div class="logo-dropdown" id="logo-dropdown">
+                <a href="/" class="dropdown-link">Index</a>
+                <a href="/plants" class="dropdown-link">Plants</a>
+                <a href="/medicinal" class="dropdown-link">Medicinal Uses</a>
+            </div>
         </div>
 
-        <!-- nav Links -->
+        <!-- nav Links (desktop) -->
         <ul class="nav-links">      
             <li><a href="/" class="nav-link">Index</a></li>
             <li><a href="/plants" class="nav-link">Plants</a></li>
@@ -35,7 +42,28 @@
                 <span>+</span>
                 <span>Add Plant</span>
             </a>
-            <a href="/medicinal/new" class="nav-button-secondary">Add Use</a>
+            <a href="/medicinal/new" class="nav-button">
+                <span>+</span>
+                <span>Add Use</span>
+            </a>
         </div>
     </div>
 </nav>
+
+<script>
+    // logo dropdown toggle
+    const logoBtn = document.getElementById('logo-dropdown-btn');
+    const logoDropdown = document.getElementById('logo-dropdown');
+
+    logoBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        logoDropdown.classList.toggle('show');
+    });
+
+    // close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!logoBtn.contains(e.target) && !logoDropdown.contains(e.target)) {
+            logoDropdown.classList.remove('show');
+        }
+    });
+</script>
