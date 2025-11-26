@@ -18,37 +18,7 @@
       <% } else { %>
         <div id="plant-list" class="plant-list">
           <% plants.forEach(plant => { %>
-            <div class="plant-card"
-                data-common="<%= plant.common_name %>" 
-                data-scientific="<%= plant.scientific_name %>"
-                data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
-                data-created="<%= plant.created_at %>"
-                data-updated="<%= plant.updated_at %>">
-              <a href="/plants/<%- plant.id %>" class="card-link">
-                <img src="<%= plant.image_url %>" class="card-img">
-                <p class="plant-name">
-                  <strong class="common-name"><%= plant.common_name %></strong><br>
-                  <em class="scientific-name"><%= plant.scientific_name %></em>
-                </p>
-                <div class="plant-status">
-                  <div class="stock badge">
-                    <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
-                  </div>
-
-                  <% if (plant.quantity_level) { %>
-                    <div class="quantity badge">
-                      <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
-                    </div>
-                  <% } %>
-
-                  <% if (plant.order_status) { %>
-                    <div class="order badge">
-                      <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
-                    </div>
-                  <% } %>
-                </div>
-              </a>
-            </div>
+            <%- include("./partials/plant-card.ejs", { plant: plant }) %>
           <% }) %>
         </div>
       <% } %>
