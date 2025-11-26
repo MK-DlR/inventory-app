@@ -1,5 +1,8 @@
 11/26/25:
 
+- Add badge colors based on conditional classes
+- Add conditional classes to badges depending on value
+- Move badge css to separate css file
 - Move plant-card to its own partial
 
 11/25/25:

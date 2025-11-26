@@ -64,24 +64,3 @@
 .scientific-name {
     font-size: 1rem;
 }
-
-.badge {
-    display: inline-flex;
-    padding: 0.2rem 0.55rem; 
-    margin-right: 0.3rem;
-    font-size: 0.875rem; 
-    background-color: #EDF2F7; 
-    color: #4A5568; 
-    border-radius: 0.25rem; /* 4px */
-    transition: all 0.4s;
-}
-
-.plant-card:hover .badge {
-    background-color: #E2E8F0; 
-    color: #2D3748;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.badge i {
-    margin-right: 0.35rem; /* spacing between icon and text */
-}

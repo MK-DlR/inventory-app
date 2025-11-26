@@ -13,18 +13,18 @@
       <em class="scientific-name"><%= plant.scientific_name %></em>
     </p>
     <div class="plant-status">
-      <div class="stock badge">
+      <div class="stock badge badge-<%= plant.stock_status.toLowerCase().replace(/\s+/g, '-') %>">
         <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
       </div>
 
       <% if (plant.quantity_level) { %>
-        <div class="quantity badge">
+        <div class="quantity badge badge-<%= plant.quantity_level.toLowerCase().replace(/\s+/g, '-') %>">
           <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
         </div>
       <% } %>
 
       <% if (plant.order_status) { %>
-        <div class="order badge">
+        <div class="order badge badge-<%= plant.order_status.toLowerCase().replace(/\s+/g, '-') %>">
           <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
         </div>
       <% } %>
