@@ -1,5 +1,6 @@
 11/27/25:
 
+- Move medicinal uses into card on plant detail page
 - Change plant detail card size
 - Create additional css classes and update html to allow for shared css between all plant page plant cards and plant detail plant cards
 - Add bottom margin to medicinal use list
