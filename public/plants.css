@@ -25,10 +25,12 @@
     height: 24rem; 
 }
 
+/*
 .card-lg {
     width: 48rem; 
     height: 48rem; 
 }
+*/
 
 .card-img {
     object-fit: cover; /* crop image to fill space */
@@ -42,10 +44,12 @@
     height: 14.625rem; 
 }
 
+/*
 .img-lg {
     width: 48rem;
     height: 29.25rem;
 }
+    */
 
 .card-link {
     display: flex;
