@@ -1,5 +1,7 @@
 11/27/25:
 
+- Delete index.ejs
+- Change home route to redirect to plants
 - Remove unnecessary padding on plant details page
 - Remove details.css file
 - Move medicinal uses into card on plant detail page

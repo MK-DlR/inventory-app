@@ -25,12 +25,10 @@
     height: 24rem; 
 }
 
-/*
 .card-lg {
-    width: 48rem; 
-    height: 48rem; 
+    max-width: 25rem; 
+    height: auto;
 }
-*/
 
 .card-img {
     object-fit: cover; /* crop image to fill space */

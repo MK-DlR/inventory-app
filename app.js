@@ -38,9 +38,7 @@ app.use("/filter", filterRouter);
 
 // home route
 app.get("/", (req, res) => {
-  res.render("index", {
-    title: "Medicinal Herbs Inventory",
-  });
+  res.redirect("/plants");
 });
 
 // 404 page
