@@ -86,6 +86,11 @@
     padding-left: 2rem; /* match plant-name-lg padding */
     padding-right: 2rem; /* match left padding */
     justify-content: space-between; /* badges left, buttons right */
+    padding-bottom: 0;
+}
+
+.details-head {
+    margin-bottom: 0;
 }
 
 .plant-name-sm {

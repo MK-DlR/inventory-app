@@ -4,7 +4,7 @@
 <html lang="en">
     <%- include("./partials/head.ejs") %>
     <body>
-        <h1 class="centered">Plant Details</h1>
+        <h1 class="centered details-head">Plant Details</h1>
         <div class="plant-list">
             <div class="plant-card card-lg"
                 data-common="<%= plant.common_name %>" 
@@ -37,9 +37,9 @@
                     </div>
                     
                     <div class="control-buttons">
-                        <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants">Edit</button>
+                        <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants"><i class="fa-solid fa-pencil"></i></button>
                         <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
-                            <button type="submit" class="button control-plants">Delete</button>
+                            <button type="submit" class="button control-plants"><i class="fa-regular fa-trash-can"></i></button>
                         </form>
                     </div>
                 </div>
