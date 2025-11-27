@@ -26,7 +26,7 @@
 }
 
 .card-lg {
-    max-width: 25rem; 
+    width: 37.5rem; 
     height: auto;
 }
 
@@ -41,13 +41,6 @@
     width: 24rem;
     height: 14.625rem; 
 }
-
-/*
-.img-lg {
-    width: 48rem;
-    height: 29.25rem;
-}
-    */
 
 .card-link {
     display: flex;

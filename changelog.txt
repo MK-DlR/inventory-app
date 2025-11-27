@@ -1,5 +1,6 @@
 11/27/25:
 
+- Update large plant card and large plant card image sizes
 - Delete index.ejs
 - Change home route to redirect to plants
 - Remove unnecessary padding on plant details page
