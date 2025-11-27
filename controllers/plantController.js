@@ -90,6 +90,7 @@ const getPlantById = async (req, res) => {
       plant,
       formatStockStatus,
       formatQuantityLevel,
+      quantityToSortValue,
     });
   } catch (err) {
     console.error(err);

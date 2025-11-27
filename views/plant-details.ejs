@@ -4,26 +4,51 @@
 <html lang="en">
     <%- include("./partials/head.ejs") %>
     <body>
-        <div class="plant-details content">
-            <h1><%= title %></h1>
-            <ul>
-                <p><img src="<%= plant.image_url %>" class="detail-img"></p>
-                <p><strong>Scientific Name:</strong> <%= plant.scientific_name %></p>
-                <p><strong>Stock Status:</strong> <%= formatStockStatus(plant.stock_status) %></p>
-                <p><strong>Quantity:</strong> <%= formatQuantityLevel(plant.quantity_level) %></p>
-                <p><strong>Order Status:</strong> <%= formatStockStatus(plant.order_status) %></p>
-                <div class="control-buttons">
-                    <button onclick="window.location.href='/plants/<%- plant.id %>/edit';" class="button">Edit</button>
-                    <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
-                        <button type="submit" class="button">Delete</button>
-                    </form>
+        <h1 class="centered">Plant Details</h1>
+        <div class="plant-list">
+            <div class="plant-card card-lg"
+                data-common="<%= plant.common_name %>" 
+                data-scientific="<%= plant.scientific_name %>"
+                data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
+                data-created="<%= plant.created_at %>"
+                data-updated="<%= plant.updated_at %>">
+                <img src="<%= plant.image_url %>" class="card-img img-lg">
+                <p class="plant-name-lg">
+                    <strong class="common-name-lg"><%= plant.common_name %></strong><br>
+                    <em class="scientific-name-lg"><%= plant.scientific_name %></em>
+                </p>
+                <div class="plant-status status-lg">
+                    <div style="display: flex; gap: 0.7rem;"> <!-- Wrap badges in a container -->
+                        <div class="stock badge badge-lg badge-<%= plant.stock_status.toLowerCase().replace(/\s+/g, '-') %>">
+                            <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
+                        </div>
+
+                        <% if (plant.quantity_level) { %>
+                            <div class="quantity badge badge-lg badge-<%= plant.quantity_level.toLowerCase().replace(/\s+/g, '-') %>">
+                                <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+                            </div>
+                        <% } %>
+
+                        <% if (plant.order_status) { %>
+                            <div class="order badge badge-lg badge-<%= plant.order_status.toLowerCase().replace(/\s+/g, '-') %>">
+                                <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
+                            </div>
+                        <% } %>
+                    </div>
+                    
+                    <div class="control-buttons">
+                        <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants">Edit</button>
+                        <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
+                            <button type="submit" class="button control-plants">Delete</button>
+                        </form>
+                    </div>
                 </div>
-            </ul>
+            </div>
         </div>
 
         <div class="plant-medicinal content">
             <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
-            <h2>Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
+            <h2 class="centered">Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
                 <ul class="stacked-list">
                     <% plant.medicinal_uses.forEach(use => { %>
                     <li class="list-item">
@@ -41,10 +66,10 @@
                     <% }) %>
                 </ul>
             <% } else { %>
-                <h2>Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
-                <ul>
+                <h2 class="centered">Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
+                <div class="centered no-uses">
                     No medicinal uses listed for this plant.
-                </ul>
+                </div>
             <% } %>
         </div>    
     </body>

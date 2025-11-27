@@ -3,10 +3,16 @@
 .badge {
     display: inline-flex;
     padding: 0.2rem 0.55rem; 
-    margin-right: 0.3rem;
-    font-size: 0.8rem; 
     border-radius: 0.25rem;
     transition: all 0.4s;
+}
+
+.badge-sm {
+    font-size: 0.8rem; 
+}
+
+.badge-lg {
+    font-size: 1.2rem; 
 }
 
 .badge i {
@@ -52,37 +58,37 @@
 }
 
 /* hover states - slightly darker versions */
-.plant-card:hover .badge-out_of_stock {
+.card-sm:hover .badge-out_of_stock {
     background-color: #FDC5C7;
     color: #A00006;
 }
 
-.plant-card:hover .badge-in_stock {
+.card-sm:hover .badge-in_stock {
     background-color: #DCDCDE;
     color: #515157;
 }
 
-.plant-card:hover .badge-low {
+.card-sm:hover .badge-low {
     background-color: #FFD4B3;
     color: #A82C00;
 }
 
-.plant-card:hover .badge-medium {
+.card-sm:hover .badge-medium {
     background-color: #D9F5A6; 
     color: #3A6600;
 }
 
-.plant-card:hover .badge-high {
+.card-sm:hover .badge-high {
     background-color: #E6C7FF;
     color: #7C26B8;
 }
 
-.plant-card:hover .badge-needs_ordering {
+.card-sm:hover .badge-needs_ordering {
     background-color: #FDD1E9;
     color: #A0004A;
 }
 
-.plant-card:hover .badge-on_order {
+.card-sm:hover .badge-on_order {
     background-color: #B3E8E3;
     color: #1A6F68;
 }

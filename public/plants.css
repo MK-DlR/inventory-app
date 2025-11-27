@@ -12,21 +12,39 @@
 }
 
 .plant-card {
-    width: 24rem; 
-    height: 24rem; 
     border-radius: 0.25rem; 
     box-shadow: 0 0.25rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
     transition-duration: 0.4s;
     overflow: hidden; /* keep background contained */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-sm {
+    width: 24rem; 
+    height: 24rem; 
+}
+
+.card-lg {
+    width: 48rem; 
+    height: 48rem; 
 }
 
 .card-img {
-    width: 24rem;
-    height: 14.625rem; 
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
     transition: filter 0.4s; /* smooth transition for filter effect */
+}
+
+.img-sm {
+    width: 24rem;
+    height: 14.625rem; 
+}
+
+.img-lg {
+    width: 48rem;
+    height: 29.25rem;
 }
 
 .card-link {
@@ -34,15 +52,15 @@
     flex-direction: column;
     text-decoration: none;
     color: inherit; /* keep text color */
-    height: 100%; /* fill card height */
+    flex: 1; /* allow link to grow and fill space */
 }
 
-.plant-card:hover {
+.card-sm:hover {
     cursor: pointer;
     background-color: #f0f0f0; 
 }
 
-.plant-card:hover .card-img {
+.card-sm:hover .card-img {
     filter: grayscale(40%); /* slightly desaturate image on hover */
 }
 
@@ -50,19 +68,42 @@
     margin-top: auto; /* keep badges at bottom */
     padding-bottom: 1rem; /* spacing from bottom */
     display: flex;
-    gap: 0.3rem; /* spacing between badges */
-    justify-content: flex-start; /* align badges to left */
-    padding-left: 1rem; /* match plant-name padding */
+    justify-content: flex-start;
+    align-items: center;
 }
 
-.plant-name {
+.status-sm {
+    gap: 0.3rem; /* spacing between badges */
+    padding-left: 1rem; /* match plant-name-sm padding */
+}
+
+.status-lg {
+    gap: 0.7rem; /* spacing between badges */
+    padding-left: 2rem; /* match plant-name-lg padding */
+    padding-right: 2rem; /* match left padding */
+    justify-content: space-between; /* badges left, buttons right */
+}
+
+.plant-name-sm {
     padding-left: 1rem;
 }
 
-.common-name {
+.common-name-sm {
     font-size: 1.25rem;
 }
 
-.scientific-name {
+.scientific-name-sm {
     font-size: 1rem;
+}
+
+.plant-name-lg {
+    padding-left: 2rem;
+}
+
+.common-name-lg {
+    font-size: 1.625rem;
+}
+
+.scientific-name-lg {
+    font-size: 1.3rem;
 }

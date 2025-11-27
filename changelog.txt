@@ -1,3 +1,9 @@
+11/27/25:
+
+- Create additional css classes and update html to allow for shared css between all plant page plant cards and plant detail plant cards
+- Add bottom margin to medicinal use list
+- Apply same width to medicinal uses as plant card container
+
 11/26/25:
 
 - Implement 3 column width maximum for plant card display

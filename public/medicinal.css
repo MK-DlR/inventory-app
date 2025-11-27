@@ -9,6 +9,9 @@
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 0.0625rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.06);
+    max-width: calc((24rem * 3) + (1.25rem * 2)); /* 3 cards + 2 gaps */
+    margin: 0 auto; /* centers the container */
+    margin-bottom: 1.875rem;
 }
 
 .list-item {
@@ -64,4 +67,8 @@
     height: 1.25rem;
     flex-shrink: 0;
     color: #9ca3af;
+}
+
+.no-uses {
+    margin-bottom: 1.875rem;
 }
