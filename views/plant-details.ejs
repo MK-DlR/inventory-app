@@ -18,7 +18,8 @@
                     <em class="scientific-name-lg"><%= plant.scientific_name %></em>
                 </p>
                 <div class="plant-status status-lg">
-                    <div style="display: flex; gap: 0.7rem;"> <!-- Wrap badges in a container -->
+                    <div style="display: flex; gap: 0.7rem;"> 
+                        <!-- wrap badges in a container -->
                         <div class="stock badge badge-lg badge-<%= plant.stock_status.toLowerCase().replace(/\s+/g, '-') %>">
                             <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
                         </div>
@@ -35,40 +36,45 @@
                             </div>
                         <% } %>
                     </div>
-                    
+
                     <div class="control-buttons">
-                        <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants"><i class="fa-solid fa-pencil"></i></button>
+                        <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants">
+                            <i class="fa-solid fa-pencil"></i>
+                        </button>
                         <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
-                            <button type="submit" class="button control-plants"><i class="fa-regular fa-trash-can"></i></button>
+                            <button type="submit" class="button control-plants">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
                         </form>
                     </div>
                 </div>
+
                 <div class="plant-medicinal content">
                     <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
-    <h2 class="centered">Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
-        <ul class="stacked-list">
-            <% plant.medicinal_uses.forEach(use => { %>
-            <li class="list-item">
-                <a href="/medicinal/<%= use.id %>" class="list-link">
-                <div class="list-content">
-                    <div class="list-main">
-                    <p class="list-title"><%= use.use_name %></p>
-                    </div>
+                        <h2 class="centered">Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
+                        <ul class="stacked-list">
+                            <% plant.medicinal_uses.forEach(use => { %>
+                                <li class="list-item">
+                                    <a href="/medicinal/<%= use.id %>" class="list-link">
+                                        <div class="list-content">
+                                            <div class="list-main">
+                                                <p class="list-title"><%= use.use_name %></p>
+                                            </div>
+                                        </div>
+                                        <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                            <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                </li>
+                            <% }) %>
+                        </ul>
+                    <% } else { %>
+                        <h2 class="centered">Medicinal Uses (0)</h2>
+                        <div class="centered no-uses">
+                            No medicinal uses listed for this plant.
+                        </div>
+                    <% } %>
                 </div>
-                <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                    <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
-                </svg>
-                </a>
-            </li>
-        <% }) %>
-    </ul>
-<% } else { %>
-    <h2 class="centered">Medicinal Uses (0)</h2>
-    <div class="centered no-uses">
-        No medicinal uses listed for this plant.
-    </div>
-<% } %>
-                </div>    
             </div>
         </div>
     </body>

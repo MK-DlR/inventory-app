@@ -1,5 +1,7 @@
 11/28/25:
 
+- Fix inconsistant top padding on some pages
+- Consolidate button styling
 - Move nav button styling into buttons.css
 - Finish styling for create-plant and apply to update-plant
 - Add in progress styling to create-plant

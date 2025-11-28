@@ -1,9 +1,10 @@
 /* public/buttons.css */
 
 .button {
-    background-color: #3b82f6; 
+    background-color: #9AE600; 
     color: white;
-    font-weight: bold;
+    font-weight: 500;
+    font-size: 0.875rem;
     padding-top: 0.5rem; 
     padding-bottom: 0.5rem; 
     padding-left: 1rem;
@@ -12,10 +13,20 @@
     border: none;
     cursor: pointer;
     transition-duration: 0.4s;
+    white-space: nowrap;
+    text-decoration: none;
 }
 
 .button:hover {
-    background-color: #1d4ed8;
+    background-color: #7CCF00;
+}
+
+/* nav buttons */
+.nav-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
 }
 
 /* submit button to match dropdown height */
@@ -23,7 +34,6 @@
     font-weight: 600; /* font-semibold to match dropdowns */
     padding: 0.5rem 1rem; 
     border-radius: 0.375rem; 
-    font-size: 0.875rem; 
     line-height: 1.25rem; /* match dropdown line-height */
     display: inline-flex; /* match dropdown display */
     align-items: center; /* center content vertically */
@@ -33,45 +43,4 @@
 .control-buttons {
     display: flex;
     gap: 0.375rem;
-}
-
-/* nav buttons */
-.nav-button {
-    background-color: #6366f1;
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    transition: background-color 0.2s;
-    white-space: nowrap;
-    text-decoration: none;
-}
-
-.nav-button:hover {
-    background-color: #4f46e5;
-}
-
-.nav-button-secondary {
-    background-color: transparent;
-    color: #cbd5e1;
-    border: 0.0625rem solid #334155;
-    padding: 0.5rem 1rem;
-    border-radius: 0.375rem;
-    font-size: 0.875rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap;
-    text-decoration: none;
-}
-
-.nav-button-secondary:hover {
-    background-color: #334155;
-    color: white;
 }
