@@ -21,6 +21,7 @@
   "homepage": "https://github.com/MK-DlR/inventory-app#readme",
   "dependencies": {
     "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
     "express": "^5.1.0",
     "express-validator": "^7.3.0",
     "pg": "^8.16.3"
