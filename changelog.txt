@@ -1,5 +1,6 @@
 11/28/25:
 
+- Add styling to create-medicinal and update-medicinal
 - Fix create plant form not working as expected because of medicinal use array issues
 
 11/27/25:

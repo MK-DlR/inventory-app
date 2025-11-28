@@ -1,0 +1,159 @@
+/* public/forms.css */
+
+.content {
+    padding: 2rem 1.5rem;
+}
+
+.form-container-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+}
+
+.form-container {
+    width: 100%;
+    max-width: 512px;
+}
+
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -12px;
+    margin-right: -12px;
+    margin-bottom: 24px;
+}
+
+.form-row:last-child {
+    margin-bottom: 0;
+}
+
+.form-col {
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.form-col-half {
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 24px;
+}
+
+.form-col-third {
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+    margin-bottom: 24px;
+}
+
+@media (min-width: 768px) {
+    .form-col-half {
+        width: 50%;
+        margin-bottom: 0;
+    }
+
+    .form-col-third {
+        width: 33.333333%;
+        margin-bottom: 0;
+    }
+}
+
+/* form labels */
+.form-container label {
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #4a5568;
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+/* form inputs */
+.form-container input[type="text"],
+.form-container input[type="password"],
+.form-container input[type="email"],
+.form-container input[type="number"],
+.form-container textarea,
+.form-container select {
+    appearance: none;
+    display: block;
+    width: 100%;
+    background-color: #edf2f7;
+    color: #4a5568;
+    border: 1px solid #edf2f7;
+    border-radius: 4px;
+    padding: 12px 16px;
+    line-height: 1.25;
+    font-size: 14px;
+    font-family: inherit;
+}
+
+.form-container input[type="text"]:focus,
+.form-container input[type="password"]:focus,
+.form-container input[type="email"]:focus,
+.form-container input[type="number"]:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+    outline: none;
+    background-color: white;
+    border-color: #a0aec0;
+}
+
+.form-container input::placeholder,
+.form-container textarea::placeholder {
+    color: #a0aec0;
+}
+
+/* error states */
+.form-container input.error,
+.form-container select.error,
+.form-container textarea.error {
+    border-color: #f56565;
+    margin-bottom: 12px;
+}
+
+.error-message {
+    color: #f56565;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+.help-text {
+    color: #718096;
+    font-size: 12px;
+    font-style: italic;
+    margin-top: 4px;
+}
+
+/* select wrapper for custom dropdown arrow */
+.select-wrapper {
+    position: relative;
+}
+
+.select-arrow {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+    color: #4a5568;
+}
+
+.select-arrow svg {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Submit button adjustments for form grid */
+.form-container .button.submit {
+    width: 100%;
+    justify-content: center;
+    margin-top: 8px;
+}

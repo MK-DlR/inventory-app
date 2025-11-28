@@ -3,35 +3,45 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("./partials/head.ejs") %>
-    <body>
+    <body>        
         <div class="create-medicinal content">
             <h1><%= title %></h1>
-
-            <ul>
-                <form action="/medicinal/<%= medicinalUse.id %>/update" method="POST">
-                    <label for="use_name"><strong>Medicinal Use:</strong> </label>
-                    <input 
-                        type="text" 
-                        name="use_name" 
-                        id="use_name" 
-                        value="<%= locals.formData?.use_name || medicinalUse.use_name %>"
-                        required>
-                    <br>
-                    
-                    <label for="description"><strong>Description:</strong> </label>
-                    <input 
-                        type="text" 
-                        name="description" 
-                        id="description" 
-                        value="<%= locals.formData?.description || medicinalUse.description %>"
-                        required>
-                    <br>
-                    
-                    <button type="submit" class="submit button">Submit</button>
-                </form>
-            </ul>
-            <br>
             
+            <div class="form-container-wrapper">
+                <form action="/medicinal/<%= medicinalUse.id %>/update" method="POST" class="form-container">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="use_name">Medicinal Use</label>
+                            <input 
+                                type="text" 
+                                name="use_name" 
+                                id="use_name" 
+                                placeholder="e.g., Pain Relief, Digestive Aid"
+                                value="<%= locals.formData?.use_name || medicinalUse.use_name %>"
+                                required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="description">Description</label>
+                            <input 
+                                type="text" 
+                                name="description" 
+                                id="description" 
+                                placeholder="Describe the medicinal properties and benefits"
+                                value="<%= locals.formData?.description || medicinalUse.description %>"
+                                required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <button type="submit" class="button submit">Update Medicinal Use</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>
