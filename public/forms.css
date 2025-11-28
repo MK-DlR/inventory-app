@@ -1,4 +1,4 @@
-/* public/forms.css */
+/* public/form-grid.css */
 
 .content {
     padding: 2rem 1.5rem;
@@ -90,6 +90,12 @@
     font-family: inherit;
 }
 
+/* narrower inputs for specific fields */
+.form-container #scientific_name,
+.form-container #common_name {
+    max-width: 220px;
+}
+
 .form-container input[type="text"]:focus,
 .form-container input[type="password"]:focus,
 .form-container input[type="email"]:focus,
@@ -151,9 +157,45 @@
     fill: currentColor;
 }
 
-/* Submit button adjustments for form grid */
+/* submit button adjustments for form grid */
 .form-container .button.submit {
     width: 100%;
     justify-content: center;
     margin-top: 8px;
+}
+
+/* checkbox styling */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: none;
+    letter-spacing: normal;
+    margin-bottom: 0;
+    cursor: pointer;
+    padding: 0.25rem 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+    margin: 0;
+}
+
+.checkbox-label span {
+    user-select: none;
+}
+
+.checkbox-label:hover span {
+    color: #2d3748;
 }
