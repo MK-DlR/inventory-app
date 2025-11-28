@@ -109,8 +109,8 @@ async function getSpecificPlant(plantId) {
     [plantId]
   );
 
-  // add medicinal uses to plant object
-  plant.medicinal_uses = usesQuery.rows;
+  // always ensure medicinal_uses is an array (even if empty)
+  plant.medicinal_uses = usesQuery.rows || [];
 
   return plant;
 }
