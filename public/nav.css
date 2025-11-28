@@ -36,7 +36,7 @@
 }
 
 .nav-link {
-    color: #cbd5e1;
+    color: black;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
@@ -47,20 +47,21 @@
 }
 
 .nav-link:hover {
-    color: white;
+    color: black;
     background-color: #7CCF00;
 }
 
 /* active state - can add this class dynamically based on current page */
 .nav-link.active {
-    color: white;
+    color: black;
     border-bottom: 0.125rem solid #7CCF00;
 }
 
 /* search in navbar */
 .nav-search {
-    flex: 1;
-    max-width: 31.25rem;
+    flex: 0 1 31.25rem; /* fixed max width */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .nav-search form {
@@ -95,16 +96,17 @@
 .search-icon {
     width: 1rem;
     height: 1rem;
-    color: #64748b;
+    color: black;
+    padding-top: 0.4rem;
 }
 
 .search-bar {
     width: 100%;
-    background-color: #385f01;
-    border: 0.0625rem solid #6eaa1b;
+    background-color: #cbfd66;
+    border: 0.0625rem solid #385f01;
     border-radius: 0.375rem;
     padding: 0.5rem 1rem 0.5rem 2.5rem;
-    color: #cbd5e1;
+    color: black;
     font-size: 0.875rem;
     transition: all 0.2s;
 }
@@ -112,11 +114,11 @@
 .search-bar:focus {
     outline: none;
     border-color: #7CCF00;
-    background-color: #497D00;
+    background-color: #e7ffb7;
 }
 
 .search-bar::placeholder {
-    color: #64748b;
+    color: black;
 }
 
 /* right side actions */
@@ -163,7 +165,7 @@
 .dropdown-link {
     display: block;
     padding: 0.75rem 1rem;
-    color: #cbd5e1;
+    color: black;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -172,7 +174,7 @@
 
 .dropdown-link:hover {
     background-color: #7CCF00;
-    color: white;
+    color: black;
 }
 
 .dropdown-link:first-child {

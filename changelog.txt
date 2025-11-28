@@ -1,5 +1,6 @@
 11/28/25:
 
+- Add button, background, and link text colors
 - Fix inconsistant top padding on some pages
 - Consolidate button styling
 - Move nav button styling into buttons.css
