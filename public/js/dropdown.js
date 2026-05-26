@@ -1,4 +1,4 @@
-// public/dropdown.js
+// public/js/dropdown.js
 
 document.addEventListener("DOMContentLoaded", function () {
   const dropdowns = document.querySelectorAll(".dropdown");

@@ -1,4 +1,4 @@
-// public/sort.js
+// public/js/sort.js
 
 // wrap everything in DOMContentLoaded event listener
 document.addEventListener("DOMContentLoaded", () => {
