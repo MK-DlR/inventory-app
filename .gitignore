@@ -4,10 +4,6 @@ node_modules/
 # Environment variables
 .env
 
-# Logs 
-changelog.txt
-plan.txt
-
 # Resources
+docs/
 table_mockup.png
-test-trefle.js

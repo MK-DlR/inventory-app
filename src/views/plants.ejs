@@ -1,0 +1,30 @@
+<!-- src/views/plants.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="all-plants content">
+      <h1><%= title %></h1>
+      
+      <div class="filter-sort-container">
+        <%- include("./partials/filter.ejs") %>
+        <%- include("./partials/sort.ejs") %>
+      </div>
+
+      <!-- check if array is empty -->
+      <% if (plants.length === 0) { %>
+        <p>No plants found.</p>
+      <% } else { %>
+        <div id="plant-list" class="plant-list">
+          <% plants.forEach(plant => { %>
+            <%- include("./partials/plant-card.ejs", { plant: plant }) %>
+          <% }) %>
+        </div>
+      <% } %>
+    </div>
+
+    <script src="/dropdown.js"></script>
+    <script src="/sort.js"></script>
+  </body>
+</html>

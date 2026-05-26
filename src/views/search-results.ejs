@@ -1,0 +1,55 @@
+<!-- src/views/search-results.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("./partials/head.ejs") %>
+  <body>
+    <div class="search-results content">
+      <h1><%= title %></h1>
+      
+      <div class="filter-sort-container">
+        <%- include("./partials/filter.ejs") %>
+        <%- include("./partials/sort.ejs") %>
+      </div>
+
+      <!-- check if BOTH arrays are empty -->
+      <% if (searchResults.plants.length === 0 && searchResults.medicinal_uses.length === 0) { %>
+        <p>No results found for "<%= searchTerm %>".</p>
+      <% } else { %>
+        <!-- plants section -->
+        <% if (searchResults.plants.length > 0) { %>
+          <h2>Plants (<%= searchResults.plants.length %>)</h2>
+          <div id="plant-list" class="plant-list">
+            <% searchResults.plants.forEach(plant => { %>
+              <%- include("./partials/plant-card.ejs", { plant: plant }) %>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <!-- medicinal uses section -->
+        <% if (searchResults.medicinal_uses.length > 0) { %>
+          <h2>Medicinal Uses (<%= searchResults.medicinal_uses.length %>)</h2>
+          <ul class="stacked-list">
+            <% searchResults.medicinal_uses.forEach(use => { %>
+              <li class="list-item">
+                <a href="/medicinal/<%= use.id %>" class="list-link">
+                  <div class="list-content">
+                    <div class="list-main">
+                      <p class="list-title"><%= use.use_name %></p>
+                    </div>
+                  </div>
+                  <svg class="chevron-icon" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                    <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </li>
+            <% }) %>
+          </ul>
+        <% } %>
+      <% } %>
+    </div>
+
+    <script src="/dropdown.js"></script>
+    <script src="/sort.js"></script>
+  </body>
+</html>
