@@ -1,6 +1,13 @@
-node_modules/
+# Dependencies 
+node_modules/ 
+
+# Environment variables
 .env
+
+# Logs 
+changelog.txt
 plan.txt
+
+# Resources
 table_mockup.png
 test-trefle.js
-changelog.txt
