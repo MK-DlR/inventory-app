@@ -1,15 +1,15 @@
-<!-- src/views/search-results.ejs -->
+<!-- src/views/search-filter/search-results.ejs -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("./partials/head.ejs") %>
+  <%- include("../partials/head.ejs") %>
   <body>
     <div class="search-results content">
       <h1><%= title %></h1>
       
       <div class="filter-sort-container">
-        <%- include("./partials/filter.ejs") %>
-        <%- include("./partials/sort.ejs") %>
+        <%- include("../partials/filter.ejs") %>
+        <%- include("../partials/sort.ejs") %>
       </div>
 
       <!-- check if BOTH arrays are empty -->
@@ -21,7 +21,7 @@
           <h2>Plants (<%= searchResults.plants.length %>)</h2>
           <div id="plant-list" class="plant-list">
             <% searchResults.plants.forEach(plant => { %>
-              <%- include("./partials/plant-card.ejs", { plant: plant }) %>
+              <%- include("../partials/plant-card.ejs", { plant: plant }) %>
             <% }) %>
           </div>
         <% } %>

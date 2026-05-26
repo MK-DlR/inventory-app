@@ -37,7 +37,7 @@ const getAllPlants = async (req, res) => {
     title = "Filtered Plants";
   }
 
-  res.render("plants", {
+  res.render("plants/plants", {
     title,
     plants,
     quantityToSortValue,
@@ -85,7 +85,7 @@ const getPlantById = async (req, res) => {
     }
 
     // use the plant's name for the title
-    res.render("plant-details", {
+    res.render("plants/plant-details", {
       title: plant.common_name || "Plant Details",
       plant,
       formatStockStatus,
@@ -188,7 +188,7 @@ const validatePlantUpdate = [
 const createPlantForm = async (req, res) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
-    res.render("create-plant", {
+    res.render("plants/create-plant", {
       title: "Add New Plant",
       medicinalUses,
     });
@@ -267,7 +267,7 @@ const updatePlantForm = async (req, res) => {
     }
 
     const medicinalUses = await db.getAllMedicinalUses();
-    res.render("update-plant", {
+    res.render("plants/update-plant", {
       title: `Update ${plantInfo.common_name}`,
       medicinalUses,
       plant: plantInfo,

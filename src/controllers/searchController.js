@@ -23,7 +23,7 @@ const globalSearch = async (req, res) => {
     title = "Search Results";
   }
 
-  res.render("search-results", {
+  res.render("search-filter/search-results", {
     title,
     searchTerm,
     searchResults,

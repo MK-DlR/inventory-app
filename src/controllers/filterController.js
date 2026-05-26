@@ -46,7 +46,7 @@ const globalFilter = async (req, res) => {
       orderStatusArray.filter((o) => o),
     );
 
-    res.render("filter-results", {
+    res.render("search-filter/filter-results", {
       title: "Filter Results",
       filterResults,
       quantityToSortValue,

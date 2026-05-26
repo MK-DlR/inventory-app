@@ -1,8 +1,8 @@
-<!-- src/views/medicinal-details.ejs -->
+<!-- src/views/medicinal/medicinal-details.ejs -->
 
 <!DOCTYPE html>
 <html lang="en">
-  <%- include("./partials/head.ejs") %>
+  <%- include("../partials/head.ejs") %>
   <body>
     <div class="medicinal-details content">
       <h1 class="medicinal-name"><%= medicinalUse.use_name %></h1>
@@ -47,7 +47,7 @@
       <% if (plants && plants.length > 0) { %>
         <div id="plant-list" class="plant-list">
           <% plants.forEach(plant => { %>
-            <%- include("./partials/plant-card.ejs", { 
+            <%- include("../partials/plant-card.ejs", { 
               plant: plant,
               quantityToSortValue: quantityToSortValue,
               formatStockStatus: formatStockStatus,

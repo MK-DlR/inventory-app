@@ -17,7 +17,7 @@ const lengthErr2 = "must be between 1 and 500 characters.";
 const getAllMedicinalUses = async (req, res) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
-    res.render("medicinal", {
+    res.render("medicinal/medicinal", {
       title: "Medicinal Uses",
       medicinal_uses: medicinalUses,
     });
@@ -37,7 +37,7 @@ const getMedicinalUseById = async (req, res) => {
       return res.redirect("/404");
     }
 
-    res.render("medicinal-details", {
+    res.render("medicinal/medicinal-details", {
       title: medicinalUse.use_name || "Medicinal Use Details",
       medicinalUse,
       plants: medicinalUse.plants,
@@ -96,7 +96,7 @@ const validateMedicinalUpdate = [
 // show create medicinal use form
 const createMedicinalUseForm = async (req, res) => {
   try {
-    res.render("create-medicinal", {
+    res.render("medicinal/create-medicinal", {
       title: "Add New Medicinal Use",
     });
   } catch (err) {
@@ -150,7 +150,7 @@ const updateMedicinalUseForm = async (req, res) => {
       return res.redirect("/404");
     }
 
-    res.render("update-medicinal", {
+    res.render("medicinal/update-medicinal", {
       title: `Update ${medicinalInfo.use_name}`,
       medicinalUse: medicinalInfo,
     });
