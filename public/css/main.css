@@ -1,0 +1,10 @@
+/* public/css/main.css */
+
+@import url('./badge.css');
+@import url('./buttons.css');
+@import url('./filter-sort.css');
+@import url('./forms.css');
+@import url('./medicinal.css');
+@import url('./nav.css');
+@import url('./plants.css');
+@import url('./styles.css');
