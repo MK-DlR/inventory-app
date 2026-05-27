@@ -80,9 +80,6 @@ async function getPlants(
 
   query += " ORDER BY common_name ASC";
 
-  console.log("Generated SQL:", query);
-  console.log("Parameters:", params);
-
   const { rows } = await pool.query(query, params);
   return rows;
 }

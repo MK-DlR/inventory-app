@@ -67,7 +67,7 @@ const validateMedicinal = [
     .withMessage(`Description ${lengthErr2}`),
 ];
 
-// WIP validate information from update medicinal use form
+// validate information from update medicinal use form
 const validateMedicinalUpdate = [
   body("use_name")
     .trim()

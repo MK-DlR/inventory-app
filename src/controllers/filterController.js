@@ -8,9 +8,6 @@ const {
 } = require("../utils/helpers");
 
 const globalFilter = async (req, res) => {
-  // debugging
-  console.log("QUERY:", req.query);
-
   try {
     // extract filter values from query params
     const medicinalUses = req.query["medicinal_uses[]"] || [];
@@ -31,12 +28,6 @@ const globalFilter = async (req, res) => {
     const orderStatusArray = Array.isArray(orderStatuses)
       ? orderStatuses
       : [orderStatuses];
-
-    // debugging
-    console.log("Stock Status Array:", stockStatusArray);
-    console.log("Quantity Level Array:", quantityLevelArray);
-    console.log("Medicinal Uses Array:", medicinalUsesArray);
-    console.log("Order Status Array:", orderStatusArray);
 
     // call modified getPlants function
     const filterResults = await db.getPlants(
