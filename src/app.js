@@ -7,12 +7,14 @@ const expressSession = require("express-session");
 const app = express();
 const path = require("node:path");
 const db = require("./db/queries");
+const { checkUser } = require("./middleware/auth");
 
 // require routers
-const plantsRouter = require("./routes/plants");
-const medicinalRouter = require("./routes/medicinal");
-const searchRouter = require("./routes/search");
+const authRouter = require("./routes/auth");
 const filterRouter = require("./routes/filter");
+const medicinalRouter = require("./routes/medicinal");
+const plantsRouter = require("./routes/plants");
+const searchRouter = require("./routes/search");
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -27,6 +29,7 @@ app.use(
     saveUninitialized: false,
   }),
 );
+app.use(checkUser);
 app.use(async (req, res, next) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
@@ -39,11 +42,11 @@ app.use(async (req, res, next) => {
 });
 
 // use routers
-app.use("/plants", plantsRouter);
-app.use("/medicinal", medicinalRouter);
-app.use("/search", searchRouter);
+app.use("/auth", authRouter);
 app.use("/filter", filterRouter);
-
+app.use("/medicinal", medicinalRouter);
+app.use("/plants", plantsRouter);
+app.use("/search", searchRouter);
 // home route
 app.get("/", (req, res) => {
   res.redirect("/plants");
