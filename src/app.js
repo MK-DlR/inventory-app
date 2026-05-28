@@ -1,8 +1,9 @@
 // src/app.js
 
-require("dotenv").config(); // MUST BE FIRST!
+require("dotenv").config();
 
 const express = require("express");
+const expressSession = require("express-session");
 const app = express();
 const path = require("node:path");
 const db = require("./db/queries");
@@ -19,6 +20,13 @@ app.set("view engine", "ejs");
 // middleware and static files
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  expressSession({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
 app.use(async (req, res, next) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses();
