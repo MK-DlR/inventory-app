@@ -8,6 +8,7 @@ async function getPlants(
   quantity_levels,
   medicinal_uses,
   order_statuses,
+  userId,
 ) {
   let query = "SELECT DISTINCT plants.* FROM plants"; // base query
   let conditions = []; // hold SQL conditions
@@ -73,6 +74,11 @@ async function getPlants(
     }
   }
 
+  // always apply user_id condition
+  conditions.push(`plants.user_id = $${paramCount}`);
+  params.push(userId);
+  paramCount++;
+
   // combine conditions with AND (only if there are conditions)
   if (conditions.length > 0) {
     query += " WHERE " + conditions.join(" AND ");
@@ -85,11 +91,12 @@ async function getPlants(
 }
 
 // get specific plant by id with medicinal uses
-async function getSpecificPlant(plantId) {
+async function getSpecificPlant(plantId, userId) {
   // get plant data
-  const plantQuery = await pool.query("SELECT * FROM plants WHERE id = $1", [
-    plantId,
-  ]);
+  const plantQuery = await pool.query(
+    "SELECT * FROM plants WHERE id = $1 AND user_id = $2",
+    [plantId, userId],
+  );
 
   if (plantQuery.rows.length === 0) {
     return null;
@@ -102,9 +109,9 @@ async function getSpecificPlant(plantId) {
     `SELECT mu.id, mu.use_name, mu.description 
     FROM medicinal_uses mu
     INNER JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
-    WHERE pmu.plant_id = $1
+    WHERE pmu.plant_id = $1 AND mu.user_id = $2
     ORDER BY mu.use_name ASC`,
-    [plantId],
+    [plantId, userId],
   );
 
   // always ensure medicinal_uses is an array (even if empty)
@@ -114,19 +121,20 @@ async function getSpecificPlant(plantId) {
 }
 
 // get all medicinal uses alphabetically
-async function getAllMedicinalUses() {
+async function getAllMedicinalUses(userId) {
   const { rows } = await pool.query(
-    "SELECT * FROM medicinal_uses ORDER BY use_name ASC",
+    "SELECT * FROM medicinal_uses WHERE user_id = $1 ORDER BY use_name ASC",
+    [userId],
   );
   return rows;
 }
 
 // get specific medicinal use by id with associated plants
-async function getSpecificUse(useID) {
+async function getSpecificUse(useID, userId) {
   // get medicinal use data
   const useQuery = await pool.query(
-    "SELECT * FROM medicinal_uses WHERE id = $1",
-    [useID],
+    "SELECT * FROM medicinal_uses WHERE id = $1 AND user_id = $2",
+    [useID, userId],
   );
 
   if (useQuery.rows.length === 0) {
@@ -140,9 +148,9 @@ async function getSpecificUse(useID) {
     `SELECT p.*
     FROM plants p
     INNER JOIN plant_medicinal_uses pmu ON p.id = pmu.plant_id
-    WHERE pmu.medicinal_use_id = $1
+    WHERE pmu.medicinal_use_id = $1 AND p.user_id = $2
     ORDER BY p.common_name ASC`,
-    [useID],
+    [useID, userId],
   );
 
   // add plants to medicinal use object
@@ -152,17 +160,16 @@ async function getSpecificUse(useID) {
 }
 
 // check if plant already exists
-async function checkDuplicate(plantData) {
+async function checkDuplicate(plantData, userId) {
   const { common_name, scientific_name } = plantData;
 
   // search for plants with specified name/s
   const plantsQuery = await pool.query(
     `SELECT id, common_name, scientific_name
     FROM plants
-    WHERE LOWER(common_name) = LOWER($1)
-      OR LOWER(scientific_name) = LOWER($2)
+    WHERE (LOWER(common_name) = LOWER($1) OR LOWER(scientific_name) = LOWER($2)) AND user_id = $3
     LIMIT 1`,
-    [common_name, scientific_name],
+    [common_name, scientific_name, userId],
   );
 
   // return plant if found, otherwise null
@@ -170,13 +177,13 @@ async function checkDuplicate(plantData) {
 }
 
 // check if medicinal use already exists
-async function checkDuplicateMedicinalUse(useName) {
+async function checkDuplicateMedicinalUse(useName, userId) {
   const result = await pool.query(
     `SELECT id, use_name
     FROM medicinal_uses
-    WHERE LOWER(use_name) = LOWER($1)
+    WHERE LOWER(use_name) = LOWER($1) AND user_id = $2
     LIMIT 1`,
-    [useName],
+    [useName, userId],
   );
 
   // return medicinal use if found, otherwise null
@@ -184,7 +191,7 @@ async function checkDuplicateMedicinalUse(useName) {
 }
 
 // add new plant to database
-async function insertPlant(plantData) {
+async function insertPlant(plantData, userId) {
   const {
     scientific_name,
     common_name,
@@ -202,8 +209,8 @@ async function insertPlant(plantData) {
 
     // insert plant
     const plantInsert = `
-      INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status, user_id)
+      VALUES ($1, $2, $3, $4, $5, $6)
       RETURNING *
     `;
     const plantRes = await client.query(plantInsert, [
@@ -212,6 +219,7 @@ async function insertPlant(plantData) {
       stock_status,
       quantity_level || null,
       order_status || null,
+      userId,
     ]);
     const newPlant = plantRes.rows[0];
     const plantId = newPlant.id;
@@ -229,8 +237,8 @@ async function insertPlant(plantData) {
 
       // try to find existing (case-insensitive)
       const sel = await client.query(
-        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
-        [name],
+        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+        [name, userId],
       );
 
       let useId;
@@ -240,10 +248,10 @@ async function insertPlant(plantData) {
         // insert (no RETURNING id guaranteed in race-free path)
         try {
           const ins = await client.query(
-            `INSERT INTO medicinal_uses (use_name, description)
-            VALUES ($1, $2)
+            `INSERT INTO medicinal_uses (use_name, description, user_id)
+            VALUES ($1, $2, $3)
             RETURNING id`,
-            [name, null],
+            [name, null, userId],
           );
           useId = ins.rows[0].id;
         } catch (err) {
@@ -251,8 +259,8 @@ async function insertPlant(plantData) {
           // postgreSQL duplicate key error code is '23505'
           if (err && err.code === "23505") {
             const sel2 = await client.query(
-              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
-              [name],
+              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+              [name, userId],
             );
             if (sel2.rows.length > 0) {
               useId = sel2.rows[0].id;
@@ -293,15 +301,15 @@ async function insertPlant(plantData) {
 }
 
 // add new medicinal use to database
-async function insertMedicinalUse(medicinalName, medicinalDesc) {
+async function insertMedicinalUse(medicinalName, medicinalDesc, userId) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
     // check if medicinal use already exists (case-insensitive)
     const existingUse = await client.query(
-      `SELECT * FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
-      [medicinalName],
+      `SELECT * FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+      [medicinalName, userId],
     );
 
     // if it already exists, rollback and return the existing record
@@ -312,13 +320,14 @@ async function insertMedicinalUse(medicinalName, medicinalDesc) {
 
     // insert new medicinal use
     const insertQuery = `
-      INSERT INTO medicinal_uses (use_name, description)
-      VALUES ($1, $2)
+      INSERT INTO medicinal_uses (use_name, description, user_id)
+      VALUES ($1, $2, $3)
       RETURNING *
     `;
     const result = await client.query(insertQuery, [
       medicinalName,
       medicinalDesc,
+      userId,
     ]);
 
     await client.query("COMMIT");
@@ -333,7 +342,7 @@ async function insertMedicinalUse(medicinalName, medicinalDesc) {
 }
 
 // update plant
-async function updatePlant(plantId, plantData) {
+async function updatePlant(plantId, plantData, userId) {
   const {
     scientific_name,
     common_name,
@@ -357,7 +366,7 @@ async function updatePlant(plantId, plantData) {
         stock_status = $3, 
         quantity_level = $4, 
         order_status = $5
-      WHERE id = $6
+      WHERE id = $6 AND user_id = $7
       RETURNING *
     `;
     const plantRes = await client.query(plantUpdate, [
@@ -367,6 +376,7 @@ async function updatePlant(plantId, plantData) {
       quantity_level || null,
       order_status || null,
       plantId,
+      userId,
     ]);
     const updatedPlant = plantRes.rows[0];
 
@@ -388,8 +398,8 @@ async function updatePlant(plantId, plantData) {
 
       // try to find existing (case-insensitive)
       const sel = await client.query(
-        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
-        [name],
+        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+        [name, userId],
       );
 
       let useId;
@@ -399,10 +409,10 @@ async function updatePlant(plantId, plantData) {
         // insert (no RETURNING id guaranteed in race-free path)
         try {
           const ins = await client.query(
-            `INSERT INTO medicinal_uses (use_name, description)
-            VALUES ($1, $2)
+            `INSERT INTO medicinal_uses (use_name, description, user_id)
+            VALUES ($1, $2, $3)
             RETURNING id`,
-            [name, null],
+            [name, null, userId],
           );
           useId = ins.rows[0].id;
         } catch (err) {
@@ -410,8 +420,8 @@ async function updatePlant(plantId, plantData) {
           // postgreSQL duplicate key error code is '23505'
           if (err && err.code === "23505") {
             const sel2 = await client.query(
-              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) LIMIT 1`,
-              [name],
+              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+              [name, userId],
             );
             if (sel2.rows.length > 0) {
               useId = sel2.rows[0].id;
@@ -452,7 +462,12 @@ async function updatePlant(plantId, plantData) {
 }
 
 // update medicinal use
-async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
+async function updateMedicinalUse(
+  medicinalId,
+  medicinalName,
+  medicinalDesc,
+  userId,
+) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
@@ -461,13 +476,14 @@ async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
       UPDATE medicinal_uses 
       SET use_name = $1, 
         description = $2
-      WHERE id = $3
+      WHERE id = $3 AND user_id = $4
       RETURNING *
     `;
     const result = await client.query(updateQuery, [
       medicinalName,
       medicinalDesc,
       medicinalId,
+      userId,
     ]);
 
     await client.query("COMMIT");
@@ -482,17 +498,17 @@ async function updateMedicinalUse(medicinalId, medicinalName, medicinalDesc) {
 }
 
 // delete plant
-async function removePlant(plantId) {
+async function removePlant(plantId, userId) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
     const deleteQuery = `
       DELETE FROM plants
-      WHERE id = $1
+      WHERE id = $1 AND user_id = $2
       RETURNING *
     `;
-    const result = await client.query(deleteQuery, [plantId]);
+    const result = await client.query(deleteQuery, [plantId, userId]);
 
     await client.query("COMMIT");
     return result.rows[0];
@@ -506,17 +522,17 @@ async function removePlant(plantId) {
 }
 
 // delete medicinal use
-async function removeMedicinalUse(medicinalId) {
+async function removeMedicinalUse(medicinalId, userId) {
   const client = await pool.connect();
   try {
     await client.query("BEGIN");
 
     const deleteQuery = `
       DELETE FROM medicinal_uses
-      WHERE id = $1
+      WHERE id = $1 AND user_id = $2
       RETURNING *
     `;
-    const result = await client.query(deleteQuery, [medicinalId]);
+    const result = await client.query(deleteQuery, [medicinalId, userId]);
 
     await client.query("COMMIT");
     return result.rows[0];
@@ -530,7 +546,7 @@ async function removeMedicinalUse(medicinalId) {
 }
 
 // global search for scientific name, common name, medicinal use
-async function globalSearch(searchTerm) {
+async function globalSearch(searchTerm, userId) {
   // query 1: search plants table
   const plantQuery = `
     SELECT 
@@ -541,8 +557,9 @@ async function globalSearch(searchTerm) {
       quantity_level,
       image_url
     FROM plants
-    WHERE LOWER(common_name) LIKE LOWER($1)
-      OR LOWER(scientific_name) LIKE LOWER($1)
+    WHERE (LOWER(common_name) LIKE LOWER($1)
+      OR LOWER(scientific_name) LIKE LOWER($1))
+      AND user_id = $2
     ORDER BY common_name ASC
   `;
 
@@ -551,13 +568,18 @@ async function globalSearch(searchTerm) {
   SELECT id, use_name, description
   FROM medicinal_uses
   WHERE LOWER(use_name) LIKE LOWER($1)
+    AND user_id = $2
   ORDER BY use_name ASC
   `;
 
   // execute both queries with the search term
-  const plantResults = await pool.query(plantQuery, [`%${searchTerm}%`]);
+  const plantResults = await pool.query(plantQuery, [
+    `%${searchTerm}%`,
+    userId,
+  ]);
   const medicinalResults = await pool.query(medicinalQuery, [
     `%${searchTerm}%`,
+    userId,
   ]);
 
   // return object with both arrays
@@ -568,14 +590,14 @@ async function globalSearch(searchTerm) {
 }
 
 // update plant image and trefle_id
-async function updatePlantImage(plantId, imageUrl, trefleId) {
+async function updatePlantImage(plantId, imageUrl, trefleId, userId) {
   const query = `
     UPDATE plants
     SET image_url = $1, trefle_id = $2
-    WHERE id = $3
+    WHERE id = $3 AND user_id = $4
     RETURNING *
   `;
-  const result = await pool.query(query, [imageUrl, trefleId, plantId]);
+  const result = await pool.query(query, [imageUrl, trefleId, plantId, userId]);
   return result.rows[0];
 }
 
