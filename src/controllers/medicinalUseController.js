@@ -16,7 +16,7 @@ const lengthErr2 = "must be between 1 and 500 characters.";
 // get all medicinal uses
 const getAllMedicinalUses = async (req, res) => {
   try {
-    const medicinalUses = await db.getAllMedicinalUses();
+    const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
     res.render("medicinal/medicinal", {
       title: "Medicinal Uses",
       medicinal_uses: medicinalUses,
@@ -31,7 +31,7 @@ const getAllMedicinalUses = async (req, res) => {
 const getMedicinalUseById = async (req, res) => {
   try {
     const useID = parseInt(req.params.id);
-    const medicinalUse = await db.getSpecificUse(useID);
+    const medicinalUse = await db.getSpecificUse(useID, req.session.userId);
 
     if (!medicinalUse) {
       return res.redirect("/404");
@@ -83,7 +83,10 @@ const validateMedicinalUpdate = [
     .withMessage(`Description ${lengthErr2}`),
   // special validator
   body("use_name").custom(async (value, { req }) => {
-    const duplicate = await db.checkDuplicateMedicinalUse(value);
+    const duplicate = await db.checkDuplicateMedicinalUse(
+      value,
+      req.session.userId,
+    );
     if (duplicate && duplicate.id !== parseInt(req.params.id)) {
       throw new Error(
         `This medicinal use already exists as "${duplicate.use_name}"`,
@@ -130,6 +133,7 @@ const createMedicinalUse = async (req, res) => {
     const newMedicinal = await db.insertMedicinalUse(
       capitalizeTitle(medicinalData.use_name),
       medicinalData.description,
+      req.session.userId,
     );
 
     // redirect to the new plant's detail page
@@ -144,7 +148,10 @@ const createMedicinalUse = async (req, res) => {
 const updateMedicinalUseForm = async (req, res) => {
   try {
     const medicinalId = parseInt(req.params.id);
-    const medicinalInfo = await db.getSpecificUse(medicinalId);
+    const medicinalInfo = await db.getSpecificUse(
+      medicinalId,
+      req.session.userId,
+    );
 
     if (!medicinalInfo) {
       return res.redirect("/404");
@@ -170,7 +177,10 @@ const updateMedicinalUse = async (req, res) => {
   // if errors, re-render form with error messages
   if (!errors.isEmpty()) {
     try {
-      const medicinalUse = await db.getSpecificUse(medicinalId);
+      const medicinalUse = await db.getSpecificUse(
+        medicinalId,
+        req.session.userId,
+      );
 
       return res.status(400).render("update-medicinal", {
         title: `Update ${medicinalUse.use_name}`,
@@ -192,6 +202,7 @@ const updateMedicinalUse = async (req, res) => {
       medicinalId,
       capitalizeTitle(medicinalData.use_name),
       medicinalData.description,
+      req.session.userId,
     );
 
     // redirect to the medicinal use's detail page
@@ -206,7 +217,7 @@ const updateMedicinalUse = async (req, res) => {
 const deleteMedicinalUse = async (req, res) => {
   const medicinalId = req.params.id;
   try {
-    await db.removeMedicinalUse(medicinalId);
+    await db.removeMedicinalUse(medicinalId, req.session.userId);
     // redirect back to all medicinal uses page
     res.redirect(`/medicinal`);
   } catch (err) {
