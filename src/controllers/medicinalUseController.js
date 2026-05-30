@@ -61,8 +61,7 @@ const validateMedicinal = [
     .withMessage(`Medicinal use name ${lengthErr}`),
   body("description")
     .trim()
-    .notEmpty()
-    .withMessage(`Description is required`)
+    .optional({ checkFalsy: true })
     .isLength({ min: 1, max: 500 })
     .withMessage(`Description ${lengthErr2}`),
 ];
@@ -77,8 +76,7 @@ const validateMedicinalUpdate = [
     .withMessage(`Medicinal use name ${lengthErr}`),
   body("description")
     .trim()
-    .notEmpty()
-    .withMessage(`Description is required`)
+    .optional({ checkFalsy: true })
     .isLength({ min: 1, max: 500 })
     .withMessage(`Description ${lengthErr2}`),
   // special validator
