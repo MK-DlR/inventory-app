@@ -9,7 +9,10 @@ const {
 
 const globalSearch = async (req, res) => {
   let searchTerm = req.query.search;
-  let searchResults = await db.globalSearch(req.query.search);
+  let searchResults = await db.globalSearch(
+    req.query.search,
+    req.session.userId,
+  );
 
   // determine title based on filters
   let title = "Search";

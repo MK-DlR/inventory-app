@@ -35,6 +35,7 @@ const globalFilter = async (req, res) => {
       quantityLevelArray.filter((q) => q),
       medicinalUsesArray.filter((m) => m),
       orderStatusArray.filter((o) => o),
+      req.session.userId,
     );
 
     res.render("search-filter/filter-results", {
