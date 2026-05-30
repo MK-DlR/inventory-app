@@ -22,6 +22,7 @@ const getAllPlants = async (req, res) => {
     req.query.quantity_level,
     req.query.medicinal_use,
     req.query.order_status,
+    req.session.userId,
   );
 
   // determine title based on filters
@@ -47,7 +48,7 @@ const getAllPlants = async (req, res) => {
 const getPlantById = async (req, res) => {
   try {
     const plantID = parseInt(req.params.id);
-    let plant = await db.getSpecificPlant(plantID);
+    let plant = await db.getSpecificPlant(plantID, req.session.userId);
 
     if (!plant) {
       return res.redirect("/404");
@@ -73,11 +74,17 @@ const getPlantById = async (req, res) => {
           plantID,
           firstResult.image_url,
           firstResult.id,
+          req.session.userId,
         );
       } else {
         console.log(`No image found for ${plant.common_name}`);
         // store null to avoid searching again on next visit
-        plant = await db.updatePlantImage(plantID, null, null);
+        plant = await db.updatePlantImage(
+          plantID,
+          null,
+          null,
+          req.session.userId,
+        );
       }
     }
 
@@ -110,10 +117,11 @@ const validatePlant = [
     .isLength({ min: 1, max: 200 })
     .withMessage(`Common name ${lengthErr}`),
   // custom validator that checks for duplicate scientific name
-  body("scientific_name").custom(async (value) => {
-    const duplicate = await db.checkDuplicate({
-      scientific_name: value,
-    });
+  body("scientific_name").custom(async (value, { req }) => {
+    const duplicate = await db.checkDuplicate(
+      { scientific_name: value },
+      req.session.userId,
+    );
     if (duplicate) {
       throw new Error(
         `This plant already exists as "${duplicate.common_name}" (${duplicate.scientific_name}).||${duplicate.id}`,
@@ -153,10 +161,10 @@ const validatePlantUpdate = [
     .withMessage(`Common name ${lengthErr}`),
   // special validator
   body("common_name").custom(async (value, { req }) => {
-    const duplicate = await db.checkDuplicate({
-      scientific_name: req.body.scientific_name,
-      common_name: value,
-    });
+    const duplicate = await db.checkDuplicate(
+      { scientific_name: req.body.scientific_name, common_name: value },
+      req.session.userId,
+    );
     // only throw error if duplicate exists AND it's not the current plant
     if (duplicate && duplicate.id !== parseInt(req.params.id)) {
       throw new Error(
@@ -184,7 +192,7 @@ const validatePlantUpdate = [
 // show create plant form with medicinal uses
 const createPlantForm = async (req, res) => {
   try {
-    const medicinalUses = await db.getAllMedicinalUses();
+    const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
     res.render("plants/create-plant", {
       title: "Add New Plant",
       medicinalUses,
@@ -203,7 +211,7 @@ const createPlant = async (req, res) => {
   // if errors, re-render form with error messages
   if (!errors.isEmpty()) {
     try {
-      const medicinalUses = await db.getAllMedicinalUses();
+      const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
 
       return res.status(400).render("create-plant", {
         title: "Add New Plant",
@@ -243,7 +251,7 @@ const createPlant = async (req, res) => {
       req.body.new_medicinal_uses || "",
     );
 
-    const newPlant = await db.insertPlant(plantData);
+    const newPlant = await db.insertPlant(plantData, req.session.userId);
 
     // redirect to the new plant's detail page
     res.redirect(`/plants/${newPlant.id}`);
@@ -257,13 +265,13 @@ const createPlant = async (req, res) => {
 const updatePlantForm = async (req, res) => {
   try {
     const plantId = parseInt(req.params.id);
-    const plantInfo = await db.getSpecificPlant(plantId);
+    const plantInfo = await db.getSpecificPlant(plantId, req.session.userId);
 
     if (!plantInfo) {
       return res.redirect("/404");
     }
 
-    const medicinalUses = await db.getAllMedicinalUses();
+    const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
     res.render("plants/update-plant", {
       title: `Update ${plantInfo.common_name}`,
       medicinalUses,
@@ -285,8 +293,8 @@ const updatePlant = async (req, res) => {
   // if errors, re-render form with error messages
   if (!errors.isEmpty()) {
     try {
-      const medicinalUses = await db.getAllMedicinalUses();
-      const plant = await db.getSpecificPlant(plantId);
+      const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
+      const plant = await db.getSpecificPlant(plantId, req.session.userId);
 
       return res.status(400).render("update-plant", {
         title: "Update Plant",
@@ -324,7 +332,11 @@ const updatePlant = async (req, res) => {
       req.body.new_medicinal_uses || "",
     );
 
-    const updatedPlant = await db.updatePlant(plantId, plantData);
+    const updatedPlant = await db.updatePlant(
+      plantId,
+      plantData,
+      req.session.userId,
+    );
 
     // redirect to the new plant's detail page
     res.redirect(`/plants/${updatedPlant.id}`);
@@ -338,7 +350,7 @@ const updatePlant = async (req, res) => {
 const deletePlant = async (req, res) => {
   const plantId = req.params.id;
   try {
-    await db.removePlant(plantId);
+    await db.removePlant(plantId, req.session.userId);
     // redirect back to all plants page
     res.redirect(`/plants`);
   } catch (err) {

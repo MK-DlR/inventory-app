@@ -32,7 +32,7 @@ app.use(
 app.use(checkUser);
 app.use(async (req, res, next) => {
   try {
-    const medicinalUses = await db.getAllMedicinalUses();
+    const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
     res.locals.medicinalUses = medicinalUses;
     next();
   } catch (error) {
