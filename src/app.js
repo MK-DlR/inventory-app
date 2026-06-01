@@ -34,6 +34,7 @@ app.use(async (req, res, next) => {
   try {
     const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
     res.locals.medicinalUses = medicinalUses;
+    res.locals.userRole = req.session.userRole; // make user role available in all views
     next();
   } catch (error) {
     console.error("Error loading filter:", error);

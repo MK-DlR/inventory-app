@@ -22,6 +22,7 @@ router.post("/login", (req, res) => {
 
   if (checkPassword) {
     req.session.userId = process.env.ADMIN_USER_ID; // set user ID in session
+    req.session.userRole = "admin"; // set user role in session
     res.redirect("/plants"); // redirect to home page after login
   } else {
     res.status(401).render("login", {

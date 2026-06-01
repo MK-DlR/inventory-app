@@ -8,13 +8,35 @@
                 🌿
             </button>
             <div class="logo-dropdown" id="logo-dropdown">
+                <% if (userRole === 'admin') { %>
+                    <!-- logout button -->
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="dropdown-link">Logout</button>
+                    </form>
+                <% } else { %>
+                    <!-- login link -->
+                    <a href="/auth/login" class="dropdown-link">Login</a>
+                <% } %>
                 <a href="/plants" class="dropdown-link">Plants</a>
                 <a href="/medicinal" class="dropdown-link">Medicinal Uses</a>
             </div>
         </div>
 
         <!-- nav links (desktop) -->
-        <ul class="nav-links">      
+        <ul class="nav-links">
+            <% if (userRole === 'admin') { %>
+                <!-- logout button -->
+                <li>
+                    <form action="/auth/logout" method="POST" style="display: inline;">
+                        <button type="submit" class="nav-link">Logout</button>
+                    </form>
+                </li>
+            <% } else { %>
+                <!-- login link -->
+                <li>
+                    <a href="/auth/login" class="nav-link">Login</a>
+                </li>
+            <% } %>     
             <li><a href="/plants" class="nav-link">Plants</a></li>
             <li><a href="/medicinal" class="nav-link">Medicinal Uses</a></li>
         </ul>
