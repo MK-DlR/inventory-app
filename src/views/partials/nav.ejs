@@ -11,7 +11,7 @@
                 <% if (userRole === 'admin') { %>
                     <!-- logout button -->
                     <form action="/auth/logout" method="POST" style="display: inline;">
-                        <button type="submit" class="dropdown-link">Logout</button>
+                        <button type="submit" class="logout-dropdown">Logout</button>
                     </form>
                 <% } else { %>
                     <!-- login link -->
@@ -28,7 +28,7 @@
                 <!-- logout button -->
                 <li>
                     <form action="/auth/logout" method="POST" style="display: inline;">
-                        <button type="submit" class="nav-link">Logout</button>
+                        <button type="submit" class="logout-nav">Logout</button>
                     </form>
                 </li>
             <% } else { %>

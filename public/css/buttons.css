@@ -26,7 +26,6 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-
 }
 
 /* submit button to match dropdown height */
@@ -43,4 +42,19 @@
 .control-buttons {
     display: flex;
     gap: 0.375rem;
+}
+
+/* logout button to match nav links */
+.logout-dropdown,
+.logout-nav {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    font: inherit;
+}
+
+.logout-dropdown {
+    width: 100%;
+    text-align: left;
 }

@@ -21,11 +21,6 @@
     position: relative;
 }
 
-.nav-logo a {
-    font-size: 1.5rem;
-    text-decoration: none;
-}
-
 /* nav links */
 .nav-links {
     display: flex;
@@ -35,7 +30,12 @@
     padding: 0;
 }
 
-.nav-link {
+.nav-links li {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link, .logout-nav {
     color: black;
     text-decoration: none;
     padding: 0.5rem 1rem;
@@ -46,13 +46,13 @@
     white-space: nowrap;
 }
 
-.nav-link:hover {
+.nav-link:hover, .logout-nav:hover {
     color: black;
     background-color: #7CCF00;
 }
 
 /* active state - can add this class dynamically based on current page */
-.nav-link.active {
+.nav-link.active, .logout-nav.active {
     color: black;
     border-bottom: 0.125rem solid #7CCF00;
 }
@@ -162,7 +162,7 @@
     display: block;
 }
 
-.dropdown-link {
+.dropdown-link, .logout-dropdown {
     display: block;
     padding: 0.75rem 1rem;
     color: black;
@@ -172,7 +172,7 @@
     transition: all 0.2s;
 }
 
-.dropdown-link:hover {
+.dropdown-link:hover, .logout-dropdown:hover {
     background-color: #7CCF00;
     color: black;
 }
