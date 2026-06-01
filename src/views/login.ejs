@@ -5,7 +5,31 @@
     <%- include("./partials/head.ejs") %>
     <body>
         <div class="login content">
-            password field + error message conditionally rendered if login fails
+            <h1><%= title %></h1>
+            <div class="form-container-wrapper">
+                <form action="/auth/login" method="POST" class="form-container">
+                    <div class="form-row">
+                        <div class="form-col">
+                            <label for="password">Password</label>
+                            <input 
+                                type="text" 
+                                name="password" 
+                                id="password" 
+                                required>
+                        </div>
+                    </div>
+    
+                    <div class="form-row">
+                        <div class="form-col">
+                            <button type="submit" class="button submit">Login</button>
+                        </div>
+                    </div>
+
+                    <% if (error) { %>
+                        <p class="error"><%= error %></p>
+                    <% } %>
+                </form>
+            </div>
         </div>
     </body>
 </html>
