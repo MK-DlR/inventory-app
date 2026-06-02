@@ -5,19 +5,19 @@
         <!-- logo with dropdown -->
         <div class="nav-logo">
             <button class="logo-button" id="logo-dropdown-btn">
-                🌿
+                <i class="fa-solid fa-leaf"></i> HerbTrack
             </button>
             <div class="logo-dropdown" id="logo-dropdown">
-                <a href="/plants" class="dropdown-link">Plants</a>
-                <a href="/medicinal" class="dropdown-link">Medicinal Uses</a>
+                <a href="/plants" class="dropdown-link"><i class="fa-solid fa-seedling"></i> Plants</a>
+                <a href="/medicinal" class="dropdown-link"><i class="fa-solid fa-mortar-pestle"></i> Medicinal Uses</a>
                 <% if (userRole === 'admin') { %>
                     <!-- logout button -->
                     <form action="/auth/logout" method="POST" style="display: inline;">
-                        <button type="submit" class="logout-dropdown">Logout</button>
+                        <button type="submit" class="logout-dropdown"><i class="fa-solid fa-door-closed"></i> Logout</button>
                     </form>
                 <% } else { %>
                     <!-- login link -->
-                    <a href="/auth/login" class="dropdown-link">Login</a>
+                    <a href="/auth/login" class="dropdown-link"><i class="fa-solid fa-door-open"></i> Login</a>
                 <% } %>
             </div>
         </div>
@@ -59,11 +59,11 @@
         <!-- right side actions -->
         <div class="nav-actions">
             <a href="/plants/new" class="nav-button button">
-                <span>+</span>
+                <i class="fa-solid fa-plus"></i>
                 <span>Add Plant</span>
             </a>
             <a href="/medicinal/new" class="nav-button button">
-                <span>+</span>
+                <i class="fa-solid fa-plus"></i>
                 <span>Add Use</span>
             </a>
         </div>

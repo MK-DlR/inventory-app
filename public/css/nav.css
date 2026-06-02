@@ -1,7 +1,7 @@
 /* public/css/nav.css */
 
 .navbar {
-    background-color: #497D00;
+    background-color: #3A6B10;
     border-bottom: 0.0625rem solid #6eaa1b;
     padding: 1rem 1.5rem;
     margin-bottom: 2rem;
@@ -36,7 +36,7 @@
 }
 
 .nav-link, .logout-nav {
-    color: black;
+    color: #E1E9DB;
     text-decoration: none;
     padding: 0.5rem 1rem;
     border-radius: 0.375rem;
@@ -47,19 +47,19 @@
 }
 
 .nav-link:hover, .logout-nav:hover {
-    color: black;
+    color: #30302E;
     background-color: #7CCF00;
 }
 
 /* active state - can add this class dynamically based on current page */
 .nav-link.active, .logout-nav.active {
-    color: black;
+    color: #30302E;
     border-bottom: 0.125rem solid #7CCF00;
 }
 
 /* search in navbar */
 .nav-search {
-    flex: 0 1 31.25rem; /* fixed max width */
+    flex: 0 1 15.25rem; /* fixed max width */
     margin-left: auto;
     margin-right: auto;
 }
@@ -96,17 +96,21 @@
 .search-icon {
     width: 1rem;
     height: 1rem;
-    color: black;
+    color: #C8DDA0;
     padding-top: 0.4rem;
+}
+
+.search-wrapper:focus-within .search-icon {
+    color: #30302E;
 }
 
 .search-bar {
     width: 100%;
-    background-color: #cbfd66;
-    border: 0.0625rem solid #385f01;
-    border-radius: 0.375rem;
+    background-color: #578133;
+    color: #30302E;
+    border: 0.0625rem solid #3A6B10;
+    border-radius: 1.563rem; 
     padding: 0.5rem 1rem 0.5rem 2.5rem;
-    color: black;
     font-size: 0.875rem;
     transition: all 0.2s;
 }
@@ -114,11 +118,16 @@
 .search-bar:focus {
     outline: none;
     border-color: #7CCF00;
-    background-color: #e7ffb7;
+    background-color: #C8DDA0;
+    color: #30302E;
 }
 
 .search-bar::placeholder {
-    color: black;
+    color: #C8DDA0;
+}
+
+.search-bar:focus::placeholder {
+    color: #30302E;
 }
 
 /* right side actions */
@@ -133,15 +142,12 @@
 .logo-button {
     background: none;
     border: none;
-    font-size: 1.5rem;
+    font-size: 1.125rem;
+    color: #C8F06A;
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.375rem;
     transition: background-color 0.2s;
-}
-
-.logo-button:hover {
-    background-color: #7CCF00;
 }
 
 .logo-dropdown {
@@ -165,7 +171,7 @@
 .dropdown-link, .logout-dropdown {
     display: block;
     padding: 0.75rem 1rem;
-    color: black;
+    color: #C8DDA0;
     text-decoration: none;
     font-size: 0.875rem;
     font-weight: 500;
@@ -173,8 +179,8 @@
 }
 
 .dropdown-link:hover, .logout-dropdown:hover {
-    background-color: #7CCF00;
-    color: black;
+    background-color: #C8DDA0;
+    color: #30302E;
 }
 
 .dropdown-link:first-child {

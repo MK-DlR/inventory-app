@@ -1,8 +1,8 @@
 /* public/css/buttons.css */
 
 .button {
-    background-color: #BCBAAF;
-    color: #30302E;
+    background-color: #578133;
+    color: #C8DDA0;
     font-weight: 500;
     font-size: 0.813rem;
     padding-top: 0.5rem; 
@@ -18,8 +18,8 @@
 }
 
 .button:hover {
-    background-color: #30302E; 
-    color: #BCBAAF;
+    background-color: #C8DDA0;
+    color: #30302E; 
 }
 
 /* nav buttons */
@@ -31,12 +31,19 @@
 
 /* submit button to match dropdown height */
 .button.submit {
+    background-color: #BCBAAF;
+    color: #30302E;
     font-weight: 600; /* font-semibold to match dropdowns */
     padding: 0.5rem 1rem; 
     border-radius: 0.375rem; 
     line-height: 1.25rem; /* match dropdown line-height */
     display: inline-flex; /* match dropdown display */
     align-items: center; /* center content vertically */
+}
+
+.button.submit:hover {
+    background-color: #30302E;
+    color: #BCBAAF;
 }
 
 /* edit and delete button container */
