@@ -2,13 +2,15 @@
 
 .badge {
     display: inline-flex;
-    border-radius: 0.25rem;
+    border-radius: 1rem;
     transition: all 0.4s;
+    font-weight: 600;
+    align-items: center; /* vertically center icon and text */
 }
 
 .badge-sm {
     padding: 0.2rem 0.55rem; 
-    font-size: 0.8rem; 
+    font-size: 0.65rem; 
 }
 
 .badge-lg {
@@ -22,29 +24,29 @@
 
 /* stock status colors */
 .badge-out_of_stock {
-    background-color: #FEE0E1;
-    color: #C10007;
+    background-color: #FDE8E8;
+    color: #9C3A3A;
 }
 
 .badge-in_stock {
-    background-color: #EDEDEE; 
-    color: #626269;
+    background-color: #E2F4D2; 
+    color: #3A6B10;
 }
 
 /* quantity level colors */
 .badge-low {
-    background-color: #FFE9D9; 
-    color: #CA3500;
+    background-color: #FFF0C4; 
+    color: #7A4D00;
 }
 
 .badge-medium {
-    background-color: #EBFACC; 
-    color: #497D00;
+    background-color: #EEE5FF;
+    color: #5B3E9E;
 }
 
 .badge-high {
-    background-color: #F3E3FF; 
-    color: #9A2FE2;
+    background-color: #E3EEFF; 
+    color: #1A3D8A;
 }
 
 /* order status colors */
@@ -59,37 +61,46 @@
 }
 
 /* hover states - slightly darker versions */
-.card-sm:hover .badge-out_of_stock {
-    background-color: #FDC5C7;
-    color: #A00006;
+/* stock status colors */
+/*
+.badge-out_of_stock {
+    background-color: #FDE8E8;
+    color: #9C3A3A;
 }
 
-.card-sm:hover .badge-in_stock {
-    background-color: #DCDCDE;
-    color: #515157;
+.badge-in_stock {
+    background-color: #E2F4D2; 
+    color: #3A6B10;
+}
+*/
+
+/* quantity level colors */
+/*
+.badge-low {
+    background-color: #FFF0C4; 
+    color: #7A4D00;
 }
 
-.card-sm:hover .badge-low {
-    background-color: #FFD4B3;
-    color: #A82C00;
+.badge-medium {
+    background-color: #EBFACC; 
+    color: #497D00;
 }
 
-.card-sm:hover .badge-medium {
-    background-color: #D9F5A6; 
-    color: #3A6600;
+.badge-high {
+    background-color: #E3EEFF; 
+    color: #1A3D8A;
+}
+*/
+
+/* order status colors */
+/*
+.badge-needs_ordering {
+    background-color: #FEE8F4;
+    color: #C6005C;
 }
 
-.card-sm:hover .badge-high {
-    background-color: #E6C7FF;
-    color: #7C26B8;
+.badge-on_order {
+    background-color: #D9F5F2; 
+    color: #218B82;
 }
-
-.card-sm:hover .badge-needs_ordering {
-    background-color: #FDD1E9;
-    color: #A0004A;
-}
-
-.card-sm:hover .badge-on_order {
-    background-color: #B3E8E3;
-    color: #1A6F68;
-}
+*/
