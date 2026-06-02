@@ -1,8 +1,8 @@
 /* public/css/buttons.css */
 
 .button {
-    background-color: #30302E; 
-    color: #BCBAAF;
+    background-color: #BCBAAF;
+    color: #30302E;
     font-weight: 500;
     font-size: 0.813rem;
     padding-top: 0.5rem; 
@@ -18,8 +18,8 @@
 }
 
 .button:hover {
-    background-color: #BCBAAF;
-    color: #30302E;
+    background-color: #30302E; 
+    color: #BCBAAF;
 }
 
 /* nav buttons */
