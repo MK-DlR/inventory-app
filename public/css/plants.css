@@ -31,7 +31,7 @@
 
 .card-lg {
     width: 37.5rem; 
-    height: auto;
+    height: 45.54rem;
 }
 
 .card-img {
@@ -45,6 +45,11 @@
 .img-sm {
     width: 17rem;
     height: 7rem; 
+}
+
+.img-lg {
+    width: 37.5rem;
+    height: 22.5rem; 
 }
 
 .card-link {
@@ -88,10 +93,11 @@
 
 .status-lg {
     gap: 0.7rem; /* spacing between badges */
+    margin-top: 0;
     padding-left: 2rem; /* match plant-name-lg padding */
     padding-right: 2rem; /* match left padding */
-    justify-content: space-between; /* badges left, buttons right */
     padding-bottom: 0;
+    justify-content: space-between; /* badges left, buttons right */
 }
 
 .details-head {
@@ -106,7 +112,7 @@
 
 .common-name-sm {
     font-size: 0.95rem;
-    color: #fff;
+    color: #FFFFFF;
 }
 
 .scientific-name-sm {
@@ -119,9 +125,11 @@
 }
 
 .common-name-lg {
-    font-size: 1.625rem;
+    font-size: 1.5rem;
+    color: #FFFFFF;
 }
 
 .scientific-name-lg {
-    font-size: 1.3rem;
+    font-size: 1.03rem;
+    color: #BCBAAF;
 }

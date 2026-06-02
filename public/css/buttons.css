@@ -52,6 +52,26 @@
     gap: 0.375rem;
 }
 
+.edit {
+    background-color: #8FD400; 
+    color: #3A6B10;
+}
+
+.delete {
+    background-color: #FDE8E8;
+    color: #9C3A3A;
+}
+
+.edit:hover {
+    background-color: #3A6B10;
+    color: #8FD400; 
+}
+
+.delete:hover {
+    background-color: #9C3A3A;
+    color: #FDE8E8;
+}
+
 /* logout button to match nav links */
 .logout-dropdown,
 .logout-nav {
