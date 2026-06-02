@@ -213,7 +213,7 @@ const createPlant = async (req, res) => {
     try {
       const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
 
-      return res.status(400).render("create-plant", {
+      return res.status(400).render("plants/create-plant", {
         title: "Add New Plant",
         medicinalUses,
         errors: errors.array(),
@@ -296,7 +296,7 @@ const updatePlant = async (req, res) => {
       const medicinalUses = await db.getAllMedicinalUses(req.session.userId);
       const plant = await db.getSpecificPlant(plantId, req.session.userId);
 
-      return res.status(400).render("update-plant", {
+      return res.status(400).render("plants/update-plant", {
         title: "Update Plant",
         medicinalUses,
         plant,
