@@ -79,6 +79,7 @@
 /* form inputs */
 .form-container input[type="text"],
 .form-container input[type="number"],
+.form-container input[type="password"],
 .form-container textarea,
 .form-container select {
     appearance: none;
