@@ -8,6 +8,8 @@
                 🌿
             </button>
             <div class="logo-dropdown" id="logo-dropdown">
+                <a href="/plants" class="dropdown-link">Plants</a>
+                <a href="/medicinal" class="dropdown-link">Medicinal Uses</a>
                 <% if (userRole === 'admin') { %>
                     <!-- logout button -->
                     <form action="/auth/logout" method="POST" style="display: inline;">
@@ -17,13 +19,13 @@
                     <!-- login link -->
                     <a href="/auth/login" class="dropdown-link">Login</a>
                 <% } %>
-                <a href="/plants" class="dropdown-link">Plants</a>
-                <a href="/medicinal" class="dropdown-link">Medicinal Uses</a>
             </div>
         </div>
 
         <!-- nav links (desktop) -->
         <ul class="nav-links">
+            <li><a href="/plants" class="nav-link">Plants</a></li>
+            <li><a href="/medicinal" class="nav-link">Medicinal Uses</a></li>
             <% if (userRole === 'admin') { %>
                 <!-- logout button -->
                 <li>
@@ -37,8 +39,6 @@
                     <a href="/auth/login" class="nav-link">Login</a>
                 </li>
             <% } %>     
-            <li><a href="/plants" class="nav-link">Plants</a></li>
-            <li><a href="/medicinal" class="nav-link">Medicinal Uses</a></li>
         </ul>
 
         <!-- search bar -->
