@@ -1,10 +1,10 @@
 /* public/css/buttons.css */
 
 .button {
-    background-color: #9AE600; 
-    color: black;
+    background-color: #30302E; 
+    color: #BCBAAF;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 0.813rem;
     padding-top: 0.5rem; 
     padding-bottom: 0.5rem; 
     padding-left: 1rem;
@@ -18,7 +18,8 @@
 }
 
 .button:hover {
-    background-color: #7CCF00;
+    background-color: #BCBAAF;
+    color: #30302E;
 }
 
 /* nav buttons */

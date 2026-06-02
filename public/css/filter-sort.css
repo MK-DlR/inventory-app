@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1.5rem; /* spacing between filter and sort sections */
+    gap: 0.3125rem; /* spacing between submit button and sort sections */
     margin-bottom: 1rem;
 }
 
@@ -31,13 +31,12 @@
     justify-content: center;
     align-items: center;
     gap: 0.375rem;
-    background-color: #ffffff;
-    color: #111827;
+    background-color: #30302E;
+    color: #BCBAAF;
     padding: 0.5rem 0.75rem;
-    font-size: 0.875rem;
-    font-weight: 600; /* font-semibold */
-    border: 0.0625rem solid #e5e7eb;
-    border-radius: 0.375rem; 
+    font-size: 0.813rem;
+    border: 0.0625rem solid black;
+    border-radius: 1.563rem; 
     cursor: pointer;
     transition: background-color 0.15s ease;
     box-shadow: 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.05);
@@ -46,7 +45,9 @@
 /* add hover effect to buttons */
 .filter .dropbtn:hover,
 .sort .dropbtn:hover {
-    background-color: #f9fafb;
+    background-color: #BCBAAF;
+    color: #30302E;
+    border: 0.0625rem solid #e5e7eb;
 }
 
 /* chevron icon styling */
@@ -70,8 +71,8 @@
     position: absolute;
     width: 14rem;
     margin-top: 0.5rem; /* anchor gap */
-    background-color: #ffffff;
-    border: 0.0625rem solid #e5e7eb;
+    background-color: #30302E;
+    border: 0.0625rem solid black;
     border-radius: 0.375rem; 
     box-shadow: 0 0.625rem 0.938rem -0.188rem rgba(0, 0, 0, 0.1), 0 0.25rem 0.375rem -0.125rem rgba(0, 0, 0, 0.05);
     z-index: 10;
@@ -98,8 +99,8 @@
 
 /* dropdown sections with dividers */
 .dropdown-section {
-    padding: 0.25rem 0; 
-    border-bottom: 0.0625rem solid #e5e7eb;
+    padding: 0;
+    border-bottom: 0.0625rem solid #BCBAAF;
 }
 
 .dropdown-section:last-child {
@@ -114,13 +115,14 @@
     cursor: pointer;
     transition: background-color 0.15s ease;
     font-size: 0.875rem; 
-    color: #4b5563; 
+    background-color: #30302E;
+    color: #BCBAAF; 
 }
 
 .filter .checkbox-item:hover,
 .sort .sort-item:hover {
-    background-color: #f3f4f6;
-    color: #111827;
+    background-color: #BCBAAF;
+    color: #30302E;
     outline: none;
 }
 
