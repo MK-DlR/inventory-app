@@ -7,11 +7,9 @@
     <div class="update-plant content">
       <h1><%= title %></h1>
 
-      <div class="form-container-wrapper">
-
-        <!-- display validation errors -->
+      <!-- display validation errors -->
         <% if (locals.errors && errors.length > 0) { %>
-          <div class="error-messages" style="color: #991b1b; background: #fee2e2; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; max-width: 512px; width: 100%;">
+          <div class="error-messages">
             <strong>Please fix the following errors:</strong>
             <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
               <% errors.forEach(error => { %>
@@ -27,6 +25,7 @@
           </div>
         <% } %>
 
+      <div class="form-container-wrapper">
         <form action="/plants/<%= plant.id %>/update" method="POST" class="form-container">
           <input type="hidden" name="plant_id" value="<%= plant.id %>">
 
