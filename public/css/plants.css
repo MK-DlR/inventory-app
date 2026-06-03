@@ -39,7 +39,7 @@
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
-    transition: filter 0.4s; /* smooth transition for filter effect */
+    transition: filter 0.4s; /* smooth transition for filter effect TODO: remove if not using hover effect */
 }
 
 .img-sm {
@@ -65,9 +65,7 @@
     cursor: pointer;
     background-color: #f0f0f0; 
 }
-*/
 
-/*
 .card-sm:hover .card-img {
     filter: grayscale(40%); 
 }

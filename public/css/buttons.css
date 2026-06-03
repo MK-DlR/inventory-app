@@ -1,5 +1,6 @@
 /* public/css/buttons.css */
 
+/* shared button styles */
 .button {
     background-color: #578133;
     color: #C8DDA0;
@@ -29,7 +30,7 @@
     gap: 0.5rem;
 }
 
-/* submit button to match dropdown height */
+/* submit button */
 .button.submit {
     background-color: #BCBAAF;
     color: #30302E;
@@ -46,7 +47,7 @@
     color: #BCBAAF;
 }
 
-/* edit and delete button container */
+/* edit and delete buttons */
 .control-buttons {
     display: flex;
     gap: 0.375rem;
