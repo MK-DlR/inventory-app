@@ -51,7 +51,7 @@
 
                 <div class="plant-medicinal content">
                     <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
-                        <h2 class="centered">Medicinal Uses (<%= plant.medicinal_uses.length %>)</h2>
+                        <div class="header-light">Medicinal Uses (<%= plant.medicinal_uses.length %>)</div>
                         <ul class="stacked-list">
                             <% plant.medicinal_uses.forEach(use => { %>
                                 <li class="list-item">
@@ -69,8 +69,8 @@
                             <% }) %>
                         </ul>
                     <% } else { %>
-                        <h2 class="centered">Medicinal Uses (0)</h2>
-                        <div class="centered no-uses">
+                        <div class="header-light">Medicinal Uses (0)</div>
+                        <div class="no-uses">
                             No medicinal uses listed for this plant.
                         </div>
                     <% } %>

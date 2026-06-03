@@ -18,3 +18,11 @@ h1 {
 .centered {
   text-align: center;
 }
+
+.header-light {
+  color: #BCBAAF;
+  font-size: 1.03rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+}
