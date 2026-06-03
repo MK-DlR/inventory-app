@@ -93,3 +93,8 @@
 .ds-checkbox span {
     color: #FFFFFF;
 }
+
+/* sort by radio buttons */
+.sort input[type="radio"] {
+    accent-color: #C8DDA0 !important;
+}
