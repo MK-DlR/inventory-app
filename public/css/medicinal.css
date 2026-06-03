@@ -6,7 +6,7 @@
     margin: 1.5rem 0;
     padding: 0;
     background-color: #262624;
-    border: 0.0625rem solid #BCBAAF;
+    border: 0.0625rem solid #777670;
     border-radius: 0.5rem;
     overflow: hidden;
     box-shadow: 0 0.0625rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.06);
@@ -16,7 +16,7 @@
 }
 
 .list-item {
-    border-bottom: 0.0625rem solid #BCBAAF;
+    border-bottom: 0.0625rem solid #777670;
 }
 
 .list-item:last-child {
@@ -36,6 +36,7 @@
 
 .list-link:hover {
     background-color: #f9fafb;
+    color: red;
 }
 
 .list-link:focus {
@@ -63,8 +64,8 @@
     line-height: 1.5rem;
 }
 
-.list-title:hover {
-    color: #BCBAAF;
+.list-link:hover .list-title {
+    color: #262624;
 }
 
 .chevron-icon {
@@ -92,10 +93,11 @@
 .plant-medicinal {
     padding-left: 2rem; /* match plant-name-lg padding */
     padding-right: 2rem; /* match left padding */
+    padding-bottom: 0;
 }
 
 /* if no medicinal uses assigned */
 .no-uses {
-    margin-bottom: 1.875rem;
     color: #FFFFFF;
+    padding-bottom: 2rem;
 }

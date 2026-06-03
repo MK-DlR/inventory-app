@@ -33,7 +33,7 @@
 
 .card-lg {
     width: 37.5rem; 
-    height: 45.54rem;
+    min-height: 35rem;
 }
 
 .card-img {
