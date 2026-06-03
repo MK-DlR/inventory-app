@@ -54,6 +54,9 @@ const getPlantById = async (req, res) => {
       return res.redirect("/404");
     }
 
+    // save medicinal uses
+    const medicinalUses = plant.medicinal_uses;
+
     // check if plant doesn't have an image yet
     if (!plant.image_url) {
       console.log(`No image for ${plant.common_name}, fetching from Trefle...`);
@@ -76,6 +79,9 @@ const getPlantById = async (req, res) => {
           firstResult.id,
           req.session.userId,
         );
+
+        // reassign medicinal uses since updatePlantImage doesn't return them
+        plant.medicinal_uses = medicinalUses;
       } else {
         console.log(`No image found for ${plant.common_name}`);
         // store null to avoid searching again on next visit
@@ -85,6 +91,9 @@ const getPlantById = async (req, res) => {
           null,
           req.session.userId,
         );
+
+        // reassign medicinal uses since updatePlantImage doesn't return them
+        plant.medicinal_uses = medicinalUses;
       }
     }
 
