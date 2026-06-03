@@ -4,9 +4,8 @@
 <html lang="en">
     <%- include("../partials/head.ejs") %>
     <body>        
+        <h1><%= title %></h1>
         <div class="create-medicinal content">
-            <h1><%= title %></h1>
-            
             <div class="form-container-wrapper">
                 <form action="/medicinal/<%= medicinalUse.id %>/update" method="POST" class="form-container">
                     <div class="form-row">
@@ -37,7 +36,7 @@
                     
                     <div class="form-row">
                         <div class="form-col">
-                            <button type="submit" class="button submit">Update Medicinal Use</button>
+                            <button type="submit" class="button submit alt-submit">Update Medicinal Use</button>
                         </div>
                     </div>
                 </form>

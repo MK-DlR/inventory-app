@@ -2,7 +2,9 @@
 
 /* form wrappers */
 .create-plant,
-.update-plant {
+.update-plant,
+.create-medicinal,
+.update-medicinal {
     background-color: #30302E;
     width: 37.5rem; 
     margin-left: auto;
