@@ -15,7 +15,7 @@
                         <p class="dropdown-empty">No medicinal uses found.</p>
                     <% } else { %>
                         <% medicinalUses.forEach(medicinalUse => { %>
-                            <label class="checkbox-item">
+                            <label class="ds-control ds-control--compact">
                                 <input type="checkbox" id="medicinal_use_<%= medicinalUse.id %>" name="medicinal_uses[]" value="<%= medicinalUse.id %>">
                                 <%= medicinalUse.use_name %>
                             </label>
@@ -34,11 +34,11 @@
             </button>
             <div class="dropdown-content">
                 <div class="dropdown-section">
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="in_stock" value="in_stock" name="stock_status[]">
                         In Stock
                     </label>
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="out_of_stock" value="out_of_stock" name="stock_status[]">
                         Out of Stock
                     </label>
@@ -55,15 +55,15 @@
             </button>
             <div class="dropdown-content">
                 <div class="dropdown-section">
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="high" value="high" name="quantity_level[]">
                         High
                     </label>
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="medium" value="medium" name="quantity_level[]">
                         Medium
                     </label>
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="low" value="low" name="quantity_level[]">
                         Low
                     </label>
@@ -80,15 +80,15 @@
             </button>
             <div class="dropdown-content">
                 <div class="dropdown-section">
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="needs_ordering" value="needs_ordering" name="order_status[]">
                         Needs Ordering
                     </label>
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="on_order" value="on_order" name="order_status[]">
                         On Order
                     </label>
-                    <label class="checkbox-item">
+                    <label class="ds-control ds-control--compact">
                         <input type="checkbox" id="null" value="null" name="order_status[]">
                         N/A
                     </label>

@@ -4,9 +4,8 @@
 <html lang="en">
   <%- include("../partials/head.ejs") %>
   <body>
+    <h1><%= title %></h1>
     <div class="update-plant content">
-      <h1><%= title %></h1>
-
       <!-- display validation errors -->
         <% if (locals.errors && errors.length > 0) { %>
           <div class="error-messages">
@@ -30,6 +29,7 @@
           <input type="hidden" name="plant_id" value="<%= plant.id %>">
 
           <!-- row 1 -->
+          <div class="form-header">Identity</div>
           <div class="form-row">
             <div class="form-col-half">
               <label for="scientific_name">Scientific Name</label>
@@ -51,8 +51,10 @@
                 required>
             </div>
           </div>
+          <hr />
 
           <!-- row 2 -->
+          <div class="form-header">Inventory Status</div>
           <div class="form-row">
             <div class="form-col-third">
               <label for="stock_status">Stock Status</label>
@@ -96,18 +98,19 @@
               </div>
             </div>
           </div>
+          <hr />
 
           <!-- medicinal uses -->
           <div class="form-row">
             <div class="form-col">
-              <label>Medicinal Use(s)</label>
+              <label class="form-header">Medicinal Use(s)</label>
 
               <div class="checkbox-group">
                 <% if (medicinalUses.length === 0) { %>
                   <p class="help-text">No medicinal uses found.</p>
                 <% } else { %>
                   <% medicinalUses.forEach(medicinalUse => { %>
-                    <label class="checkbox-label">
+                    <label class="ds-checkbox">
                       <input 
                         type="checkbox" 
                         id="medicinal_use_<%= medicinalUse.id %>" 
@@ -135,14 +138,13 @@
                 id="new_medicinal_uses"
                 placeholder="Separate multiple uses with commas"
                 value="<%= locals.formData?.new_medicinal_uses || '' %>">
-              <p class="help-text">Separate multiple uses with commas (e.g., Pain Relief, Anti-inflammatory)</p>
             </div>
           </div>
 
           <!-- submit -->
           <div class="form-row">
             <div class="form-col">
-              <button type="submit" class="button submit">Update Plant</button>
+              <button type="submit" class="button submit alt-submit">Update Plant</button>
             </div>
           </div>
 

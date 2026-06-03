@@ -1,4 +1,15 @@
-/* public/css/form-grid.css */
+/* public/css/forms.css */
+
+/* form wrappers */
+.create-plant,
+.update-plant {
+    background-color: #30302E;
+    width: 37.5rem; 
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 4rem;
+    border-radius: 0.95rem; 
+}
 
 /* form grid container */
 .form-container *,
@@ -15,6 +26,7 @@
     display: flex;
     justify-content: center;
     margin-top: 2rem;
+    padding-top: 1rem;
 }
 
 .form-container {
@@ -27,7 +39,7 @@
     flex-wrap: wrap;
     margin-left: -0.75rem;
     margin-right: -0.75rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
 }
 
 .form-row:last-child {
@@ -66,15 +78,28 @@
     }
 }
 
-/* form labels */
-.form-container label {
-    display: block;
+/* form headers */
+.form-header{
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #4a5568;
+    color: #B8B6AC;
     font-size: 0.75rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
+    padding-top: 0.25rem;
+}
+
+/* form labels */
+.form-container label {
+    letter-spacing: 0.05em;
+    color: #B8B6AC;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.form-container label:not(.ds-checkbox):not(.ds-control) {
+    display: block;
 }
 
 /* form inputs */
@@ -82,13 +107,13 @@
 .form-container input[type="number"],
 .form-container input[type="password"],
 .form-container textarea,
-.form-container select {
+.form-container select  {
     appearance: none;
     display: block;
     width: 100%;
-    background-color: #edf2f7;
-    color: #4a5568;
-    border: 1px solid #edf2f7;
+    background-color: #30302E;
+    color: #999996;
+    border: 1px solid #777670;
     border-radius: 0.25rem;
     padding: 0.75rem 1rem;
     line-height: 1.25;
@@ -96,18 +121,21 @@
     font-family: inherit;
 }
 
+.form-container select {
+    color: #FFFFFF;
+}
+
 .form-container input[type="text"]:focus,
 .form-container input[type="number"]:focus,
 .form-container textarea:focus,
 .form-container select:focus {
     outline: none;
-    background-color: white;
-    border-color: #a0aec0;
+    border-color: #C8DDA0;
 }
 
 .form-container input::placeholder,
 .form-container textarea::placeholder {
-    color: #a0aec0;
+    color: #999996;
 }
 
 /* error states */
@@ -119,22 +147,14 @@
 }
 
 .error-messages {
-    background-color: #FDE8E8; 
-    color: #9C3A3A; 
-    font-size: 0.75rem;
-    margin-top: 0.25rem;
-    padding: 0.5rem; 
-    margin-bottom: 1rem; 
-    border-radius: 0.25rem; 
-    max-width: 32rem; 
+    background-color: #FDE8E8;
+    color: #9C3A3A;
+    font-size: 0.85rem;
+    margin: 0.25rem auto 1rem;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    max-width: 32rem;
     width: 100%;
-}
-
-.help-text {
-    color: #718096;
-    font-size: 0.75rem;
-    font-style: italic;
-    margin-top: 0.25rem;
 }
 
 /* select wrapper for custom dropdown arrow */
@@ -160,6 +180,9 @@
     fill: currentColor;
 }
 
+/* dropdown items */
+
+
 /* submit button adjustments for form grid */
 .form-container .button.submit {
     width: 100%;
@@ -169,42 +192,7 @@
 
 /* checkbox styling */
 .checkbox-group {
-    column-count: 2;
-    column-gap: 2rem;
-    column-width: 12.5rem;
-    padding: 0.5rem 0;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #4a5568;
-    font-size: 0.875rem;
-    font-weight: normal;
-    text-transform: none;
-    letter-spacing: normal;
-    margin-bottom: 0;
-    cursor: pointer;
-    padding: 0.25rem 0;
-    break-inside: avoid; /* prevents splitting a label across columns */
-}
-
-.checkbox-label span {
-    overflow-wrap: break-word;
-    word-break: break-all;
-}
-
-.checkbox-label input[type="checkbox"] {
-    width: auto;
-    cursor: pointer;
-    margin: 0;
-}
-
-.checkbox-label span {
-    user-select: none;
-}
-
-.checkbox-label:hover span {
-    color: #2d3748;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(12.5rem, 1fr));
+    gap: 0.5rem 2rem;
 }

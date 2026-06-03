@@ -13,6 +13,11 @@ h2 {
 
 h1 {
   text-align: center;
+  color: #30302E;
+}
+
+hr {
+  color: #777670;
 }
 
 .centered {

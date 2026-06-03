@@ -3,10 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("../partials/head.ejs") %>
-    <body>        
+    <body>      
+        <h1><%= title %></h1>  
         <div class="create-plant content">
-            <h1><%= title %></h1>
-
             <!-- display validation errors -->
                 <% if (locals.errors && errors.length > 0) { %>
                     <div class="error-messages">
@@ -30,6 +29,9 @@
 
             <div class="form-container-wrapper">
                 <form action="/plants/new" method="POST" class="form-container">
+
+                    <!-- row 1 -->
+                    <div class="form-header">Identity</div>
                     <div class="form-row">
                         <div class="form-col-half">
                             <label for="scientific_name">Scientific Name</label>
@@ -41,6 +43,7 @@
                                 value="<%= locals.formData?.scientific_name || '' %>"
                                 required>
                         </div>
+
                         <div class="form-col-half">
                             <label for="common_name">Common Name</label>
                             <input 
@@ -52,7 +55,10 @@
                                 required>
                         </div>
                     </div>
-                    
+                    <hr />
+
+                    <!-- row 2 -->
+                    <div class="form-header">Inventory Status</div>
                     <div class="form-row">
                         <div class="form-col-third">
                             <label for="stock_status">Stock Status</label>
@@ -68,6 +74,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-col-third">
                             <label for="quantity_level">Quantity Level</label>
                             <div class="select-wrapper">
@@ -84,6 +91,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="form-col-third">
                             <label for="order_status">Order Status</label>
                             <div class="select-wrapper">
@@ -100,16 +108,18 @@
                             </div>
                         </div>
                     </div>
-                    
+                    <hr />
+
+                    <!-- medicinal uses -->
                     <div class="form-row">
                         <div class="form-col">
-                            <label for="medicinal_uses">Medicinal Use(s)</label>
+                            <label for="medicinal_uses" class="form-header">Medicinal Use(s)</label>
                             <div class="checkbox-group">
                                 <% if (medicinalUses.length === 0) { %>
                                     <p class="help-text" style="margin: 0;">No medicinal uses found.</p>
                                 <% } else { %>
                                     <% medicinalUses.forEach(medicinalUse => { %>
-                                        <label class="checkbox-label">
+                                        <label class="ds-checkbox">
                                             <input 
                                                 type="checkbox" 
                                                 id="medicinal_use_<%= medicinalUse.id %>" 
@@ -134,13 +144,12 @@
                                 placeholder="Separate multiple uses with commas"
                                 value="<%= locals.formData?.new_medicinal_uses || '' %>"
                                 title="Please separate different medicinal uses with commas">
-                            <p class="help-text">Separate multiple uses with commas (e.g., Pain Relief, Anti-inflammatory)</p>
                         </div>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-col">
-                            <button type="submit" class="button submit">Submit Plant</button>
+                            <button type="submit" class="button submit alt-submit">Submit Plant</button>
                         </div>
                     </div>
                 </form>
