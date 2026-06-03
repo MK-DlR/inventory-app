@@ -4,7 +4,8 @@
 .create-plant,
 .update-plant,
 .create-medicinal,
-.update-medicinal {
+.update-medicinal,
+.login {
     background-color: #30302E;
     width: 37.5rem; 
     margin-left: auto;
@@ -148,7 +149,7 @@
     margin-bottom: 1.5rem;
 }
 
-.error-messages {
+.error-messages, .error {
     background-color: #FDE8E8;
     color: #9C3A3A;
     font-size: 0.85rem;
@@ -157,6 +158,10 @@
     border-radius: 0.25rem;
     max-width: 32rem;
     width: 100%;
+}
+
+.error {
+    text-align: center;
 }
 
 /* select wrapper for custom dropdown arrow */

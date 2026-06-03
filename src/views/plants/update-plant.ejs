@@ -5,25 +5,24 @@
   <%- include("../partials/head.ejs") %>
   <body>
     <h1><%= title %></h1>
+    <!-- display validation errors -->
+    <% if (locals.errors && errors.length > 0) { %>
+      <div class="error-messages">
+        <strong>Please fix the following errors:</strong>
+        <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
+          <% errors.forEach(error => { %>
+            <% const [message, plantId] = error.msg.split('||'); %>
+            <li>
+              <%= message %>
+              <% if (plantId) { %>
+                <a href="/plants/<%= plantId %>" style="color: #2563eb; text-decoration: underline;">View existing plant</a>
+              <% } %>
+            </li>
+          <% }) %>
+        </ul>
+      </div>
+    <% } %>
     <div class="update-plant content">
-      <!-- display validation errors -->
-        <% if (locals.errors && errors.length > 0) { %>
-          <div class="error-messages">
-            <strong>Please fix the following errors:</strong>
-            <ul style="margin-top: 0.5rem; margin-left: 1.5rem;">
-              <% errors.forEach(error => { %>
-                <% const [message, plantId] = error.msg.split('||'); %>
-                <li>
-                  <%= message %>
-                  <% if (plantId) { %>
-                    <a href="/plants/<%= plantId %>" style="color: #2563eb; text-decoration: underline;">View existing plant</a>
-                  <% } %>
-                </li>
-              <% }) %>
-            </ul>
-          </div>
-        <% } %>
-
       <div class="form-container-wrapper">
         <form action="/plants/<%= plant.id %>/update" method="POST" class="form-container">
           <input type="hidden" name="plant_id" value="<%= plant.id %>">

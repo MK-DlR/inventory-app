@@ -4,8 +4,12 @@
 <html lang="en">
     <%- include("./partials/head.ejs") %>
     <body>
+        <h1><%= title %></h1>
+        <!-- display validation errors -->
+            <% if (error) { %>
+                <p class="error"><%= error %></p>
+            <% } %>
         <div class="login content">
-            <h1><%= title %></h1>
             <div class="form-container-wrapper">
                 <form action="/auth/login" method="POST" class="form-container">
                     <div class="form-row">
@@ -21,13 +25,9 @@
     
                     <div class="form-row">
                         <div class="form-col">
-                            <button type="submit" class="button submit">Login</button>
+                            <button type="submit" class="button submit alt-submit">Login</button>
                         </div>
                     </div>
-
-                    <% if (error) { %>
-                        <p class="error"><%= error %></p>
-                    <% } %>
                 </form>
             </div>
         </div>
