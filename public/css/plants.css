@@ -16,10 +16,7 @@
 .plant-card {
     background: #FFFFFF;
     border: 0.063rem solid #BCBAAF;
-    border-radius: 0.95rem; 
-    /* 
-    box-shadow: 0 0.75rem 0.5rem 0 rgba(0, 0, 0, 0.2), 0 0.375rem 1.25rem 0 rgba(0, 0, 0, 0.19);
-    */
+    border-radius: 0.95rem;     
     transition-duration: 0.4s;
     overflow: hidden; /* keep background contained */
     display: flex;
@@ -92,16 +89,16 @@
     flex: 1; /* allow link to grow and fill space */
 }
 
-/*
-.card-sm:hover {
+.card-sm:hover .card-img {
     cursor: pointer;
-    background-color: #f0f0f0; 
+    filter: brightness(0.85);
 }
 
+/*
 .card-sm:hover .card-img {
-    filter: grayscale(40%); 
+    filter: grayscale(50%); 
 }
-*/
+    */
 
 /* plant names display */
 .plant-name-sm {

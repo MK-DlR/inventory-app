@@ -61,46 +61,6 @@
 }
 
 /* hover states - slightly darker versions */
-/* stock status colors */
-/*
-.badge-out_of_stock {
-    background-color: #FDE8E8;
-    color: #9C3A3A;
+.card-sm:hover .badge {
+    filter: brightness(0.9);
 }
-
-.badge-in_stock {
-    background-color: #E2F4D2; 
-    color: #3A6B10;
-}
-*/
-
-/* quantity level colors */
-/*
-.badge-low {
-    background-color: #FFF0C4; 
-    color: #7A4D00;
-}
-
-.badge-medium {
-    background-color: #EBFACC; 
-    color: #497D00;
-}
-
-.badge-high {
-    background-color: #E3EEFF; 
-    color: #1A3D8A;
-}
-*/
-
-/* order status colors */
-/*
-.badge-needs_ordering {
-    background-color: #FEE8F4;
-    color: #C6005C;
-}
-
-.badge-on_order {
-    background-color: #D9F5F2; 
-    color: #218B82;
-}
-*/
