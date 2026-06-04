@@ -39,7 +39,7 @@
 
                     <div class="control-buttons">
                         <button onclick="window.location.href='/plants/<%= plant.id %>/edit';" class="button control-plants edit">
-                            <i class="fa-solid fa-pencil"></i>
+                            <i class="fa-regular fa-pen-to-square"></i>
                         </button>
                         <form action="/plants/<%- plant.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this plant?');">
                             <button type="submit" class="button control-plants delete">
@@ -51,7 +51,7 @@
 
                 <div class="plant-medicinal content">
                     <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
-                        <div class="header-light">Medicinal Uses (<%= plant.medicinal_uses.length %>)</div>
+                        <div class="header">Medicinal Uses (<%= plant.medicinal_uses.length %>)</div>
                         <ul class="stacked-list">
                             <% plant.medicinal_uses.forEach(use => { %>
                                 <li class="list-item">
@@ -69,7 +69,7 @@
                             <% }) %>
                         </ul>
                     <% } else { %>
-                        <div class="header-light">Medicinal Uses (0)</div>
+                        <div class="header">Medicinal Uses (0)</div>
                         <div class="no-uses">
                             No medicinal uses listed for this plant.
                         </div>

@@ -36,7 +36,9 @@
               <p>No description available.</p>
             <% } %>
             <div class="control-buttons">
-              <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';" class="button control-medicinal edit"><i class="fa-solid fa-pencil"></i></button>
+              <button onclick="window.location.href='/medicinal/<%= medicinalUse.id %>/edit';" class="button control-medicinal edit">
+                <i class="fa-regular fa-pen-to-square"></i>
+              </button>
               <form action="/medicinal/<%- medicinalUse.id %>/delete" method="POST" onsubmit="return confirm('Are you sure to want to delete this medicinal use?');">
                 <button type="submit" class="button control-medicinal delete"><i class="fa-regular fa-trash-can"></i></button>
               </form>

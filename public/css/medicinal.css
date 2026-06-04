@@ -5,18 +5,17 @@
     list-style: none;
     margin: 1.5rem 0;
     padding: 0;
-    background-color: #262624;
-    border: 0.0625rem solid #777670;
+    background-color: #F5F4ED;
+    border: 0.0625rem solid #BCBAAF;
     border-radius: 0.5rem;
     overflow: hidden;
-    box-shadow: 0 0.0625rem 0.188rem 0 rgba(0, 0, 0, 0.1), 0 0.0625rem 0.125rem 0 rgba(0, 0, 0, 0.06);
-    max-width: calc((24rem * 3) + (1.25rem * 2)); /* 3 cards + 2 gaps */
+    max-width: calc((24rem * 3) + (1.25rem * 2)); 
     margin: 0 auto; /* centers the container */
     margin-bottom: 1.875rem;
 }
 
 .list-item {
-    border-bottom: 0.0625rem solid #777670;
+    border-bottom: 0.0625rem solid #BCBAAF;
 }
 
 .list-item:last-child {
@@ -59,8 +58,6 @@
 .list-title {
     margin: 0;
     font-size: 0.875rem;
-    font-weight: 600;
-    color: #FFFFFF;
     line-height: 1.5rem;
 }
 
@@ -98,6 +95,6 @@
 
 /* if no medicinal uses assigned */
 .no-uses {
-    color: #FFFFFF;
+    color: #000000;
     padding-bottom: 2rem;
 }
