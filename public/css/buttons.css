@@ -82,11 +82,13 @@
 .edit {
     background-color: #8FD400; 
     color: #3A6B10;
+    border: 0.063rem solid #BCBAAF;
 }
 
 .delete {
     background-color: #FDE8E8;
     color: #9C3A3A;
+    border: 0.063rem solid #BCBAAF;
 }
 
 .edit:hover {
