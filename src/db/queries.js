@@ -106,11 +106,13 @@ async function getSpecificPlant(plantId, userId) {
 
   // get medicinal uses for this plant
   const usesQuery = await pool.query(
-    `SELECT mu.id, mu.use_name, mu.description 
+    `
+    SELECT mu.id, mu.use_name, mu.description 
     FROM medicinal_uses mu
     INNER JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
     WHERE pmu.plant_id = $1 AND mu.user_id = $2
-    ORDER BY mu.use_name ASC`,
+    ORDER BY mu.use_name ASC
+    `,
     [plantId, userId],
   );
 
@@ -123,7 +125,12 @@ async function getSpecificPlant(plantId, userId) {
 // get all medicinal uses alphabetically
 async function getAllMedicinalUses(userId) {
   const { rows } = await pool.query(
-    "SELECT * FROM medicinal_uses WHERE user_id = $1 ORDER BY use_name ASC",
+    `
+    SELECT * 
+    FROM medicinal_uses 
+    WHERE user_id = $1 
+    ORDER BY use_name ASC
+    `,
     [userId],
   );
   return rows;
@@ -145,11 +152,13 @@ async function getSpecificUse(useID, userId) {
 
   // get plants associated with this medicinal use
   const plantsQuery = await pool.query(
-    `SELECT p.*
+    `
+    SELECT p.*
     FROM plants p
     INNER JOIN plant_medicinal_uses pmu ON p.id = pmu.plant_id
     WHERE pmu.medicinal_use_id = $1 AND p.user_id = $2
-    ORDER BY p.common_name ASC`,
+    ORDER BY p.common_name ASC
+    `,
     [useID, userId],
   );
 
@@ -165,10 +174,12 @@ async function checkDuplicate(plantData, userId) {
 
   // search for plants with specified name/s
   const plantsQuery = await pool.query(
-    `SELECT id, common_name, scientific_name
+    `
+    SELECT id, common_name, scientific_name
     FROM plants
     WHERE (LOWER(common_name) = LOWER($1) OR LOWER(scientific_name) = LOWER($2)) AND user_id = $3
-    LIMIT 1`,
+    LIMIT 1
+    `,
     [common_name, scientific_name, userId],
   );
 
@@ -179,10 +190,12 @@ async function checkDuplicate(plantData, userId) {
 // check if medicinal use already exists
 async function checkDuplicateMedicinalUse(useName, userId) {
   const result = await pool.query(
-    `SELECT id, use_name
+    `
+    SELECT id, use_name
     FROM medicinal_uses
     WHERE LOWER(use_name) = LOWER($1) AND user_id = $2
-    LIMIT 1`,
+    LIMIT 1
+    `,
     [useName, userId],
   );
 
@@ -237,7 +250,10 @@ async function insertPlant(plantData, userId) {
 
       // try to find existing (case-insensitive)
       const sel = await client.query(
-        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+        `
+        SELECT id FROM medicinal_uses 
+        WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1
+        `,
         [name, userId],
       );
 
@@ -248,9 +264,11 @@ async function insertPlant(plantData, userId) {
         // insert (no RETURNING id guaranteed in race-free path)
         try {
           const ins = await client.query(
-            `INSERT INTO medicinal_uses (use_name, description, user_id)
+            `
+            INSERT INTO medicinal_uses (use_name, description, user_id)
             VALUES ($1, $2, $3)
-            RETURNING id`,
+            RETURNING id
+            `,
             [name, null, userId],
           );
           useId = ins.rows[0].id;
@@ -259,7 +277,12 @@ async function insertPlant(plantData, userId) {
           // postgreSQL duplicate key error code is '23505'
           if (err && err.code === "23505") {
             const sel2 = await client.query(
-              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+              `
+              SELECT id 
+              FROM medicinal_uses 
+              WHERE LOWER(use_name) = LOWER($1) 
+              AND user_id = $2 LIMIT 1
+              `,
               [name, userId],
             );
             if (sel2.rows.length > 0) {
@@ -282,9 +305,11 @@ async function insertPlant(plantData, userId) {
     for (const useId of finalUseIds) {
       if (!useId) continue;
       await client.query(
-        `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
+        `
+        INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
         VALUES ($1, $2)
-        ON CONFLICT DO NOTHING`, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
+        ON CONFLICT DO NOTHING
+        `, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
         [plantId, useId],
       );
     }
@@ -308,7 +333,11 @@ async function insertMedicinalUse(medicinalName, medicinalDesc, userId) {
 
     // check if medicinal use already exists (case-insensitive)
     const existingUse = await client.query(
-      `SELECT * FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+      `
+      SELECT * FROM medicinal_uses 
+      WHERE LOWER(use_name) = LOWER($1) 
+      AND user_id = $2 LIMIT 1
+      `,
       [medicinalName, userId],
     );
 
@@ -398,7 +427,12 @@ async function updatePlant(plantId, plantData, userId) {
 
       // try to find existing (case-insensitive)
       const sel = await client.query(
-        `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+        `
+        SELECT id 
+        FROM medicinal_uses 
+        WHERE LOWER(use_name) = LOWER($1) 
+        AND user_id = $2 LIMIT 1
+        `,
         [name, userId],
       );
 
@@ -409,9 +443,11 @@ async function updatePlant(plantId, plantData, userId) {
         // insert (no RETURNING id guaranteed in race-free path)
         try {
           const ins = await client.query(
-            `INSERT INTO medicinal_uses (use_name, description, user_id)
+            `
+            INSERT INTO medicinal_uses (use_name, description, user_id)
             VALUES ($1, $2, $3)
-            RETURNING id`,
+            RETURNING id
+            `,
             [name, null, userId],
           );
           useId = ins.rows[0].id;
@@ -420,7 +456,11 @@ async function updatePlant(plantId, plantData, userId) {
           // postgreSQL duplicate key error code is '23505'
           if (err && err.code === "23505") {
             const sel2 = await client.query(
-              `SELECT id FROM medicinal_uses WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1`,
+              `
+              SELECT id 
+              FROM medicinal_uses 
+              WHERE LOWER(use_name) = LOWER($1) AND user_id = $2 LIMIT 1
+              `,
               [name, userId],
             );
             if (sel2.rows.length > 0) {
@@ -443,9 +483,11 @@ async function updatePlant(plantId, plantData, userId) {
     for (const useId of finalUseIds) {
       if (!useId) continue;
       await client.query(
-        `INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
+        `
+        INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id)
         VALUES ($1, $2)
-        ON CONFLICT DO NOTHING`, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
+        ON CONFLICT DO NOTHING
+        `, // requires a unique constraint on (plant_id, medicinal_use_id) to be effective
         [plantId, useId],
       );
     }
