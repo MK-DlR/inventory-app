@@ -17,7 +17,6 @@
     background: #FFFFFF;
     border: 0.063rem solid #BCBAAF;
     border-radius: 0.95rem;     
-    transition-duration: 0.4s;
     overflow: hidden; /* keep background contained */
     display: flex;
     flex-direction: column;
@@ -55,7 +54,6 @@
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
-    transition: filter 0.4s; /* smooth transition for filter effect TODO: remove if not using hover effect */
 }
 
 .card-img-placeholder-lg,
@@ -89,7 +87,11 @@
     flex: 1; /* allow link to grow and fill space */
 }
 
-.card-sm:hover .card-img {
+.card-img-sm-wrapper {
+    transition: filter 0.4s;
+}
+
+.card-sm:hover .card-img-sm-wrapper {
     cursor: pointer;
     filter: brightness(0.85);
 }
