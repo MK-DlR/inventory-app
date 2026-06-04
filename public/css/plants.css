@@ -28,12 +28,12 @@
 
 .card-sm {
     width: 17rem; 
-    height: 14rem; 
+    height: 21rem; 
 }
 
 .card-lg {
     width: 37.5rem; 
-    min-height: 35rem;
+    min-height: 52.5rem;
 }
 
 .card-img {
@@ -46,12 +46,12 @@
 
 .img-sm {
     width: 17rem;
-    height: 7rem; 
+    height: 14rem; 
 }
 
 .img-lg {
     width: 37.5rem;
-    height: 22.5rem; 
+    height: 35rem; 
 }
 
 .card-link {
@@ -112,6 +112,7 @@
 /* badges display */
 .plant-status {
     margin-top: auto; /* keep badges at bottom */
+    padding-top: 0.5rem;
     padding-bottom: 1rem; /* spacing from bottom */
     display: flex;
     justify-content: flex-start;
