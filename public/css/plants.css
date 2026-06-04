@@ -14,7 +14,7 @@
 
 /* individual plant cards */
 .plant-card {
-    background: #30302E;
+    background: #FFFFFF;
     border: 1px solid #000000;
     border-radius: 0.95rem; 
     /* 
@@ -80,14 +80,19 @@
     margin-bottom: 0.5rem;
 }
 
+.common-name-sm,
+.scientific-name-sm {
+    display: block;
+}
+
 .common-name-sm {
     font-size: 0.95rem;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .scientific-name-sm {
     font-size: 0.65rem;
-    color: #BCBAAF;
+    color: #30302E;
 }
 
 .plant-name-lg {
@@ -96,12 +101,12 @@
 
 .common-name-lg {
     font-size: 1.5rem;
-    color: #FFFFFF;
+    color: #000000;
 }
 
 .scientific-name-lg {
     font-size: 1.03rem;
-    color: #BCBAAF;
+    color: #30302E;
 }
 
 /* badges display */
