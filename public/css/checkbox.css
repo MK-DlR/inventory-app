@@ -36,7 +36,7 @@
     -webkit-appearance: none;
     width: 1rem;
     height: 1rem;
-    border: 1px solid #777670;
+    border: 0.063rem solid #BCBAAF;
     border-radius: 0.25rem;
     background-color: #FFFFFF;
     display: grid;
