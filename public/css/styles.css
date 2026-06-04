@@ -17,7 +17,10 @@ h1 {
 }
 
 hr {
-  color: #777670;
+  border: 0;
+  border-top: 1px solid #BCBAAF;
+  height: 0;
+  margin: 1rem 0;
 }
 
 .centered {

@@ -46,9 +46,8 @@
     align-items: center; /* center content vertically */
 }
 
-.button.submit.alt-submit:hover {
-    background-color: #C8DDA0;
-    color: #FFFFFF;
+.button.submit.alt-submit {
+    background-color: #FFFFFF;
 }
 
 .button.submit:hover {

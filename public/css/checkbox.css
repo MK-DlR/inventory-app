@@ -89,11 +89,6 @@
     color: #3A6B10;
 }
 
-/* form checkbox label color override */
-.ds-checkbox span {
-    color: #FFFFFF;
-}
-
 /* sort by radio buttons */
 .sort input[type="radio"] {
     accent-color: #3A6B10 !important;

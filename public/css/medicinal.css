@@ -23,6 +23,7 @@
 }
 
 .list-link {
+    color: #262624;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -35,7 +36,6 @@
 
 .list-link:hover {
     background-color: #f9fafb;
-    color: red;
 }
 
 .list-link:focus {
