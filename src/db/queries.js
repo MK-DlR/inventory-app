@@ -126,9 +126,12 @@ async function getSpecificPlant(plantId, userId) {
 async function getAllMedicinalUses(userId) {
   const { rows } = await pool.query(
     `
-    SELECT * 
-    FROM medicinal_uses 
-    WHERE user_id = $1 
+    SELECT mu.*,
+    COUNT(pmu.plant_id) AS plant_count
+    FROM medicinal_uses mu
+    LEFT JOIN plant_medicinal_uses pmu ON mu.id = pmu.medicinal_use_id
+    WHERE mu.user_id = $1 
+    GROUP BY mu.id, mu.use_name, mu.description, mu.user_id
     ORDER BY use_name ASC
     `,
     [userId],

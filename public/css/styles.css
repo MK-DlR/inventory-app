@@ -23,6 +23,10 @@ hr {
   margin: 1rem 0;
 }
 
+.bold {
+  font-weight: 600;
+}
+
 .centered {
   text-align: center;
 }

@@ -61,15 +61,19 @@
     line-height: 1.5rem;
 }
 
+.list-count {
+    font-size: 0.7rem;
+}
+
 .list-link:hover .list-title {
     color: #262624;
 }
 
 .chevron-icon {
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1.05rem;
+    height: 1.05rem;
     flex-shrink: 0;
-    color: #BCBAAF;
+    color: #000000;
 }
 
 .medicinal-name, .medicinal-info {
