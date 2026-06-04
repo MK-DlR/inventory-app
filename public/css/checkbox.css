@@ -9,7 +9,7 @@
     cursor: pointer;
     user-select: none;
     font-size: 0.875rem;
-    color: #B8B6AC;
+    color: #000000;
 }
 
 /* dropdown variants */
@@ -26,7 +26,7 @@
 /* hover state */
 .ds-control:hover,
 .ds-checkbox:hover {
-    color: #C8DDA0;
+    color: #3A6B10;
 }
 
 /* checkbox base */
@@ -38,7 +38,7 @@
     height: 1rem;
     border: 1px solid #777670;
     border-radius: 0.25rem;
-    background-color: #30302E;
+    background-color: #FFFFFF;
     display: grid;
     place-content: center;
     cursor: pointer;
@@ -48,8 +48,8 @@
 /* checked state */
 .ds-control input[type="checkbox"]:checked,
 .ds-checkbox input[type="checkbox"]:checked {
-    background-color: #C8DDA0;
-    border-color: #C8DDA0;
+    background-color: #3A6B10;
+    border-color: #3A6B10;
 }
 
 /* checkmark */
@@ -60,7 +60,7 @@
     height: 0.55rem;
     transform: scale(0);
     transition: transform 120ms ease-in-out;
-    background-color: #30302E;
+    background-color: #FFFFFF;
     clip-path: polygon(
         14% 44%,
         0 65%,
@@ -79,14 +79,14 @@
 /* focus state */
 .ds-control input[type="checkbox"]:focus-visible,
 .ds-checkbox input[type="checkbox"]:focus-visible {
-    outline: 2px solid #C8DDA0;
+    outline: 2px solid #3A6B10;
     outline-offset: 2px;
 }
 
 /* checked label highlight */
 .ds-control:has(input[type="checkbox"]:checked),
 .ds-checkbox:has(input[type="checkbox"]:checked) {
-    color: #C8DDA0;
+    color: #3A6B10;
 }
 
 /* form checkbox label color override */
@@ -96,5 +96,5 @@
 
 /* sort by radio buttons */
 .sort input[type="radio"] {
-    accent-color: #C8DDA0 !important;
+    accent-color: #3A6B10 !important;
 }

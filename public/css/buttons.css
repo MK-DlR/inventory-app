@@ -11,7 +11,6 @@
     padding-left: 1rem;
     padding-right: 1rem; 
     border-radius: 0.25rem; 
-    border: none;
     cursor: pointer;
     transition-duration: 0.4s;
     white-space: nowrap;
@@ -20,7 +19,7 @@
 
 .button:hover {
     background-color: #C8DDA0;
-    color: #30302E; 
+    color: #FFFFFF; 
 }
 
 /* nav buttons */
@@ -30,11 +29,16 @@
     gap: 0.5rem;
 }
 
+.nav-button:hover {
+    color: #000000;
+}
+
 /* submit button */
 .button.submit {
-    background-color: #BCBAAF;
-    color: #30302E;
-    font-weight: 600; /* font-semibold to match dropdowns */
+    background-color: #C8DDA0;
+    color: #000000;
+    border: 1px solid #777670;
+    font-weight: 600; 
     padding: 0.5rem 1rem; 
     border-radius: 0.375rem; 
     line-height: 1.25rem; /* match dropdown line-height */
@@ -44,12 +48,11 @@
 
 .button.submit.alt-submit:hover {
     background-color: #C8DDA0;
-    color: #30302E;
+    color: #FFFFFF;
 }
 
 .button.submit:hover {
-    background-color: #30302E;
-    color: #BCBAAF;
+    background-color: #F4F7F0;
 }
 
 /* edit and delete buttons */
