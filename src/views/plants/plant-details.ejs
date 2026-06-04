@@ -62,7 +62,7 @@
                 <div class="plant-medicinal content">
                     <% if (plant.medicinal_uses && plant.medicinal_uses.length > 0) { %>
                         <div class="header">Medicinal Uses (<%= plant.medicinal_uses.length %>)</div>
-                        <ul class="stacked-list plant-list">
+                        <ul class="stacked-list">
                             <% plant.medicinal_uses.forEach(use => { %>
                                 <li class="list-item">
                                     <a href="/medicinal/<%= use.id %>" class="list-link">
