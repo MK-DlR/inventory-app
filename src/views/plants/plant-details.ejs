@@ -12,7 +12,17 @@
                 data-quantity="<%= quantityToSortValue(plant.quantity_level) %>"
                 data-created="<%= plant.created_at %>"
                 data-updated="<%= plant.updated_at %>">
-                <img src="<%= plant.image_url %>" class="card-img img-lg">
+
+                <div class="card-img-lg-wrapper">
+                    <% if (plant.image_url) { %>
+                        <img src="<%= plant.image_url %>" class="card-img img-lg">
+                    <% } else { %>
+                        <div class="card-img-placeholder-lg">
+                            <i class="fa-solid fa-seedling"></i>
+                        </div>
+                    <% } %>
+                </div>
+
                 <p class="plant-name-lg">
                     <strong class="common-name-lg"><%= plant.common_name %></strong><br>
                     <em class="scientific-name-lg"><%= plant.scientific_name %></em>

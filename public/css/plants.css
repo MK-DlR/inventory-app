@@ -36,12 +36,42 @@
     min-height: 52.5rem;
 }
 
-.card-img {
+.card-img-lg-wrapper,
+.card-img-sm-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #C8DDA0;
+}
+
+.card-img-lg-wrapper {
+    width: 37.5rem;
+    height: 35rem; 
+}
+
+.card-img-sm-wrapper {
+    width: 17rem;
+    height: 14rem; 
+}
+
+.card-img {
     object-fit: cover; /* crop image to fill space */
     object-position: center; /* centers crop */
     display: block; /* removes inline spacing below image */
     transition: filter 0.4s; /* smooth transition for filter effect TODO: remove if not using hover effect */
+}
+
+.card-img-placeholder-lg,
+.card-img-placeholder-sm {
+    color: #3A6B10;
+}
+
+.card-img-placeholder-lg {
+    font-size: 6rem;
+}
+
+.card-img-placeholder-sm {
+    font-size: 3rem;
 }
 
 .img-sm {
