@@ -1,34 +1,42 @@
 /* public/css/medicinal.css */
 
-/* medicinal uses display */
-.stacked-list, 
-.plant-med-list {
+/* shared medicinal uses display */
+.stacked-list {
     list-style: none;
     margin: 1.5rem 0;
     padding: 0;
-    border: 0.0625rem solid #BCBAAF;
-    border-radius: 0.5rem;
-    overflow: hidden;
-    max-width: calc((24rem * 3) + (1.25rem * 2)); 
     margin: 0 auto; /* centers the container */
     margin-bottom: 1.875rem;
 }
 
 /* all medicinal uses list */
 .medicinal-list {
+    max-width: 35rem;
+    display: grid; 
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+}
+
+.medicinal-list .list-item {
     background-color: #FFFFFF;
+    border: 0.0625rem solid #BCBAAF;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
 /* plant detail medicinal uses list */
 .plant-med-list {
     background-color: #F5F4ED;
+    border: 0.0625rem solid #BCBAAF;
+    border-radius: 0.5rem;
+    overflow: hidden;
 }
 
-.list-item {
+.plant-med-list .list-item {
     border-bottom: 0.0625rem solid #BCBAAF;
 }
 
-.list-item:last-child {
+.plant-med-list .list-item:last-child {
     border-bottom: none;
 }
 
