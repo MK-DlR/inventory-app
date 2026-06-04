@@ -94,12 +94,6 @@
     filter: brightness(0.85);
 }
 
-/*
-.card-sm:hover .card-img {
-    filter: grayscale(50%); 
-}
-    */
-
 /* plant names display */
 .plant-name-sm {
     padding-left: 1rem;
