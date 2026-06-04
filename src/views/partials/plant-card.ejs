@@ -25,20 +25,40 @@
     </p>
     <div class="plant-status status-sm">
       <div class="stock badge badge-sm badge-<%= plant.stock_status.toLowerCase().replace(/\s+/g, '-') %>">
-        <i class="fa-solid fa-leaf"></i> <%= formatStockStatus(plant.stock_status) %>
+        <% if (plant.stock_status === 'in_stock') { %>
+          <i class="fa-regular fa-circle-check"></i> <%= formatStockStatus(plant.stock_status) %>
+        <% } else if (plant.stock_status === 'out_of_stock') { %>
+          <i class="fa-regular fa-circle-xmark"></i> <%= formatStockStatus(plant.stock_status) %>
+        <% } else { %>
+          <i class="fa-regular fa-circle-question"></i> <%= formatStockStatus(plant.stock_status) %>
+        <% } %>
       </div>
 
-      <% if (plant.quantity_level) { %>
-        <div class="quantity badge badge-sm badge-<%= plant.quantity_level.toLowerCase().replace(/\s+/g, '-') %>">
-          <i class="fa-solid fa-ranking-star"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+      <% if (plant.quantity_level === 'low') { %>
+        <div class="quantity badge badge-sm badge-low">
+          <i class="fa-solid fa-chevron-down"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+        </div>
+      <% } else if (plant.quantity_level === 'medium') { %>
+        <div class="quantity badge badge-sm badge-medium">
+          <i class="fa-solid fa-angle-up"></i> <%= formatQuantityLevel(plant.quantity_level) %>
+        </div>
+      <% } else if (plant.quantity_level === 'high') { %>
+        <div class="quantity badge badge-sm badge-high">
+          <i class="fa-solid fa-angles-up"></i> <%= formatQuantityLevel(plant.quantity_level) %>
         </div>
       <% } %>
 
-      <% if (plant.order_status) { %>
-        <div class="order badge badge-sm badge-<%= plant.order_status.toLowerCase().replace(/\s+/g, '-') %>">
-          <i class="fa-solid fa-box-archive"></i> <%= formatStockStatus(plant.order_status) %>
+        <% if (plant.order_status === 'on_order') { %>
+        <div class="order badge badge-sm badge-on_order">
+          <i class="fa-solid fa-envelope-circle-check"></i> <%= formatStockStatus(plant.order_status) %>
+        </div>
+      <% } else if (plant.order_status === 'needs_ordering') { %>
+        <div class="order badge badge-sm badge-needs_ordering">
+          <i class="fa-solid fa-envelope"></i> <%= formatStockStatus(plant.order_status) %>
         </div>
       <% } %>
+
+
     </div>
   </a>
 </div>
