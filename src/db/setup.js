@@ -1,5 +1,11 @@
 // src/db/setup.js
 
+/* 
+  IMPORTANT
+ * for fresh, local installs only
+ * will wipe all existing data
+ */
+
 require("dotenv").config();
 const pool = require("./pool");
 

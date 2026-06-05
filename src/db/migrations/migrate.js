@@ -1,7 +1,9 @@
 // src/db/migrate.js
 
+// added admin and user roles to existing database and plants
+
 require("dotenv").config();
-const pool = require("./pool");
+const pool = require("../pool");
 
 async function migrate() {
   // use client so we can BEGIN/COMMIT/ROLLBACK
