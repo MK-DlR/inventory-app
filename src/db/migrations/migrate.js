@@ -1,6 +1,6 @@
 // src/db/migrate.js
 
-// added admin and user roles to existing database and plants
+// adds admin and user roles to existing database and plants
 
 require("dotenv").config();
 const pool = require("../pool");

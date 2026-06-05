@@ -1,7 +1,7 @@
 // src/db/setup.js
 
-/* 
-  IMPORTANT
+/*
+ * IMPORTANT
  * for fresh, local installs only
  * will wipe all existing data
  */
@@ -12,27 +12,46 @@ const pool = require("./pool");
 async function main() {
   console.log("Setting up plant inventory database...");
 
+  const client = await pool.connect();
+
   try {
+    await client.query("BEGIN");
+
     // drop tables in correct order (respecting foreign keys)
-    await pool.query("DROP TABLE IF EXISTS plant_medicinal_uses CASCADE");
-    await pool.query("DROP TABLE IF EXISTS plants CASCADE");
-    await pool.query("DROP TABLE IF EXISTS medicinal_uses CASCADE");
+    await client.query("DROP TABLE IF EXISTS plant_medicinal_uses CASCADE");
+    await client.query("DROP TABLE IF EXISTS plants CASCADE");
+    await client.query("DROP TABLE IF EXISTS medicinal_uses CASCADE");
+    await client.query("DROP TABLE IF EXISTS users CASCADE");
     console.log("Dropped existing tables");
 
-    // create medicinal_uses table first (no dependencies)
-    await pool.query(
+    // create users table first (plants and medicinal_uses depend on it)
+    await client.query(
+      `
+      CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        username VARCHAR(20) UNIQUE NOT NULL,
+        password_hash TEXT,
+        role VARCHAR(20) CHECK (role IN ('admin', 'guest')) NOT NULL
+      )
+    `,
+    );
+    console.log("Created users table");
+
+    // create medicinal_uses table
+    await client.query(
       `
       CREATE TABLE medicinal_uses (
         id SERIAL PRIMARY KEY,
-        use_name VARCHAR(255) UNIQUE NOT NULL,
-        description TEXT
+        use_name VARCHAR(255) NOT NULL,
+        description TEXT,
+        user_id INTEGER NOT NULL REFERENCES users(id)
       )
     `,
     );
     console.log("Created medicinal_uses table");
 
     // create plants table
-    await pool.query(
+    await client.query(
       `
       CREATE TABLE plants (
         id SERIAL PRIMARY KEY,
@@ -44,14 +63,15 @@ async function main() {
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         image_url TEXT,
-        trefle_id INT
+        trefle_id INT,
+        user_id INTEGER NOT NULL REFERENCES users(id)
       )
     `,
     );
     console.log("Created plants table");
 
-    // create join table
-    await pool.query(
+    // create junction table
+    await client.query(
       `
       CREATE TABLE plant_medicinal_uses (
         id SERIAL PRIMARY KEY,
@@ -63,56 +83,105 @@ async function main() {
     );
     console.log("Created plant_medicinal_uses junction table");
 
-    // seed medicinal uses
-    await pool.query(
-      `
-      INSERT INTO medicinal_uses (use_name, description) VALUES 
-        ('Anti-Inflammatory', 'Reduces inflammation and swelling in the body'),
-        ('Digestive Aid', 'Supports healthy digestion and relieves gastrointestinal discomfort'),
-        ('Immune Support', 'Strengthens the immune system and helps fight infections'),
-        ('Pain Relief', 'Alleviates various types of pain'),
-        ('Antimicrobial', 'Fights against bacteria, viruses, and fungi'),
-        ('Antioxidant', 'Protects cells from oxidative damage'),
-        ('Sedative', 'Promotes relaxation and helps with sleep'),
-        ('Respiratory Support', 'Helps with breathing and lung health')
-      `,
+    // seed users and capture ids
+    const guestResult = await client.query(
+      `INSERT INTO users (username, password_hash, role) VALUES ('guest', NULL, 'guest') RETURNING id`,
     );
-    console.log("Seeded medicinal uses");
+    const guestId = guestResult.rows[0].id;
 
-    // seed plants
-    await pool.query(
-      `
-      INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status) VALUES 
-        ('Echinacea purpurea', 'Purple Coneflower', 'in_stock', 'high', NULL),
-        ('Matricaria chamomilla', 'German Chamomile', 'in_stock', 'medium', 'on_order'),
-        ('Zingiber officinale', 'Ginger', 'out_of_stock', 'low', 'needs_ordering')
-      `,
+    const adminResult = await client.query(
+      `INSERT INTO users (username, password_hash, role) VALUES ('admin', $1, 'admin') RETURNING id`,
+      [process.env.ADMIN_PASSWORD],
     );
-    console.log("Seeded plants");
+    const adminId = adminResult.rows[0].id;
+    console.log("Seeded users table");
 
-    // seed plant-medicinal use relationships
-    await pool.query(
+    // seed guest plants
+    await client.query(
       `
-      INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id) VALUES 
-        (1, 3),
-        (1, 5),
-        (1, 6),
-        (2, 1),
-        (2, 2),
-        (2, 7),
-        (3, 1),
-        (3, 2),
-        (3, 4),
-        (3, 5)
+      INSERT INTO plants (scientific_name, common_name, stock_status, quantity_level, order_status, user_id) VALUES
+        ('Aloe vera', 'Aloe Vera', 'in_stock', 'high', 'needs_ordering', $1),
+        ('Mentha piperita', 'Peppermint', 'in_stock', 'medium', 'needs_ordering', $1),
+        ('Zingiber officinale', 'Ginger', 'out_of_stock', 'low', 'on_order', $1)
       `,
+      [guestId],
     );
-    console.log("Seeded plant-medicinal use relationships");
+    console.log("Seeded guest plants");
 
-    console.log("\n✅ Database setup complete!");
+    // seed guest medicinal uses
+    await client.query(
+      `
+      INSERT INTO medicinal_uses (use_name, description, user_id) VALUES
+        ('Anti-Inflammatory', 'Reduces inflammation and swelling in the body', $1),
+        ('Digestive Aid', 'Supports healthy digestion and relieves gastrointestinal discomfort', $1),
+        ('Immune Support', 'Strengthens the immune system and helps fight infections', $1),
+        ('Pain Relief', 'Alleviates various types of pain', $1),
+        ('Antimicrobial', 'Fights against bacteria, viruses, and fungi', $1),
+        ('Antioxidant', 'Protects cells from oxidative damage', $1),
+        ('Sedative', 'Promotes relaxation and helps with sleep', $1),
+        ('Respiratory Support', 'Helps with breathing and lung health', $1)
+      `,
+      [guestId],
+    );
+    console.log("Seeded guest medicinal uses");
+
+    // query guest plant and medicinal use IDs dynamically
+    const guestPlantsResult = await client.query(
+      `SELECT id, common_name FROM plants WHERE user_id = $1`,
+      [guestId],
+    );
+    const guestPlantIds = {};
+    guestPlantsResult.rows.forEach((row) => {
+      guestPlantIds[row.common_name] = row.id;
+    });
+
+    const guestUsesResult = await client.query(
+      `SELECT id, use_name FROM medicinal_uses WHERE user_id = $1`,
+      [guestId],
+    );
+    const guestUseIds = {};
+    guestUsesResult.rows.forEach((row) => {
+      guestUseIds[row.use_name] = row.id;
+    });
+
+    // seed guest plant-medicinal use relationships
+    await client.query(
+      `
+      INSERT INTO plant_medicinal_uses (plant_id, medicinal_use_id) VALUES
+        ($1, $2), ($1, $3), ($1, $4),
+        ($5, $6), ($5, $7), ($5, $8),
+        ($9, $10), ($9, $11), ($9, $12)
+      `,
+      [
+        guestPlantIds["Aloe Vera"],
+        guestUseIds["Anti-Inflammatory"],
+        guestUseIds["Antioxidant"],
+        guestUseIds["Antimicrobial"],
+        guestPlantIds["Peppermint"],
+        guestUseIds["Digestive Aid"],
+        guestUseIds["Anti-Inflammatory"],
+        guestUseIds["Respiratory Support"],
+        guestPlantIds["Ginger"],
+        guestUseIds["Anti-Inflammatory"],
+        guestUseIds["Digestive Aid"],
+        guestUseIds["Pain Relief"],
+      ],
+    );
+    console.log("Seeded guest plant-medicinal use relationships");
+
+    await client.query("COMMIT");
+
+    console.log(`\n✅ Database setup complete!`);
+    console.log(`Guest user ID: ${guestId} | Admin user ID: ${adminId}`);
+    console.log(
+      `If needed, add these to your .env: GUEST_USER_ID=${guestId} ADMIN_USER_ID=${adminId}`,
+    );
   } catch (err) {
+    await client.query("ROLLBACK");
     console.error("❌ Error setting up database:", err);
     throw err;
   } finally {
+    client.release();
     await pool.end();
   }
 }
