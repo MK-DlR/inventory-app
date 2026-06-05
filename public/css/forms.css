@@ -69,7 +69,7 @@
     margin-bottom: 1.5rem;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 48rem) {
     .form-col-half {
         width: 50%;
         margin-bottom: 0;
@@ -116,7 +116,7 @@
     width: 100%;
     background-color: #FFFFFF;
     color: #999996;
-    border: 1px solid #BCBAAF;
+    border: 0.0625rem solid #BCBAAF;
     border-radius: 0.25rem;
     padding: 0.75rem 1rem;
     line-height: 1.25;

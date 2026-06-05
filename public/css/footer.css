@@ -1,0 +1,34 @@
+/* public/css/footer.css */
+
+/* footer and credits */
+.footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16.25rem;
+    margin: 1.25rem auto;
+    padding: 0.625rem;
+    font-size: 0.688rem;
+    background: #C8DDA0;
+    border: 0.0625rem solid #BCBAAF;
+    border-radius: 0.25rem;
+}
+
+.footer a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: #000000;
+    text-decoration: none;
+}
+
+.footer:hover {
+    background-color: #F4F7F0;
+    transition-duration: 0.4s;
+}
+
+.fa-github {
+    padding-left: 0.2rem;
+    padding-right: 0.2rem;
+}

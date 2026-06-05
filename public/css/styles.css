@@ -18,7 +18,7 @@ h1 {
 
 hr {
   border: 0;
-  border-top: 1px solid #BCBAAF;
+  border-top: 0.063rem solid #BCBAAF;
   height: 0;
   margin: 1rem 0;
 }

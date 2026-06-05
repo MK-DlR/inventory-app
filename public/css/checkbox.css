@@ -79,8 +79,8 @@
 /* focus state */
 .ds-control input[type="checkbox"]:focus-visible,
 .ds-checkbox input[type="checkbox"]:focus-visible {
-    outline: 2px solid #3A6B10;
-    outline-offset: 2px;
+    outline: 0.125rem solid #3A6B10;
+    outline-offset: 0.125rem;
 }
 
 /* checked label highlight */
