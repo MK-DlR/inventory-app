@@ -26,7 +26,7 @@ const getAllPlants = async (req, res) => {
   );
 
   // determine title based on filters
-  let title = "Medicinal Plant Inventory";
+  let title = "HerbTrack";
   if (
     req.query.stock_status ||
     req.query.quantity_level ||
