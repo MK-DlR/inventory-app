@@ -174,7 +174,7 @@ The application allows filtering, sorting, and searching and includes a pre-seed
 
 ## Roadmap
 
-- [ ] Add LICENSE.txt
+- [x] Add LICENSE.txt
 - [x] Admin account
   - [x] Guest account
   - [x] Login page
