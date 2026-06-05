@@ -19,7 +19,7 @@
 <h3 align="center">HerbTrack</h3>
 
   <p align="center">
-    Express based medicinal plant inventory web app where guests and an admin can manage plants based on stock and useage.
+    Full-stack medicinal plant inventory web app where guests and an admin can manage plants based on stock and useage.
     <br />
     <a href="https://github.com/MK-DlR/inventory-app"><strong>Explore the docs »</strong></a>
     <br />
